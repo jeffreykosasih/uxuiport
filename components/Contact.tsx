@@ -1,94 +1,114 @@
 import React from 'react';
-import { Send, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Instagram, Youtube } from 'lucide-react';
 
 export const Contact = () => {
   return (
-    <section id="contact" className="py-24 px-6 bg-primary">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-text-primary mb-6">Get in Touch</h2>
-          <p className="text-xl text-text-primary/80 max-w-2xl mx-auto">
-            Have a project in mind or want to discuss the latest in frontend tech? I'd love to hear from you.
-          </p>
+    <section
+      id='contact'
+      className='py-24 px-6 bg-primary min-h-[60vh] flex items-center'
+    >
+      <div className='max-w-4xl mx-auto w-full'>
+        <div className='text-center mb-16'>
+          <h2 className='text-6xl font-semibold text-text-primary mb-6 tracking-tight'>
+            CONTACT
+          </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12">
-          <div className="md:col-span-1 space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-highlight/20 rounded-lg text-accent-dark">
-                <Mail className="w-6 h-6" />
+        <div className='flex flex-col md:flex-row items-center md:items-start justify-center gap-12 md:gap-24'>
+          {/* Contact Info */}
+          <div className='space-y-8 w-full md:w-auto'>
+            <div className='flex items-center gap-6'>
+              <div className='p-4 bg-white/5 rounded-lg text-text-primary shrink-0'>
+                <Mail className='w-8 h-8' />
               </div>
               <div>
-                <h3 className="font-bold text-text-primary mb-1">Email</h3>
-                <a href="mailto:hello@example.com" className="text-text-primary/80 hover:text-accent-dark transition-colors">
-                  hello@example.com
+                <h3 className='font-semibold text-text-primary mb-1 text-xl'>
+                  Email
+                </h3>
+                <a
+                  href='mailto:jeffreyko98@gmail.com'
+                  className='text-accent-bright hover:text-hover transition-colors font-light block text-lg'
+                >
+                  jeffreyko98@gmail.com
                 </a>
               </div>
             </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-highlight/20 rounded-lg text-accent-dark">
-                <MapPin className="w-6 h-6" />
+
+            <div className='flex items-center gap-6'>
+              <div className='p-4 bg-white/5 rounded-lg text-text-primary shrink-0'>
+                <MapPin className='w-8 h-8' />
               </div>
               <div>
-                <h3 className="font-bold text-text-primary mb-1">Location</h3>
-                <p className="text-text-primary/80">San Francisco, CA</p>
+                <h3 className='font-semibold text-text-primary mb-1 text-xl'>
+                  Location
+                </h3>
+                <p className='text-accent-bright font-light text-lg'>
+                  Melbourne, Australia
+                </p>
               </div>
             </div>
           </div>
 
-          <form className="md:col-span-2 space-y-6 bg-white p-8 rounded-2xl border border-highlight/30 shadow-sm">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label htmlFor="name" className="block font-semibold text-text-primary">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-3 rounded-lg border border-highlight/50 focus:border-accent-dark focus:ring-2 focus:ring-accent-dark/20 outline-none transition-all"
-                  placeholder="John Doe"
-                  required
-                />
+          {/* Vertical Divider for Desktop */}
+          <div className='hidden md:block w-px h-64 bg-accent-dark/30'></div>
+
+          {/* Social Links */}
+          <div className='space-y-8 w-full md:w-auto'>
+            <div className='flex items-center gap-6'>
+              <div className='p-4 bg-white/5 rounded-full text-text-primary shrink-0'>
+                <Instagram className='w-8 h-8' />
               </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="block font-semibold text-text-primary">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-3 rounded-lg border border-highlight/50 focus:border-accent-dark focus:ring-2 focus:ring-accent-dark/20 outline-none transition-all"
-                  placeholder="john@example.com"
-                  required
-                />
+              <div>
+                <h4 className='font-medium text-text-primary mb-1 text-xl'>
+                  Instagram
+                </h4>
+                <a
+                  href='#'
+                  className='text-accent-bright hover:text-hover transition-colors font-light block text-lg'
+                >
+                  sijefriii
+                </a>
               </div>
             </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="message" className="block font-semibold text-text-primary">
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={6}
-                className="w-full px-4 py-3 rounded-lg border border-highlight/50 focus:border-accent-dark focus:ring-2 focus:ring-accent-dark/20 outline-none transition-all resize-none"
-                placeholder="Tell me about your project..."
-                required
-              />
+
+            <div className='flex items-center gap-6'>
+              <div className='p-4 bg-white/5 rounded-full text-text-primary shrink-0'>
+                <Youtube className='w-8 h-8' />
+              </div>
+              <div>
+                <h4 className='font-medium text-text-primary mb-1 text-xl'>
+                  YouTube
+                </h4>
+                <a
+                  href='#'
+                  className='text-accent-bright hover:text-hover transition-colors font-light block text-lg'
+                >
+                  sijefriii
+                </a>
+              </div>
             </div>
-            
-            <button
-              type="submit"
-              className="w-full md:w-auto px-8 py-4 bg-accent-dark text-white font-bold rounded-lg hover:bg-accent-bright transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-accent-bright focus:ring-offset-2"
-            >
-              Send Message
-              <Send className="w-4 h-4" />
-            </button>
-          </form>
+
+            <div className='flex items-center gap-6'>
+              <div className='p-4 bg-white/5 rounded-full text-text-primary shrink-0 flex items-center justify-center'>
+                <span className='w-8 h-8 font-bold flex items-center justify-center text-sm'>
+                  TT
+                </span>
+              </div>
+              <div>
+                <h4 className='font-medium text-text-primary mb-1 text-xl'>
+                  TikTok
+                </h4>
+                <a
+                  href='#'
+                  className='text-accent-bright hover:text-hover transition-colors font-light block text-lg'
+                >
+                  sijefriii
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
-

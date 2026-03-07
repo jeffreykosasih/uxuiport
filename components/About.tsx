@@ -1,46 +1,47 @@
 import React from 'react';
-import { Code2, Palette, Terminal } from 'lucide-react';
+import Image from 'next/image';
 
 export const About = () => {
   return (
-    <section id="about" className="py-24 px-6 bg-highlight/10">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-        <div className="space-y-8">
-          <h2 className="text-4xl font-bold text-text-primary">About Me</h2>
-          <div className="space-y-6 text-lg text-text-primary/90 leading-relaxed">
-            <p>
-              I bridge the gap between design and engineering. With a background in both disciplines, I create products that look beautiful and work flawlessly.
+    <section id='about' className='py-24 px-6 bg-accent-dark/10'>
+      <div className='max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center'>
+        <div className='space-y-8'>
+          <h2 className='text-5xl font-semibold text-text-primary'>
+            More personality
+          </h2>
+          <div className='space-y-6 text-xl text-accent-bright leading-relaxed font-light'>
+            <p className='font-medium text-2xl text-text-primary'>
+              Jeffrey Ko.
             </p>
             <p>
-              My philosophy centers on accessibility and performance. I believe that the web should be inclusive for everyone, regardless of their device or ability.
+              Originally from Indonesia and now currently in Australia, I am a
+              designer that has a unique edge: I speak the language of
+              developers and product managers.
             </p>
             <p>
-              When I'm not coding, I'm likely exploring new design systems, contributing to open source, or optimizing my terminal workflow.
+              My background in programming and product strategy allows me to
+              design solutions that are not only user-friendly but technically
+              feasible. For me, UX/UI is the perfect blend of logic and
+              creativity.
+            </p>
+            <p>
+              <span className='font-medium text-text-primary'>Fun Fact:</span>{' '}
+              I’m also make music! I create my own tracks using a live-looping
+              style (think building a song layer by layer).
             </p>
           </div>
         </div>
-        
-        <div className="grid gap-6">
-          <div className="bg-white p-6 rounded-xl border border-highlight/20 shadow-sm">
-            <Code2 className="w-8 h-8 text-accent-dark mb-4" />
-            <h3 className="text-xl font-bold text-text-primary mb-2">Frontend Development</h3>
-            <p className="text-text-primary/80">Expertise in React, Next.js, and modern CSS architectures.</p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl border border-highlight/20 shadow-sm">
-            <Palette className="w-8 h-8 text-accent-dark mb-4" />
-            <h3 className="text-xl font-bold text-text-primary mb-2">UI/UX Design</h3>
-            <p className="text-text-primary/80">Creating intuitive interfaces with a focus on user experience and accessibility.</p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl border border-highlight/20 shadow-sm">
-            <Terminal className="w-8 h-8 text-accent-dark mb-4" />
-            <h3 className="text-xl font-bold text-text-primary mb-2">System Architecture</h3>
-            <p className="text-text-primary/80">Building scalable and maintainable codebases for long-term growth.</p>
-          </div>
+
+        <div className='relative h-[600px] w-full bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-sm backdrop-blur-sm'>
+          <Image
+            src='/img_about.PNG'
+            alt='Profile picture of Jeffrey Ko'
+            fill
+            sizes='(min-width: 768px) 40vw, 100vw'
+            className='object-cover object-center'
+          />
         </div>
       </div>
     </section>
   );
 };
-
