@@ -75,73 +75,61 @@ export const PROJECTS: ProjectData[] = [
   },
   {
     id: '02',
-    title: 'Health & Wellness App',
+    title: 'Redesign',
     stages: {
       Overview: {
-        heading: 'Holistic Health Tracking',
-        content:
-          'A mobile-first PWA that integrates fitness, nutrition, and mental wellness. Built to encourage small, sustainable habit changes.',
+        heading: 'iDriver',
+        content: 'More case on the way',
       },
       Empathize: {
-        heading: 'Understanding Motivation',
-        content:
-          'Surveyed 200+ users. 60% abandoned previous apps because of "data entry fatigue." The solution needed to be frictionless.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Define: {
-        heading: 'Core Challenge',
-        content:
-          'Users need a way to track habits with minimal effort, otherwise they will churn within the first week.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Ideate: {
-        heading: 'Gamification & Automation',
-        content:
-          'Ideas included scanning grocery receipts, auto-importing from wearables, and a "streak" system. Focused on one-tap logging.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Prototype: {
-        heading: 'Interactive Mockups',
-        content:
-          'Developed a clickable prototype focusing on the "Quick Add" floating action button and haptic feedback interactions.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Test: {
-        heading: 'Beta Feedback',
-        content:
-          'Users loved the "Morning Check-in" feature but found the calorie counter too rigid. Adjusted to flexible "portion" tracking.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
     },
   },
   {
     id: '03',
-    title: 'Financial Portfolio',
+    title: '-',
     stages: {
       Overview: {
-        heading: 'Secure Asset Management',
-        content:
-          'An investment platform prioritizing security and transparency. Designed for the modern investor who values real-time data and privacy.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Empathize: {
-        heading: 'Trust Issues',
-        content:
-          'Users are skeptical of new fintech platforms. "If it looks cheap, I don\'t trust it with my money." Visual polish was a functional requirement.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Define: {
-        heading: 'Building Confidence',
-        content:
-          'The interface must communicate stability and precision through typography, color theory (trustworthy blues), and lack of clutter.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Ideate: {
-        heading: 'Visual Language',
-        content:
-          'Explored "Bank Vault" heavy aesthetics vs. "Tech Minimalist". Chose a Swiss Style minimalist approach with bold data visualization.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Prototype: {
-        heading: 'Data Viz Components',
-        content:
-          'Built D3.js chart components to ensure performance with large datasets. Focused on smooth transitions between timeframes.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
       Test: {
-        heading: 'Security Audits & UAT',
-        content:
-          'User Acceptance Testing confirmed that the "Privacy Mode" (blurring balances) was a critical feature for users checking portfolios in public.',
+        heading: 'More case on the way',
+        content: 'More case on the way',
       },
     },
   },
