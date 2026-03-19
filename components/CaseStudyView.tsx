@@ -3,9 +3,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { PROJECTS, STAGES, Stage } from '@/lib/data';
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 
 interface CaseStudyViewProps {
   projectId: string;
@@ -14,7 +20,17 @@ interface CaseStudyViewProps {
 export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
-  const isOnlyAccessibleCaseStudy = currentProject.id === '01';
+  const publishedProjects = PROJECTS.filter((project) => project.id !== '03');
+  const currentPublishedIndex = publishedProjects.findIndex(
+    (project) => project.id === currentProject.id,
+  );
+  const previousProject =
+    currentPublishedIndex > 0 ? publishedProjects[currentPublishedIndex - 1] : null;
+  const nextProject =
+    currentPublishedIndex >= 0 &&
+    currentPublishedIndex < publishedProjects.length - 1
+      ? publishedProjects[currentPublishedIndex + 1]
+      : null;
 
   const [activeStage, setActiveStage] = useState<Stage>('Overview');
   const [activeImageByStage, setActiveImageByStage] = useState<
@@ -73,10 +89,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const heroTitle =
-    currentProject.id === '01'
-      ? `${currentProject.stages.Overview.heading} - ${currentProject.title}`
-      : currentProject.title;
+  const heroTitle = currentProject.title;
 
   const goToNextImage = (stage: Stage, totalImages: number) => {
     setActiveImageByStage((prev) => {
@@ -101,28 +114,49 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   return (
     <section className='py-32 px-6 min-h-screen flex flex-col relative overflow-hidden bg-primary'>
       <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
-        <div className='mb-8 flex justify-between items-center'>
-          <Link
-            href='/#work'
-            className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
-          >
-            <ArrowLeft className='w-5 h-5' />
-            <span>Back to Work</span>
-          </Link>
-
-          {isOnlyAccessibleCaseStudy ? (
-            <span className='inline-flex items-center gap-2 text-text-primary/40'>
-              <span>More case studies are on hold</span>
-            </span>
-          ) : (
-            <Link
-              href='/#work'
-              className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+        <div className='mb-8'>
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={`case-nav-${currentProject.id}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className='flex justify-between items-center'
             >
-              <span>Back to Work</span>
-              <ArrowRight className='w-5 h-5' />
-            </Link>
-          )}
+              {previousProject ? (
+                <Link
+                  href={`/cs${previousProject.id}`}
+                  className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+                >
+                  <ArrowLeft className='w-5 h-5' />
+                  <span>Previous Case</span>
+                </Link>
+              ) : (
+                <Link
+                  href='/#work'
+                  className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+                >
+                  <ArrowLeft className='w-5 h-5' />
+                  <span>Back to Work</span>
+                </Link>
+              )}
+
+              {nextProject ? (
+                <Link
+                  href={`/cs${nextProject.id}`}
+                  className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+                >
+                  <span>Next Case</span>
+                  <ArrowRight className='w-5 h-5' />
+                </Link>
+              ) : (
+                <span className='inline-flex items-center gap-2 text-text-primary/40'>
+                  <span>More Case Study on the Way!</span>
+                </span>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <div className='mb-12 text-center'>
@@ -155,10 +189,6 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                 id={stageIds[stage]}
                 className='scroll-mt-32 space-y-6'
               >
-                <div className='flex items-center gap-4 text-accent-dark font-mono text-sm tracking-wider uppercase'>
-                  <span>{stage}</span>
-                </div>
-
                 <h2 className='text-3xl md:text-5xl font-semibold text-text-primary leading-tight'>
                   {stage}
                 </h2>
@@ -169,14 +199,25 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
 
                 {hasImage ? (
                   <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-highlight/30 bg-black/10'>
-                    <Image
-                      src={visibleImage}
-                      alt={`${stage} visual ${activeImageIndex + 1}`}
-                      fill
-                      sizes='(min-width: 768px) 80vw, 100vw'
-                      className='object-contain p-4'
-                      priority={stage === 'Overview'}
-                    />
+                    <AnimatePresence mode='wait'>
+                      <motion.div
+                        key={`${stage}-${visibleImage}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4 }}
+                        className='absolute inset-0'
+                      >
+                        <Image
+                          src={visibleImage}
+                          alt={`${stage} visual ${activeImageIndex + 1}`}
+                          fill
+                          sizes='(min-width: 768px) 80vw, 100vw'
+                          className='object-contain p-4'
+                          priority={stage === 'Overview'}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
 
                     {isSlider && (
                       <>
@@ -220,14 +261,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                       </>
                     )}
                   </div>
-                ) : (
-                  <div className='mt-8 h-64 md:h-[500px] w-full bg-white/50 border border-highlight/30 rounded-2xl flex items-center justify-center relative overflow-hidden group'>
-                    <div className='absolute inset-0 bg-linear-to-br from-highlight/10 to-accent-dark/5' />
-                    <span className='text-text-primary/20 font-bold text-6xl group-hover:scale-110 transition-transform duration-700'>
-                      {stage[0]}
-                    </span>
-                  </div>
-                )}
+                ) : null}
               </article>
             );
           })}
@@ -257,6 +291,15 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
             ))}
           </div>
         </div>
+
+        <button
+          type='button'
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className='fixed bottom-28 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 transition-colors'
+          aria-label='Back to top'
+        >
+          <ArrowUp className='h-5 w-5' />
+        </button>
       </div>
       {/* Background Decor */}
       <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-highlight/10 rounded-full blur-[100px] z-0 pointer-events-none' />

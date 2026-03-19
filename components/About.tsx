@@ -34,7 +34,7 @@ export const About = () => {
 
         <div className='relative h-[600px] w-full bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-sm backdrop-blur-sm'>
           <Image
-            src='/img_about.PNG'
+            src='/profile.jpg'
             alt='Profile picture of Jeffrey Ko'
             fill
             sizes='(min-width: 768px) 40vw, 100vw'
