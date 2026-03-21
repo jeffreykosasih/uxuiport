@@ -86,7 +86,7 @@ export const WorkGrid = () => {
                         {currentProject.title}
                       </h2>
 
-                      <p className='text-xl md:text-2xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-6 max-w-xl'>
+                      <p className='text-xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-6 max-w-xl'>
                         {overviewContent.content}
                       </p>
 

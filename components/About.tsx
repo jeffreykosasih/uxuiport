@@ -25,19 +25,19 @@ export const About = () => {
               creativity.
             </p>
             <p>
-              <span className='font-medium text-text-primary'>Fun Fact:</span>{' '}
-              I’m also make music! I create my own tracks using a live-looping
-              style (think building a song layer by layer).
+              <span className='font-medium text-text-primary'>Fun Fact:</span> I
+              also make music live on the spot using loop station!
             </p>
           </div>
         </div>
 
         <div className='relative h-[600px] w-full bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-sm backdrop-blur-sm'>
           <Image
-            src='/profile.jpg'
+            src='/profile-portrait.jpg'
             alt='Profile picture of Jeffrey Ko'
             fill
             sizes='(min-width: 768px) 40vw, 100vw'
+            quality={95}
             className='object-cover object-center'
           />
         </div>

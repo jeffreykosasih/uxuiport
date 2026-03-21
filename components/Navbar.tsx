@@ -3,20 +3,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 export const Navbar = () => {
   const [activeTab, setActiveTab] = useState('Home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isManualScroll = useRef(false);
+  const navItems = ['Home', 'Work', 'About', 'Contact'];
+  const displayedActiveTab = pathname.startsWith('/cs') ? 'Work' : activeTab;
 
   useEffect(() => {
-    // If we are on a case study page, force 'Work' to be active
-    if (pathname.startsWith('/cs')) {
-      setActiveTab('Work');
-      return;
-    }
-
     // Only set up scroll spy on the home page
     if (pathname !== '/') return;
 
@@ -25,7 +23,7 @@ export const Navbar = () => {
       if (isManualScroll.current) return;
 
       const sections = ['home', 'work', 'about', 'contact'];
-      
+
       // Check if at bottom of page
       if ((window.innerHeight + window.scrollY) >= document.documentElement.offsetHeight - 50) {
          setActiveTab('Contact');
@@ -57,13 +55,14 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, item: string) => {
+  const handleLinkClick = (item: string) => {
     // Manually set active tab immediately for responsiveness
     setActiveTab(item);
-    
+    setIsMenuOpen(false);
+
     // Set manual scroll flag
     isManualScroll.current = true;
-    
+
     // Clear flag after scroll animation completes (approx 1s)
     setTimeout(() => {
       isManualScroll.current = false;
@@ -76,25 +75,25 @@ export const Navbar = () => {
         <Link
           href='/'
           className='text-2xl font-semibold text-text-primary hover:text-hover transition-colors'
-          onClick={(e) => handleLinkClick(e, 'Home')}
+          onClick={() => handleLinkClick('Home')}
         >
           Jeffrey Ko
         </Link>
 
         <nav className='hidden md:flex items-center gap-8'>
-          {['Home', 'Work', 'About', 'Contact'].map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item}
               href={item === 'Home' ? '/' : `/#${item.toLowerCase()}`}
-              onClick={(e) => handleLinkClick(e, item)}
+              onClick={() => handleLinkClick(item)}
               className={`relative font-light transition-all text-lg ${
-                activeTab === item
+                displayedActiveTab === item
                   ? 'text-text-primary font-medium'
                   : 'text-text-primary/80 hover:text-text-primary hover:font-medium'
               }`}
             >
               {item}
-              {activeTab === item && (
+              {displayedActiveTab === item && (
                 <motion.div
                   layoutId='navbar-underline'
                   className='absolute -bottom-1 left-0 right-0 h-0.5 bg-hover'
@@ -106,10 +105,46 @@ export const Navbar = () => {
         </nav>
 
         <div className='md:hidden'>
-          {/* Mobile menu placeholder */}
-          <span className='text-text-primary text-sm'>Menu</span>
+          <button
+            type='button'
+            className='inline-flex items-center justify-center rounded-lg p-2 text-text-primary hover:text-hover transition-colors'
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+            className='md:hidden border-t border-highlight/20 bg-primary/95 backdrop-blur-md'
+          >
+            <div className='px-6 py-4 flex flex-col gap-3'>
+              {navItems.map((item) => (
+                <Link
+                  key={`mobile-${item}`}
+                  href={item === 'Home' ? '/' : `/#${item.toLowerCase()}`}
+                  onClick={() => handleLinkClick(item)}
+                  className={`text-base transition-colors ${
+                    displayedActiveTab === item
+                      ? 'text-text-primary font-medium'
+                      : 'text-text-primary/80 hover:text-hover'
+                  }`}
+                >
+                  {item}
+                </Link>
+              ))}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
