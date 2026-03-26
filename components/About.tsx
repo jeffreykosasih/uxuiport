@@ -1,7 +1,26 @@
 import React from 'react';
 import Image from 'next/image';
+import { Instagram, Youtube, Music2 } from 'lucide-react';
 
 export const About = () => {
+  const socialLinks = [
+    {
+      label: 'Instagram',
+      href: 'https://instagram.com/sijefriii',
+      icon: Instagram,
+    },
+    {
+      label: 'YouTube',
+      href: 'https://youtube.com/@sijefriii',
+      icon: Youtube,
+    },
+    {
+      label: 'TikTok',
+      href: 'https://www.tiktok.com/@sijefriii',
+      icon: Music2,
+    },
+  ];
+
   return (
     <section id='about' className='py-24 px-6 bg-accent-dark/10'>
       <div className='max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center'>
@@ -22,7 +41,16 @@ export const About = () => {
               My background in programming and product strategy allows me to
               design solutions that are not only user-friendly but technically
               feasible. For me, UX/UI is the perfect blend of logic and
-              creativity.
+              creativity. For IT portfolio work, visit{' '}
+              <a
+                href='https://jefri.dev'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='font-medium text-text-primary underline decoration-text-primary/60 underline-offset-4 hover:text-hover transition-colors'
+              >
+                jefri.dev
+              </a>
+              .
             </p>
             <p>
               <span className='font-medium text-text-primary'>Fun Fact:</span> I
@@ -40,6 +68,24 @@ export const About = () => {
             quality={95}
             className='object-cover object-center'
           />
+          <div className='absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-4'>
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={social.label}
+                  className='inline-flex h-14 w-14 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary transition-all duration-200 hover:scale-110 hover:border-hover/60 hover:text-hover'
+                >
+                  <Icon className='h-6 w-6' />
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

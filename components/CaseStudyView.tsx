@@ -224,7 +224,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                         <button
                           type='button'
                           onClick={() => goToPrevImage(stage, stageImages.length)}
-                          className='absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/70 text-text-primary hover:bg-primary/90 transition-colors'
+                          className='absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 hover:scale-110 transition-all duration-200'
                           aria-label={`Previous ${stage} image`}
                         >
                           <ChevronLeft className='h-5 w-5' />
@@ -232,7 +232,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                         <button
                           type='button'
                           onClick={() => goToNextImage(stage, stageImages.length)}
-                          className='absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/70 text-text-primary hover:bg-primary/90 transition-colors'
+                          className='absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 hover:scale-110 transition-all duration-200'
                           aria-label={`Next ${stage} image`}
                         >
                           <ChevronRight className='h-5 w-5' />

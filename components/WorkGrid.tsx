@@ -4,15 +4,50 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
 
 export const WorkGrid = () => {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const currentProject = PROJECTS[activeProjectIndex] ?? PROJECTS[0];
+  const availableProjectIndices = PROJECTS.map((project, index) =>
+    project.id !== '03' ? index : -1,
+  ).filter((index) => index !== -1);
 
   // Always show 'Overview' stage for the main work grid preview
   const overviewContent = currentProject.stages.Overview;
+
+  const goToPreviousCaseStudy = () => {
+    const activeAvailableIndex = availableProjectIndices.indexOf(activeProjectIndex);
+    if (activeAvailableIndex === -1) {
+      setActiveProjectIndex(availableProjectIndices[0] ?? 0);
+      return;
+    }
+
+    const previousIndex =
+      activeAvailableIndex === 0
+        ? availableProjectIndices[availableProjectIndices.length - 1]
+        : availableProjectIndices[activeAvailableIndex - 1];
+    if (previousIndex !== undefined) {
+      setActiveProjectIndex(previousIndex);
+    }
+  };
+
+  const goToNextCaseStudy = () => {
+    const activeAvailableIndex = availableProjectIndices.indexOf(activeProjectIndex);
+    if (activeAvailableIndex === -1) {
+      setActiveProjectIndex(availableProjectIndices[0] ?? 0);
+      return;
+    }
+
+    const nextIndex =
+      activeAvailableIndex === availableProjectIndices.length - 1
+        ? availableProjectIndices[0]
+        : availableProjectIndices[activeAvailableIndex + 1];
+    if (nextIndex !== undefined) {
+      setActiveProjectIndex(nextIndex);
+    }
+  };
 
   return (
     <section
@@ -28,13 +63,18 @@ export const WorkGrid = () => {
             <div className='absolute inset-0 bg-gradient-to-br from-primary to-accent-dark/20 z-0' />
 
             {/* Horizontal Case Study Selector - Absolute Center Top */}
-            <div className='absolute top-8 left-1/2 transform -translate-x-1/2 z-20'>
-              <div className='inline-flex bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-full shadow-lg items-center gap-4 px-6 py-3'>
-                <span className='font-bold text-text-primary text-sm'>
-                  Case Study
-                </span>
+            <div className='absolute top-5 md:top-8 left-1/2 transform -translate-x-1/2 z-20 w-[calc(100%-2rem)] md:w-auto'>
+              <div className='inline-flex w-full md:w-auto justify-center bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-full shadow-lg items-center gap-2 md:gap-4 px-3 md:px-6 py-2.5 md:py-3'>
+                <button
+                  type='button'
+                  onClick={goToPreviousCaseStudy}
+                  className='inline-flex h-8 w-8 items-center justify-center rounded-full border border-text-primary/30 text-text-primary/80 hover:text-text-primary hover:border-text-primary/50 transition-colors'
+                  aria-label='Previous case study'
+                >
+                  <ChevronLeft className='h-4 w-4' />
+                </button>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2 min-w-max'>
                   {PROJECTS.map((caseStudy, index) => {
                     const isAvailable = caseStudy.id !== '03';
 
@@ -62,6 +102,15 @@ export const WorkGrid = () => {
                     );
                   })}
                 </div>
+
+                <button
+                  type='button'
+                  onClick={goToNextCaseStudy}
+                  className='inline-flex h-8 w-8 items-center justify-center rounded-full border border-text-primary/30 text-text-primary/80 hover:text-text-primary hover:border-text-primary/50 transition-colors'
+                  aria-label='Next case study'
+                >
+                  <ChevronRight className='h-4 w-4' />
+                </button>
               </div>
             </div>
 
