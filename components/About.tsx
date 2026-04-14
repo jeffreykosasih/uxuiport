@@ -11,12 +11,12 @@ export const About = () => {
     },
     {
       label: 'YouTube',
-      href: 'https://youtube.com/@sijefriii',
+      href: 'https://youtube.com/@sijefri',
       icon: Youtube,
     },
     {
       label: 'TikTok',
-      href: 'https://www.tiktok.com/@sijefriii',
+      href: 'https://www.tiktok.com/@sijefrii',
       icon: Music2,
     },
   ];

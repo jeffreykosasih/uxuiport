@@ -102,25 +102,65 @@ export const PROJECTS: ProjectData[] = [
   },
   {
     id: '03',
-    title: '-',
+    title: "Jeffrey's Port",
     stages: {
       Overview: {
-        content: 'More case on the way',
+        content:
+          'After learning some design principles and tools, I decided to upgrading this personal website to showcase my work and projects on IT field but also enhanced the design aspect of it.',
+        image: '/cs_03/cs_03_home_02.png',
+        images: [
+          '/cs_03/cs_03_profile.png',
+          '/cs_03/cs_03_home_01.png',
+          '/cs_03/cs_03_home_02.png',
+          '/cs_03/cs_03_welcome_01.png',
+          '/cs_03/cs_03_welcome_02.png',
+        ],
       },
       Empathize: {
-        content: 'More case on the way',
+        content: '-',
       },
       Define: {
-        content: 'More case on the way',
+        content: '-',
       },
       Ideate: {
-        content: 'More case on the way',
+        content: '-',
       },
       Prototype: {
-        content: 'More case on the way',
+        content: '-',
       },
       Test: {
-        content: 'More case on the way',
+        content: '-',
+      },
+    },
+  },
+  {
+    id: '04',
+    title: 'Katsu Seiba',
+    stages: {
+      Overview: {
+        content:
+          'Modernized Japanese restaurant website with minimalistic yet useful design approach.',
+        image: '/cs_04/cs_04_home_01.png',
+        images: [
+          '/cs_04/cs_04_home_01.png',
+          '/cs_04/cs_04_home_02.png',
+          '/cs_04/cs_04_home_03.png',
+        ],
+      },
+      Empathize: {
+        content: '-',
+      },
+      Define: {
+        content: '-',
+      },
+      Ideate: {
+        content: '-',
+      },
+      Prototype: {
+        content: '-',
+      },
+      Test: {
+        content: '-',
       },
     },
   },

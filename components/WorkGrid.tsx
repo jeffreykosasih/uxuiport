@@ -10,9 +10,7 @@ import { PROJECTS } from '@/lib/data';
 export const WorkGrid = () => {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const currentProject = PROJECTS[activeProjectIndex] ?? PROJECTS[0];
-  const availableProjectIndices = PROJECTS.map((project, index) =>
-    project.id !== '03' ? index : -1,
-  ).filter((index) => index !== -1);
+  const availableProjectIndices = PROJECTS.map((_, index) => index);
 
   // Always show 'Overview' stage for the main work grid preview
   const overviewContent = currentProject.stages.Overview;
@@ -76,7 +74,7 @@ export const WorkGrid = () => {
 
                 <div className='flex items-center gap-2 min-w-max'>
                   {PROJECTS.map((caseStudy, index) => {
-                    const isAvailable = caseStudy.id !== '03';
+                    const isAvailable = true;
 
                     return (
                     <button
@@ -147,11 +145,6 @@ export const WorkGrid = () => {
                           View Case Study
                           <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
                         </Link>
-                        {currentProject.id === '03' && (
-                          <p className='mt-8 text-sm md:text-base text-text-primary/70 font-medium'>
-                            More case on the way.
-                          </p>
-                        )}
                       </div>
                     </motion.div>
                   </AnimatePresence>

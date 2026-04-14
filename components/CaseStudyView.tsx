@@ -20,7 +20,11 @@ interface CaseStudyViewProps {
 export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
-  const publishedProjects = PROJECTS.filter((project) => project.id !== '03');
+  const isOverviewOnlyCase = projectId === '03' || projectId === '04';
+  const visibleStages = isOverviewOnlyCase
+    ? (['Overview'] as Stage[])
+    : STAGES;
+  const publishedProjects = PROJECTS;
   const currentPublishedIndex = publishedProjects.findIndex(
     (project) => project.id === currentProject.id,
   );
@@ -45,7 +49,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   );
 
   useEffect(() => {
-    const sections = STAGES.map((stage) =>
+    const sections = visibleStages.map((stage) =>
       document.getElementById(stageIds[stage]),
     ).filter(Boolean) as HTMLElement[];
 
@@ -58,7 +62,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
         if (visibleEntries[0]) {
-          const matchedStage = STAGES.find(
+          const matchedStage = visibleStages.find(
             (stage) => stageIds[stage] === visibleEntries[0].target.id,
           );
           if (matchedStage) {
@@ -80,7 +84,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
       sections.forEach((section) => observer.unobserve(section));
       observer.disconnect();
     };
-  }, [stageIds]);
+  }, [stageIds, isOverviewOnlyCase]);
 
   const jumpToStage = (stage: Stage) => {
     const section = document.getElementById(stageIds[stage]);
@@ -170,7 +174,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
 
         {/* Unified top-to-bottom stage flow */}
         <div className='flex flex-col grow mb-28 max-w-5xl mx-auto w-full gap-24'>
-          {STAGES.map((stage) => {
+          {visibleStages.map((stage) => {
             const stageContent = currentProject.stages[stage];
             const stageImages =
               stageContent.images && stageContent.images.length > 0
@@ -268,29 +272,31 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         </div>
 
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
-        <div className='flex justify-center mt-auto fixed bottom-12 left-0 right-0 z-50 pointer-events-none'>
-          <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-full shadow-lg flex items-center gap-1 overflow-x-auto max-w-full no-scrollbar pointer-events-auto'>
-            {STAGES.map((stage) => (
-              <button
-                key={stage}
-                onClick={() => jumpToStage(stage)}
-                className={`
-                  relative px-4 py-2 rounded-full text-sm font-light transition-colors duration-200
-                  ${activeStage === stage ? 'text-text-primary' : 'text-text-primary/60 hover:text-hover'}
-                `}
-              >
-                {activeStage === stage && (
-                  <motion.div
-                    layoutId='activeTab'
-                    className='absolute inset-0 bg-accent-dark rounded-full'
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className='relative z-10'>{stage}</span>
-              </button>
-            ))}
+        {!isOverviewOnlyCase && (
+          <div className='flex justify-center mt-auto fixed bottom-12 left-0 right-0 z-50 pointer-events-none'>
+            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-full shadow-lg flex items-center gap-1 overflow-x-auto max-w-full no-scrollbar pointer-events-auto'>
+              {STAGES.map((stage) => (
+                <button
+                  key={stage}
+                  onClick={() => jumpToStage(stage)}
+                  className={`
+                    relative px-4 py-2 rounded-full text-sm font-light transition-colors duration-200
+                    ${activeStage === stage ? 'text-text-primary' : 'text-text-primary/60 hover:text-hover'}
+                  `}
+                >
+                  {activeStage === stage && (
+                    <motion.div
+                      layoutId='activeTab'
+                      className='absolute inset-0 bg-accent-dark rounded-full'
+                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  <span className='relative z-10'>{stage}</span>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <button
           type='button'

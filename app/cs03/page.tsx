@@ -1,6 +1,6 @@
-import { redirect } from 'next/navigation';
+import { CaseStudyView } from '@/components/CaseStudyView';
 
 export default function CaseStudy03() {
-  redirect('/#work');
+  return <CaseStudyView projectId='03' />;
 }
 
