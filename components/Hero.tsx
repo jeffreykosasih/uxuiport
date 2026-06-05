@@ -1,7 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
 
 export const Hero = () => {
   return (
@@ -25,14 +23,6 @@ export const Hero = () => {
               Explore selected UX/UI projects shaped around clear flows, useful
               interactions, and polished interface details.
             </p>
-
-            <Link
-              href='#work'
-              className='inline-flex w-fit items-center gap-3 rounded-full bg-text-primary px-8 py-4 text-lg font-medium text-primary transition-all hover:scale-105 hover:bg-hover hover:text-primary group'
-            >
-              View Work
-              <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
-            </Link>
           </div>
         </div>
 

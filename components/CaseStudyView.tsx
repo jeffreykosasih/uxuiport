@@ -228,18 +228,18 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                         <button
                           type='button'
                           onClick={() => goToPrevImage(stage, stageImages.length)}
-                          className='absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 hover:scale-110 transition-all duration-200'
+                          className='absolute left-4 top-1/2 z-10 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:h-20 md:w-20'
                           aria-label={`Previous ${stage} image`}
                         >
-                          <ChevronLeft className='h-5 w-5' />
+                          <ChevronLeft className='h-8 w-8 md:h-10 md:w-10' />
                         </button>
                         <button
                           type='button'
                           onClick={() => goToNextImage(stage, stageImages.length)}
-                          className='absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 hover:scale-110 transition-all duration-200'
+                          className='absolute right-4 top-1/2 z-10 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:h-20 md:w-20'
                           aria-label={`Next ${stage} image`}
                         >
-                          <ChevronRight className='h-5 w-5' />
+                          <ChevronRight className='h-8 w-8 md:h-10 md:w-10' />
                         </button>
 
                         <div className='absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2'>

@@ -50,69 +50,53 @@ export const WorkGrid = () => {
   return (
     <section
       id='work'
-      className='py-24 px-6 bg-primary min-h-[80vh] flex flex-col relative overflow-hidden'
+      className='pt-24 bg-gradient-to-b from-primary via-primary to-[#050505] min-h-[80vh] flex flex-col relative overflow-hidden dark:to-[#8b7c6d]'
     >
-      <div className='max-w-[1600px] mx-auto w-full flex-grow flex flex-col relative z-10'>
+      <div className='w-full flex-grow flex flex-col relative z-10'>
         {/* Main Content Layout */}
-        <div className='flex flex-col flex-grow mb-12 min-h-[400px]'>
+        <div className='flex flex-col flex-grow min-h-[400px]'>
           {/* Content Area - Full Width Dark Background */}
-          <div className='flex-grow relative overflow-hidden bg-primary min-h-[800px] flex flex-col'>
+          <div className='flex-grow relative overflow-hidden min-h-[800px] flex flex-col'>
             {/* Background "Image" / Color */}
-            <div className='absolute inset-0 bg-gradient-to-br from-primary to-accent-dark/20 z-0' />
+            <div className='absolute inset-0 bg-gradient-to-b from-primary via-primary to-[#050505] z-0 dark:to-[#8b7c6d]' />
 
             <h2 className='relative z-10 pt-14 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
               Work
             </h2>
 
-            {/* Horizontal Case Study Selector */}
-            <div className='absolute bottom-5 right-5 md:bottom-8 md:right-8 z-20 w-[calc(100%-2rem)] md:w-auto'>
-              <div className='inline-flex w-full md:w-auto justify-center bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-xl shadow-lg items-center gap-2 md:gap-4 px-3 md:px-5 py-2.5 md:py-3'>
-                <button
-                  type='button'
-                  onClick={goToPreviousCaseStudy}
-                  className='inline-flex h-8 w-8 items-center justify-center rounded-full border border-text-primary/30 text-text-primary/80 hover:text-text-primary hover:border-text-primary/50 transition-colors'
-                  aria-label='Previous case study'
-                >
-                  <ChevronLeft className='h-4 w-4' />
-                </button>
+            {/* Case Study Controls */}
+            <button
+              type='button'
+              onClick={goToPreviousCaseStudy}
+              className='absolute left-4 top-1/2 z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:h-20 md:w-20'
+              aria-label='Previous case study'
+            >
+              <ChevronLeft className='h-8 w-8 md:h-10 md:w-10' />
+            </button>
 
-                <div className='flex items-center gap-2 min-w-max'>
-                  {PROJECTS.map((caseStudy, index) => {
-                    const isAvailable = true;
+            <button
+              type='button'
+              onClick={goToNextCaseStudy}
+              className='absolute right-4 top-1/2 z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:h-20 md:w-20'
+              aria-label='Next case study'
+            >
+              <ChevronRight className='h-8 w-8 md:h-10 md:w-10' />
+            </button>
 
-                    return (
-                    <button
-                      key={caseStudy.id}
-                      onClick={() => isAvailable && setActiveProjectIndex(index)}
-                      disabled={!isAvailable}
-                      className={`
-                            w-4 h-4 rounded-md transition-all duration-300
-                            ${
-                              activeProjectIndex === index
-                                ? 'bg-text-primary scale-125 ring-2 ring-text-primary/40'
-                                : isAvailable
-                                  ? 'bg-text-primary/45 hover:bg-hover hover:scale-110'
-                                  : 'bg-text-primary/20 opacity-60 cursor-not-allowed'
-                            }
-                          `}
-                      aria-label={
-                        isAvailable
-                          ? `Select Case Study ${index + 1}`
-                          : `Case Study ${index + 1} is on hold`
-                      }
-                    />
-                    );
-                  })}
-                </div>
-
-                <button
-                  type='button'
-                  onClick={goToNextCaseStudy}
-                  className='inline-flex h-8 w-8 items-center justify-center rounded-full border border-text-primary/30 text-text-primary/80 hover:text-text-primary hover:border-text-primary/50 transition-colors'
-                  aria-label='Next case study'
-                >
-                  <ChevronRight className='h-4 w-4' />
-                </button>
+            <div className='absolute bottom-8 left-1/2 z-20 -translate-x-1/2'>
+              <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-primary/90 px-5 py-4 shadow-lg backdrop-blur-xl'>
+                {PROJECTS.map((caseStudy, index) => (
+                  <button
+                    key={caseStudy.id}
+                    onClick={() => setActiveProjectIndex(index)}
+                    className={`h-4 w-8 rounded-full transition-all duration-300 ${
+                      activeProjectIndex === index
+                        ? 'bg-text-primary scale-110'
+                        : 'bg-text-primary/45 hover:bg-hover hover:scale-105'
+                    }`}
+                    aria-label={`Select Case Study ${index + 1}`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -144,7 +128,7 @@ export const WorkGrid = () => {
                       <div className='pt-6'>
                         <Link
                           href={`/cs${currentProject.id}`}
-                          className='inline-flex items-center gap-3 bg-text-primary text-primary px-8 py-4 rounded-xl font-medium text-lg hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group'
+                          className='inline-flex items-center gap-3 bg-text-primary text-primary px-9 py-4 rounded-2xl font-semibold text-xl hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group'
                         >
                           View Case Study
                           <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />

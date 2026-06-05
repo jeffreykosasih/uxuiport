@@ -16,7 +16,7 @@ const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
   <button
     type='button'
     onClick={onToggle}
-    className='inline-flex h-24 w-24 items-center justify-center bg-text-primary text-primary transition-colors hover:bg-hover'
+    className='fixed bottom-6 right-6 z-[60] inline-flex h-16 w-16 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover'
     aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     aria-pressed={isDarkMode}
   >
@@ -24,16 +24,32 @@ const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
   </button>
 );
 
+type LogoButtonProps = {
+  onClick: () => void;
+};
+
+const LogoButton = ({ onClick }: LogoButtonProps) => (
+  <Link
+    href='/'
+    className='fixed top-6 left-6 z-[60] inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-transparent shadow-lg transition-all duration-200 hover:scale-105'
+    onClick={onClick}
+    aria-label='Jeffrey Ko home'
+  >
+    <Image
+      src='/jeffreyko-logo.svg'
+      alt='Jeffrey Ko logo'
+      width={64}
+      height={64}
+      priority
+      className='h-16 w-16 object-cover'
+    />
+  </Link>
+);
+
 export const Navbar = () => {
   const [activeTab, setActiveTab] = useState('Home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window === 'undefined') return false;
-
-    const savedTheme = window.localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return savedTheme ? savedTheme === 'dark' : prefersDark;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const pathname = usePathname();
   const isManualScroll = useRef(false);
   const navItems = [
@@ -105,37 +121,20 @@ export const Navbar = () => {
   };
 
   return (
+    <>
     <header className='fixed top-0 left-0 right-0 z-50 bg-primary/90 backdrop-blur-md'>
-      <div className='h-24 grid grid-cols-[6rem_minmax(0,1fr)_6rem] items-center'>
-        <Link
-          href='/'
-          className='inline-flex h-24 w-24 items-center justify-center overflow-hidden bg-[#f1e2d1] transition-all duration-200 hover:bg-hover dark:bg-[#222222]'
-          onClick={() => handleLinkClick('Home')}
-          aria-label='Jeffrey Ko home'
-        >
-          <Image
-            src='/jeffreyko-logo.svg'
-            alt='Jeffrey Ko logo'
-            width={64}
-            height={64}
-            priority
-            className='h-20 w-20 object-cover'
-          />
-        </Link>
-
+      <div className='relative h-24 flex items-center justify-center'>
         <nav className='hidden items-center justify-center gap-8 md:flex'>
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               onClick={() => handleLinkClick(item.label)}
-              className={`relative transition-all text-lg ${
+              className={`relative transition-all ${
                 displayedActiveTab === item.label
-                  ? 'text-text-primary font-semibold'
-                  : 'text-text-primary/80 hover:text-text-primary hover:font-medium'
-              } ${
-                item.label === 'Home' ? 'font-bold' : 'font-light'
-              }`}
+                  ? 'text-text-primary font-bold'
+                  : 'text-text-primary/80 font-semibold hover:text-text-primary'
+              } text-xl`}
             >
               {item.label}
               {displayedActiveTab === item.label && (
@@ -149,7 +148,7 @@ export const Navbar = () => {
           ))}
         </nav>
 
-        <div className='flex items-center justify-end md:hidden'>
+        <div className='absolute right-0 top-0 flex items-center justify-end md:hidden'>
           <button
             type='button'
             className='inline-flex h-24 w-16 items-center justify-center text-text-primary hover:text-hover transition-colors'
@@ -161,12 +160,6 @@ export const Navbar = () => {
           </button>
         </div>
 
-        <div className='hidden justify-self-end md:block'>
-          <ThemeToggle
-            isDarkMode={isDarkMode}
-            onToggle={() => setIsDarkMode((current) => !current)}
-          />
-        </div>
       </div>
 
       <AnimatePresence>
@@ -184,25 +177,25 @@ export const Navbar = () => {
                   key={`mobile-${item.label}`}
                   href={item.href}
                   onClick={() => handleLinkClick(item.label)}
-                  className={`text-base transition-colors ${
+                  className={`transition-colors ${
                     displayedActiveTab === item.label
-                      ? 'text-text-primary font-medium'
-                      : 'text-text-primary/80 hover:text-hover'
-                  }`}
+                      ? 'text-text-primary font-bold'
+                      : 'text-text-primary/80 font-semibold hover:text-hover'
+                  } text-lg`}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className='pt-2'>
-                <ThemeToggle
-                  isDarkMode={isDarkMode}
-                  onToggle={() => setIsDarkMode((current) => !current)}
-                />
-              </div>
             </div>
           </motion.nav>
         )}
       </AnimatePresence>
     </header>
+    <LogoButton onClick={() => handleLinkClick('Home')} />
+    <ThemeToggle
+      isDarkMode={isDarkMode}
+      onToggle={() => setIsDarkMode((current) => !current)}
+    />
+    </>
   );
 };
