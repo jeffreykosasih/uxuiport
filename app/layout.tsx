@@ -1,16 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Syne } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 
-const inter = Inter({
-  variable: '--font-inter',
+const syne = Syne({
+  variable: '--font-syne',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 export const metadata: Metadata = {
   title: 'Jeffrey Ko',
   description: 'Jeffrey Ko Portfolio Site',
+  icons: {
+    icon: '/jeffreyko-logo.svg',
+    shortcut: '/jeffreyko-logo.svg',
+    apple: '/jeffreyko-logo.svg',
+  },
 };
 
 export default function RootLayout({
@@ -21,13 +27,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${inter.variable} antialiased bg-primary text-text-primary font-light`}
+        className={`${syne.variable} antialiased bg-primary text-text-primary font-light`}
       >
         <Navbar />
         <main>{children}</main>
-        <footer className='py-8 text-center text-text-primary text-sm font-semibold bg-primary border-t border-highlight/20'>
-          <p>Designed and coded by Jeffrey Ko</p>
-        </footer>
       </body>
     </html>
   );

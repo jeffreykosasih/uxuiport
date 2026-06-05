@@ -217,7 +217,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                           alt={`${stage} visual ${activeImageIndex + 1}`}
                           fill
                           sizes='(min-width: 768px) 80vw, 100vw'
-                          className='object-contain p-4'
+                          className='object-cover'
                           priority={stage === 'Overview'}
                         />
                       </motion.div>
@@ -274,20 +274,20 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
         {!isOverviewOnlyCase && (
           <div className='flex justify-center mt-auto fixed bottom-12 left-0 right-0 z-50 pointer-events-none'>
-            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-full shadow-lg flex items-center gap-1 overflow-x-auto max-w-full no-scrollbar pointer-events-auto'>
+            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-xl shadow-lg flex items-center gap-1 overflow-x-auto max-w-full no-scrollbar pointer-events-auto'>
               {STAGES.map((stage) => (
                 <button
                   key={stage}
                   onClick={() => jumpToStage(stage)}
                   className={`
-                    relative px-4 py-2 rounded-full text-sm font-light transition-colors duration-200
-                    ${activeStage === stage ? 'text-text-primary' : 'text-text-primary/60 hover:text-hover'}
+                    relative px-4 py-2 rounded-lg text-sm font-light transition-colors duration-200
+                    ${activeStage === stage ? 'text-primary' : 'text-text-primary/60 hover:bg-text-primary hover:text-primary'}
                   `}
                 >
                   {activeStage === stage && (
                     <motion.div
                       layoutId='activeTab'
-                      className='absolute inset-0 bg-accent-dark rounded-full'
+                      className='absolute inset-0 bg-text-primary rounded-lg'
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}

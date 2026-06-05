@@ -56,13 +56,17 @@ export const WorkGrid = () => {
         {/* Main Content Layout */}
         <div className='flex flex-col flex-grow mb-12 min-h-[400px]'>
           {/* Content Area - Full Width Dark Background */}
-          <div className='flex-grow relative rounded-3xl overflow-hidden bg-primary min-h-[800px] flex flex-col border border-accent-dark/30'>
+          <div className='flex-grow relative overflow-hidden bg-primary min-h-[800px] flex flex-col'>
             {/* Background "Image" / Color */}
             <div className='absolute inset-0 bg-gradient-to-br from-primary to-accent-dark/20 z-0' />
 
-            {/* Horizontal Case Study Selector - Absolute Center Top */}
-            <div className='absolute top-5 md:top-8 left-1/2 transform -translate-x-1/2 z-20 w-[calc(100%-2rem)] md:w-auto'>
-              <div className='inline-flex w-full md:w-auto justify-center bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-full shadow-lg items-center gap-2 md:gap-4 px-3 md:px-6 py-2.5 md:py-3'>
+            <h2 className='relative z-10 pt-14 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
+              Work
+            </h2>
+
+            {/* Horizontal Case Study Selector */}
+            <div className='absolute bottom-5 right-5 md:bottom-8 md:right-8 z-20 w-[calc(100%-2rem)] md:w-auto'>
+              <div className='inline-flex w-full md:w-auto justify-center bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-xl shadow-lg items-center gap-2 md:gap-4 px-3 md:px-5 py-2.5 md:py-3'>
                 <button
                   type='button'
                   onClick={goToPreviousCaseStudy}
@@ -82,7 +86,7 @@ export const WorkGrid = () => {
                       onClick={() => isAvailable && setActiveProjectIndex(index)}
                       disabled={!isAvailable}
                       className={`
-                            w-4 h-4 rounded-full transition-all duration-300
+                            w-4 h-4 rounded-md transition-all duration-300
                             ${
                               activeProjectIndex === index
                                 ? 'bg-text-primary scale-125 ring-2 ring-text-primary/40'
@@ -112,8 +116,8 @@ export const WorkGrid = () => {
               </div>
             </div>
 
-            <div className='relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-16 py-12 flex-grow flex items-center'>
-              <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center mt-16 lg:mt-0'>
+            <div className='relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-16 pb-24 pt-12 flex-grow flex items-center'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center'>
                 {/* Left Column: Text Content */}
                 <div className='lg:pr-12'>
                   <AnimatePresence mode='wait'>
@@ -133,14 +137,14 @@ export const WorkGrid = () => {
                         {currentProject.title}
                       </h2>
 
-                      <p className='text-xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-6 max-w-xl'>
+                      <p className='text-2xl md:text-3xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-6 max-w-2xl'>
                         {overviewContent.content}
                       </p>
 
                       <div className='pt-6'>
                         <Link
                           href={`/cs${currentProject.id}`}
-                          className='inline-flex items-center gap-3 bg-text-primary text-primary px-8 py-4 rounded-full font-medium text-lg hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group'
+                          className='inline-flex items-center gap-3 bg-text-primary text-primary px-8 py-4 rounded-xl font-medium text-lg hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group'
                         >
                           View Case Study
                           <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
@@ -167,7 +171,7 @@ export const WorkGrid = () => {
                           alt={`${currentProject.title} preview`}
                           fill
                           sizes='(min-width: 1024px) 40vw, 100vw'
-                          className='object-contain p-4'
+                          className='object-cover'
                           priority={currentProject.id === '01'}
                         />
                       </motion.div>

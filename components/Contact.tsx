@@ -1,50 +1,66 @@
 import React from 'react';
-import { Mail, MapPin } from 'lucide-react';
+import { Instagram, Mail, MapPin, Music2, Youtube } from 'lucide-react';
 
 export const Contact = () => {
+  const contactLinks = [
+    {
+      label: 'Email',
+      href: 'mailto:jeffreyko98@gmail.com',
+      icon: Mail,
+    },
+    {
+      label: 'Location',
+      href: 'https://www.google.com/maps/search/?api=1&query=Melbourne%2C%20Australia',
+      icon: MapPin,
+    },
+    {
+      label: 'YouTube',
+      href: 'https://youtube.com/@sijefri',
+      icon: Youtube,
+    },
+    {
+      label: 'Instagram',
+      href: 'https://instagram.com/sijefriii',
+      icon: Instagram,
+    },
+    {
+      label: 'TikTok',
+      href: 'https://www.tiktok.com/@sijefrii',
+      icon: Music2,
+    },
+  ];
+
   return (
     <section
       id='contact'
-      className='py-24 px-6 bg-primary min-h-[60vh] flex items-center'
+      className='py-14 px-6 bg-primary flex items-center'
     >
-      <div className='max-w-4xl mx-auto w-full'>
-        <div className='text-center mb-16'>
-          <h2 className='text-6xl font-semibold text-text-primary mb-6 tracking-tight'>
-            CONTACT
+      <div className='max-w-5xl mx-auto w-full py-8'>
+        <div className='mb-7 text-center'>
+          <h2 className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+            Connect
           </h2>
         </div>
 
-        <div className='grid grid-cols-2 gap-8 md:gap-14 max-w-3xl mx-auto place-items-center'>
-          <div className='flex items-center justify-center gap-4 md:gap-6'>
-            <div className='p-3 md:p-4 bg-white/5 rounded-lg text-text-primary shrink-0'>
-              <Mail className='w-6 h-6 md:w-8 md:h-8' />
-            </div>
-            <div className='text-left'>
-              <h3 className='font-semibold text-text-primary mb-1 text-lg md:text-xl leading-none'>
-                Email
-              </h3>
-              <a
-                href='mailto:jeffreyko98@gmail.com'
-                className='text-accent-bright hover:text-hover transition-colors font-light block text-sm md:text-lg break-all'
-              >
-                jeffreyko98@gmail.com
-              </a>
-            </div>
-          </div>
+        <div className='flex flex-wrap items-center justify-center gap-6 md:gap-9'>
+          {contactLinks.map((link) => {
+            const Icon = link.icon;
+            const isExternal = link.href.startsWith('http');
 
-          <div className='flex items-center justify-center gap-4 md:gap-6'>
-            <div className='p-3 md:p-4 bg-white/5 rounded-lg text-text-primary shrink-0'>
-              <MapPin className='w-6 h-6 md:w-8 md:h-8' />
-            </div>
-            <div className='text-left'>
-              <h3 className='font-semibold text-text-primary mb-1 text-lg md:text-xl leading-none'>
-                Location
-              </h3>
-              <p className='text-accent-bright font-light text-sm md:text-lg'>
-                Melbourne, Australia
-              </p>
-            </div>
-          </div>
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                aria-label={link.label}
+                title={link.label}
+                className='inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-hover'
+              >
+                <Icon className='h-10 w-10 md:h-12 md:w-12' />
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
