@@ -4,7 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
 
 export const WorkGrid = () => {
@@ -14,9 +19,19 @@ export const WorkGrid = () => {
 
   // Always show 'Overview' stage for the main work grid preview
   const overviewContent = currentProject.stages.Overview;
+  const workDescriptions: Record<string, string> = {
+    '01': 'Redesign a fitness app that strengthen brand identity and style consistency along with clearer navigation.',
+    '02': 'Redesign a delivery app for faster tasks flows and easier map navigation.',
+    '03': "3D model with island theme that showcase Jeffrey's IT project.",
+    '04': 'Japanese restaurant website concept shaped around a minimal, useful, and polished dining experience.',
+  };
+  const workDescription =
+    workDescriptions[currentProject.id] ?? overviewContent.content;
+  const workImage = currentProject.workImage ?? overviewContent.image;
 
   const goToPreviousCaseStudy = () => {
-    const activeAvailableIndex = availableProjectIndices.indexOf(activeProjectIndex);
+    const activeAvailableIndex =
+      availableProjectIndices.indexOf(activeProjectIndex);
     if (activeAvailableIndex === -1) {
       setActiveProjectIndex(availableProjectIndices[0] ?? 0);
       return;
@@ -32,7 +47,8 @@ export const WorkGrid = () => {
   };
 
   const goToNextCaseStudy = () => {
-    const activeAvailableIndex = availableProjectIndices.indexOf(activeProjectIndex);
+    const activeAvailableIndex =
+      availableProjectIndices.indexOf(activeProjectIndex);
     if (activeAvailableIndex === -1) {
       setActiveProjectIndex(availableProjectIndices[0] ?? 0);
       return;
@@ -50,17 +66,14 @@ export const WorkGrid = () => {
   return (
     <section
       id='work'
-      className='pt-24 bg-gradient-to-b from-primary via-primary to-[#050505] min-h-[80vh] flex flex-col relative overflow-hidden dark:to-[#8b7c6d]'
+      className='py-28 bg-primary min-h-[80vh] flex flex-col relative overflow-hidden'
     >
       <div className='w-full flex-grow flex flex-col relative z-10'>
         {/* Main Content Layout */}
         <div className='flex flex-col flex-grow min-h-[400px]'>
           {/* Content Area - Full Width Dark Background */}
           <div className='flex-grow relative overflow-hidden min-h-[800px] flex flex-col'>
-            {/* Background "Image" / Color */}
-            <div className='absolute inset-0 bg-gradient-to-b from-primary via-primary to-[#050505] z-0 dark:to-[#8b7c6d]' />
-
-            <h2 className='relative z-10 pt-14 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
+            <h2 className='relative z-10 pb-20 pt-16 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-28 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
               Work
             </h2>
 
@@ -68,7 +81,7 @@ export const WorkGrid = () => {
             <button
               type='button'
               onClick={goToPreviousCaseStudy}
-              className='absolute left-4 top-1/2 z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:h-20 md:w-20'
+              className='absolute left-4 top-[62%] z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:top-[60%] md:h-20 md:w-20'
               aria-label='Previous case study'
             >
               <ChevronLeft className='h-8 w-8 md:h-10 md:w-10' />
@@ -77,13 +90,13 @@ export const WorkGrid = () => {
             <button
               type='button'
               onClick={goToNextCaseStudy}
-              className='absolute right-4 top-1/2 z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:h-20 md:w-20'
+              className='absolute right-4 top-[62%] z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:top-[60%] md:h-20 md:w-20'
               aria-label='Next case study'
             >
               <ChevronRight className='h-8 w-8 md:h-10 md:w-10' />
             </button>
 
-            <div className='absolute bottom-8 left-1/2 z-20 -translate-x-1/2'>
+            <div className='absolute bottom-14 left-1/2 z-20 -translate-x-1/2 md:bottom-20'>
               <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-primary/90 px-5 py-4 shadow-lg backdrop-blur-xl'>
                 {PROJECTS.map((caseStudy, index) => (
                   <button
@@ -100,18 +113,18 @@ export const WorkGrid = () => {
               </div>
             </div>
 
-            <div className='relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-16 pb-24 pt-12 flex-grow flex items-center'>
-              <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center'>
+            <div className='relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-16 pb-36 pt-4 flex-grow flex items-center md:pb-44'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center min-h-[520px]'>
                 {/* Left Column: Text Content */}
                 <div className='lg:pr-12'>
                   <AnimatePresence mode='wait'>
                     <motion.div
                       key={currentProject.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.4 }}
-                      className='space-y-8'
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className='min-h-[420px] space-y-8'
                     >
                       <div className='flex items-center gap-4 text-accent-bright font-mono text-sm tracking-wider uppercase'>
                         <span>Case Study {currentProject.id}</span>
@@ -122,10 +135,10 @@ export const WorkGrid = () => {
                       </h2>
 
                       <p className='text-2xl md:text-3xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-6 max-w-2xl'>
-                        {overviewContent.content}
+                        {workDescription}
                       </p>
 
-                      <div className='pt-6'>
+                      <div className='flex flex-wrap items-center gap-4 pt-6'>
                         <Link
                           href={`/cs${currentProject.id}`}
                           className='inline-flex items-center gap-3 bg-text-primary text-primary px-9 py-4 rounded-2xl font-semibold text-xl hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group'
@@ -133,14 +146,25 @@ export const WorkGrid = () => {
                           View Case Study
                           <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
                         </Link>
+                        {currentProject.externalUrl && (
+                          <a
+                            href={currentProject.externalUrl}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='inline-flex items-center gap-2 text-xl font-semibold text-text-primary transition-colors hover:text-hover'
+                          >
+                            Visit Site
+                            <ArrowUpRight className='h-6 w-6' />
+                          </a>
+                        )}
                       </div>
                     </motion.div>
                   </AnimatePresence>
                 </div>
 
                 {/* Right Column: Image Space */}
-                <div className='hidden lg:flex justify-center items-center h-full min-h-[400px] relative'>
-                  {overviewContent.image ? (
+                <div className='hidden lg:flex justify-center items-center h-full relative'>
+                  {workImage ? (
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={currentProject.id}
@@ -148,10 +172,10 @@ export const WorkGrid = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.4 }}
-                        className='relative rounded-xl w-full h-full min-h-[400px] overflow-hidden border border-accent-dark/30'
+                        className='relative aspect-video w-full overflow-hidden rounded-xl border border-accent-dark/30'
                       >
                         <Image
-                          src={overviewContent.image}
+                          src={workImage}
                           alt={`${currentProject.title} preview`}
                           fill
                           sizes='(min-width: 1024px) 40vw, 100vw'

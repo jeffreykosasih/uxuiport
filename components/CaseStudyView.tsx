@@ -118,7 +118,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   return (
     <section className='py-32 px-6 min-h-screen flex flex-col relative overflow-hidden bg-primary'>
       <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
-        <div className='mb-8'>
+        <div className='mb-10 w-full max-w-5xl mx-auto'>
           <AnimatePresence mode='wait'>
             <motion.div
               key={`case-nav-${currentProject.id}`}
@@ -126,22 +126,22 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className='flex justify-between items-center'
+              className='flex justify-between items-center gap-6'
             >
               {previousProject ? (
                 <Link
                   href={`/cs${previousProject.id}`}
-                  className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+                  className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/80 transition-colors hover:text-hover md:text-2xl'
                 >
-                  <ArrowLeft className='w-5 h-5' />
+                  <ArrowLeft className='h-6 w-6 md:h-8 md:w-8' />
                   <span>Previous Case</span>
                 </Link>
               ) : (
                 <Link
                   href='/#work'
-                  className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+                  className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/80 transition-colors hover:text-hover md:text-2xl'
                 >
-                  <ArrowLeft className='w-5 h-5' />
+                  <ArrowLeft className='h-6 w-6 md:h-8 md:w-8' />
                   <span>Back to Work</span>
                 </Link>
               )}
@@ -149,13 +149,13 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               {nextProject ? (
                 <Link
                   href={`/cs${nextProject.id}`}
-                  className='inline-flex items-center gap-2 text-text-primary/60 hover:text-hover transition-colors'
+                  className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/80 transition-colors hover:text-hover md:text-2xl'
                 >
                   <span>Next Case</span>
-                  <ArrowRight className='w-5 h-5' />
+                  <ArrowRight className='h-6 w-6 md:h-8 md:w-8' />
                 </Link>
               ) : (
-                <span className='inline-flex items-center gap-2 text-text-primary/40'>
+                <span className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/50 md:text-2xl'>
                   <span>More Case Study on the Way!</span>
                 </span>
               )}

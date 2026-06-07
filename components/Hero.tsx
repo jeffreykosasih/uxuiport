@@ -1,14 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const Hero = () => {
   return (
     <section
       id='home'
-      className='min-h-screen overflow-hidden bg-primary pt-24'
+      className='min-h-screen overflow-hidden bg-primary'
     >
-      <div className='grid min-h-[calc(100vh-6rem)] md:grid-cols-[minmax(0,1fr)_minmax(360px,45vw)]'>
-        <div className='flex flex-col justify-between px-6 py-12 md:px-12 lg:px-20'>
+      <div className='grid min-h-screen md:grid-cols-[minmax(0,1fr)_minmax(360px,45vw)]'>
+        <div className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-12 md:pt-40 lg:px-20'>
           <div className='py-10'>
             <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
               UX/UI Designer
@@ -18,15 +19,36 @@ export const Hero = () => {
             </h1>
           </div>
 
-          <div className='mt-12 flex flex-col gap-8 md:max-w-2xl'>
-            <p className='text-2xl font-light leading-relaxed text-text-primary md:text-3xl'>
-              Explore selected UX/UI projects shaped around clear flows, useful
-              interactions, and polished interface details.
-            </p>
+          <div className='mt-12 flex flex-col gap-8 md:max-w-5xl'>
+            <div className='flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between'>
+              <p className='max-w-2xl text-xl font-light leading-relaxed text-text-primary md:text-2xl'>
+                Designing projects that leaves user with better experience and
+                satisfaction. Projects down below.
+              </p>
+
+              <nav
+                aria-label='Section navigation'
+                className='flex flex-nowrap items-center gap-3 text-base font-bold md:text-lg'
+              >
+                {[
+                  { label: 'Work', href: '#work' },
+                  { label: 'About', href: '#about' },
+                  { label: 'Connect', href: '#contact' },
+                ].map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className='rounded-2xl bg-text-primary px-4 py-2.5 text-primary transition-all hover:-translate-y-1 hover:bg-hover md:px-5 md:py-3'
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
           </div>
         </div>
 
-        <div className='relative min-h-[70vh] md:min-h-[calc(100vh-6rem)]'>
+        <div className='relative min-h-[70vh] md:min-h-screen'>
           <Image
             src='/profile-portrait.jpg'
             alt='Profile picture of Jeffrey Ko'

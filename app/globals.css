@@ -10,6 +10,7 @@
 
   --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), cursive;
 }
 
 :root {
@@ -44,4 +45,22 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   transition: background-color 200ms ease, color 200ms ease;
+}
+
+@keyframes youtube-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.youtube-marquee {
+  animation: youtube-marquee 45s linear infinite;
+}
+
+.youtube-marquee:hover {
+  animation-play-state: paused;
 }
