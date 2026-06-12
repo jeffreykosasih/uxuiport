@@ -21,12 +21,18 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/jeffreyko-logo.png?v=2',
+        url: '/favicon.ico?v=4',
+        sizes: 'any',
+        type: 'image/x-icon',
+      },
+      {
+        url: '/icon.png?v=4',
         type: 'image/png',
+        sizes: '512x512',
       },
     ],
-    shortcut: '/jeffreyko-logo.png?v=2',
-    apple: '/jeffreyko-logo.png?v=2',
+    shortcut: '/favicon.ico?v=4',
+    apple: '/icon.png?v=4',
   },
 };
 
@@ -42,6 +48,9 @@ export default function RootLayout({
       >
         <Navbar />
         <main>{children}</main>
+        <footer className='bg-primary px-6 py-8 text-center text-sm font-semibold text-text-primary/70'>
+          Designed and coded by Jeffrey Ko
+        </footer>
       </body>
     </html>
   );

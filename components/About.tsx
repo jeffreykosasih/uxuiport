@@ -44,7 +44,7 @@ export const About = () => {
     <section id='about' className='py-24 px-6 bg-primary'>
       <div className='max-w-7xl mx-auto grid gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
         <div className='space-y-8'>
-          <div className='font-hand space-y-7 text-4xl italic leading-tight text-accent-bright md:text-5xl'>
+          <div className='font-hand space-y-5 text-3xl italic leading-tight text-accent-bright md:text-4xl'>
             <p>
               Born in Indonesia and barely survived in Australia, I am a designer
               that has a unique edge: I speak the language of developers and

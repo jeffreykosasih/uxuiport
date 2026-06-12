@@ -4,9 +4,6 @@ const videos = [
   'efNGNH3cGmE',
   'o5LIA3vhqWc',
   '03EvVLxxFfc',
-  'coK8kSPl0ls',
-  'IKeugXum-gs',
-  '98ZvTSCLLDA',
 ];
 
 export const YoutubeShowcase = () => {
@@ -18,11 +15,11 @@ export const YoutubeShowcase = () => {
         </p>
       </div>
 
-      <div className='mx-auto grid max-w-[100rem] grid-cols-1 gap-6 md:grid-cols-2'>
+      <div className='mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3'>
         {videos.map((videoId, index) => (
           <div
             key={videoId}
-            className='aspect-video overflow-hidden rounded-3xl bg-text-primary/10 shadow-xl'
+            className='aspect-video overflow-hidden rounded-2xl bg-text-primary/10 shadow-xl'
           >
             <iframe
               className='h-full w-full'

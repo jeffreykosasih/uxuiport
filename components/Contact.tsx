@@ -56,6 +56,7 @@ export const Contact = () => {
       icon: Youtube,
     },
   ];
+  const contactLinks = [...topLinks, ...bottomLinks];
 
   const renderExternalLink = (link: ExternalContactLink) => {
     const Icon = link.icon;
@@ -78,23 +79,16 @@ export const Contact = () => {
   return (
     <section
       id='contact'
-      className='py-14 px-6 bg-primary flex items-center'
+      className='py-24 px-6 bg-primary flex items-center'
     >
-      <div className='max-w-5xl mx-auto w-full py-8'>
-        <div className='mb-7 text-center'>
-          <h2 className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+      <div className='max-w-7xl mx-auto w-full py-8'>
+        <div className='flex flex-col gap-8 md:flex-row md:items-center md:justify-between'>
+          <h2 className='text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
             Connect
           </h2>
-          {copied && (
-            <p className='mt-3 text-sm font-semibold text-hover'>
-              Email copied
-            </p>
-          )}
-        </div>
 
-        <div className='flex flex-col items-center gap-6 md:gap-8'>
-          <div className='flex flex-wrap items-center justify-center gap-6 md:gap-9'>
-            {topLinks.map((link) => {
+          <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
+            {contactLinks.map((link) => {
               const Icon = link.icon;
 
               if ('onClick' in link) {
@@ -115,11 +109,12 @@ export const Contact = () => {
               return renderExternalLink(link);
             })}
           </div>
-
-          <div className='flex flex-wrap items-center justify-center gap-6 md:gap-9'>
-            {bottomLinks.map(renderExternalLink)}
-          </div>
         </div>
+        {copied && (
+          <p className='mt-6 text-lg font-semibold text-hover'>
+            Email copied
+          </p>
+        )}
       </div>
     </section>
   );
