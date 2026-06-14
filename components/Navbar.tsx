@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Moon, Sun } from 'lucide-react';
@@ -54,11 +54,11 @@ export const Navbar = () => {
 
   return (
     <>
-    <LogoButton onClick={() => undefined} />
-    <ThemeToggle
-      isDarkMode={isDarkMode}
-      onToggle={() => setIsDarkMode((current) => !current)}
-    />
+      <LogoButton onClick={() => undefined} />
+      <ThemeToggle
+        isDarkMode={isDarkMode}
+        onToggle={() => setIsDarkMode((current) => !current)}
+      />
     </>
   );
 };

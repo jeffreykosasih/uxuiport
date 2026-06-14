@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import { Caveat, Syne } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
@@ -39,16 +40,16 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang='en'>
       <body
-        className={`${syne.variable} ${caveat.variable} antialiased bg-primary text-text-primary font-light`}
+        className={`${syne.variable} ${caveat.variable} antialiased text-text-primary font-light`}
       >
         <Navbar />
         <main>{children}</main>
-        <footer className='bg-primary px-6 py-8 text-center text-sm font-semibold text-text-primary/70'>
+        <footer className='px-6 py-8 text-center text-sm font-semibold text-text-primary/70'>
           Designed and coded by Jeffrey Ko
         </footer>
       </body>

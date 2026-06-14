@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,7 +5,7 @@ export const Hero = () => {
   return (
     <section
       id='home'
-      className='min-h-screen overflow-hidden bg-primary'
+      className='min-h-screen overflow-hidden'
     >
       <div className='grid min-h-screen md:grid-cols-[minmax(0,1fr)_minmax(360px,45vw)]'>
         <div className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-12 md:pt-40 lg:px-20'>

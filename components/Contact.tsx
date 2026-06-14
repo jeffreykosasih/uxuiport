@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Instagram, Linkedin, Mail, Music2, Youtube } from 'lucide-react';
 
 type ExternalContactLink = {
@@ -79,7 +79,7 @@ export const Contact = () => {
   return (
     <section
       id='contact'
-      className='py-24 px-6 bg-primary flex items-center'
+      className='py-24 px-6 flex items-center'
     >
       <div className='max-w-7xl mx-auto w-full py-8'>
         <div className='flex flex-col gap-8 md:flex-row md:items-center md:justify-between'>

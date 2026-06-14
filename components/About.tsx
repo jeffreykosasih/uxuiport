@@ -1,5 +1,3 @@
-import React from 'react';
-
 type IconProps = {
   className?: string;
 };
@@ -41,7 +39,7 @@ const certificates = [
 
 export const About = () => {
   return (
-    <section id='about' className='py-24 px-6 bg-primary'>
+    <section id='about' className='py-24 px-6'>
       <div className='max-w-7xl mx-auto grid gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
         <div className='space-y-8'>
           <div className='font-hand space-y-5 text-3xl italic leading-tight text-accent-bright md:text-4xl'>

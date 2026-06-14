@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -66,14 +66,14 @@ export const WorkGrid = () => {
   return (
     <section
       id='work'
-      className='py-28 bg-primary min-h-[80vh] flex flex-col relative overflow-hidden'
+      className='py-20 min-h-[80vh] flex flex-col relative overflow-hidden md:py-28'
     >
       <div className='w-full flex-grow flex flex-col relative z-10'>
         {/* Main Content Layout */}
         <div className='flex flex-col flex-grow min-h-[400px]'>
           {/* Content Area - Full Width Dark Background */}
-          <div className='flex-grow relative overflow-hidden min-h-[800px] flex flex-col'>
-            <h2 className='relative z-10 pb-20 pt-16 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-28 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
+          <div className='flex-grow relative overflow-hidden min-h-[760px] flex flex-col md:min-h-[800px]'>
+            <h2 className='relative z-10 pb-10 pt-10 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-28 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
               Work
             </h2>
 
@@ -81,22 +81,22 @@ export const WorkGrid = () => {
             <button
               type='button'
               onClick={goToPreviousCaseStudy}
-              className='absolute left-4 top-[62%] z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:top-[60%] md:h-20 md:w-20'
+              className='absolute left-3 top-[35%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover sm:h-12 sm:w-12 md:left-8 md:top-[60%] md:h-20 md:w-20'
               aria-label='Previous case study'
             >
-              <ChevronLeft className='h-8 w-8 md:h-10 md:w-10' />
+              <ChevronLeft className='h-6 w-6 md:h-10 md:w-10' />
             </button>
 
             <button
               type='button'
               onClick={goToNextCaseStudy}
-              className='absolute right-4 top-[62%] z-20 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:top-[60%] md:h-20 md:w-20'
+              className='absolute right-3 top-[35%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover sm:h-12 sm:w-12 md:right-8 md:top-[60%] md:h-20 md:w-20'
               aria-label='Next case study'
             >
-              <ChevronRight className='h-8 w-8 md:h-10 md:w-10' />
+              <ChevronRight className='h-6 w-6 md:h-10 md:w-10' />
             </button>
 
-            <div className='absolute bottom-14 left-1/2 z-20 -translate-x-1/2 md:bottom-20'>
+            <div className='absolute bottom-10 left-1/2 z-20 -translate-x-1/2 md:bottom-20'>
               <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-primary/90 px-5 py-4 shadow-lg backdrop-blur-xl'>
                 {PROJECTS.map((caseStudy, index) => (
                   <button
@@ -113,8 +113,8 @@ export const WorkGrid = () => {
               </div>
             </div>
 
-            <div className='relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-16 pb-36 pt-4 flex-grow flex items-center md:pb-44'>
-              <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center min-h-[520px]'>
+            <div className='relative z-10 w-full max-w-[1400px] mx-auto px-6 pb-32 pt-0 flex-grow flex items-center sm:px-8 md:px-16 md:pb-44 md:pt-4'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full items-center min-h-[520px] md:gap-12'>
                 {/* Left Column: Text Content */}
                 <div className='lg:pr-12'>
                   <AnimatePresence mode='wait'>
@@ -124,24 +124,24 @@ export const WorkGrid = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className='min-h-[420px] space-y-8'
+                      className='space-y-6 md:min-h-[420px] md:space-y-8'
                     >
                       <div className='flex items-center gap-4 text-accent-bright font-mono text-sm tracking-wider uppercase'>
                         <span>Case Study {currentProject.id}</span>
                       </div>
 
-                      <h2 className='text-5xl md:text-7xl font-bold text-text-primary leading-tight tracking-tight'>
+                      <h2 className='text-4xl md:text-7xl font-bold text-text-primary leading-tight tracking-tight'>
                         {currentProject.title}
                       </h2>
 
-                      <p className='text-2xl md:text-3xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-6 max-w-2xl'>
+                      <p className='text-xl md:text-3xl text-accent-bright leading-relaxed font-light border-l-2 border-accent-bright pl-5 max-w-2xl md:pl-6'>
                         {workDescription}
                       </p>
 
                       <div className='flex flex-wrap items-center gap-4 pt-6'>
                         <Link
                           href={`/cs${currentProject.id}`}
-                          className='inline-flex items-center gap-3 bg-text-primary text-primary px-9 py-4 rounded-2xl font-semibold text-xl hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group'
+                          className='inline-flex items-center gap-3 bg-text-primary text-primary px-7 py-3.5 rounded-2xl font-semibold text-lg hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group md:px-9 md:py-4 md:text-xl'
                         >
                           View Case Study
                           <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
@@ -163,7 +163,7 @@ export const WorkGrid = () => {
                 </div>
 
                 {/* Right Column: Image Space */}
-                <div className='hidden lg:flex justify-center items-center h-full relative'>
+                <div className='flex justify-center items-center h-full relative order-first lg:order-none'>
                   {workImage ? (
                     <AnimatePresence mode='wait'>
                       <motion.div
@@ -172,7 +172,7 @@ export const WorkGrid = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.4 }}
-                        className='relative aspect-video w-full overflow-hidden rounded-xl border border-accent-dark/30'
+                        className='relative aspect-video w-full max-w-[640px] overflow-hidden rounded-xl border border-accent-dark/30 shadow-2xl lg:max-w-none'
                       >
                         <Image
                           src={workImage}

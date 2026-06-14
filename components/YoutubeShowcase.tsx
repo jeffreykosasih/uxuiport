@@ -1,5 +1,3 @@
-import React from 'react';
-
 const videos = [
   'efNGNH3cGmE',
   'o5LIA3vhqWc',
@@ -8,7 +6,7 @@ const videos = [
 
 export const YoutubeShowcase = () => {
   return (
-    <section className='bg-primary px-6 py-20'>
+    <section className='px-6 py-20'>
       <div className='mb-10 px-6 text-center'>
         <p className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
           SILLY VIDEO HIHI

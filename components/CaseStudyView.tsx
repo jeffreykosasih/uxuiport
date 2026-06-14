@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -21,9 +21,10 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
   const isOverviewOnlyCase = projectId === '03' || projectId === '04';
-  const visibleStages = isOverviewOnlyCase
-    ? (['Overview'] as Stage[])
-    : STAGES;
+  const visibleStages = useMemo(
+    () => (isOverviewOnlyCase ? (['Overview'] as Stage[]) : STAGES),
+    [isOverviewOnlyCase],
+  );
   const publishedProjects = PROJECTS;
   const currentPublishedIndex = publishedProjects.findIndex(
     (project) => project.id === currentProject.id,
@@ -84,7 +85,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
       sections.forEach((section) => observer.unobserve(section));
       observer.disconnect();
     };
-  }, [stageIds, isOverviewOnlyCase]);
+  }, [stageIds, visibleStages]);
 
   const jumpToStage = (stage: Stage) => {
     const section = document.getElementById(stageIds[stage]);
@@ -116,7 +117,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   };
 
   return (
-    <section className='py-32 px-6 min-h-screen flex flex-col relative overflow-hidden bg-primary'>
+    <section className='py-28 px-5 min-h-screen flex flex-col relative overflow-hidden sm:px-6 md:py-32'>
       <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
         <div className='mb-10 w-full max-w-5xl mx-auto'>
           <AnimatePresence mode='wait'>
@@ -126,22 +127,22 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className='flex justify-between items-center gap-6'
+              className='flex justify-between items-center gap-4'
             >
               {previousProject ? (
                 <Link
                   href={`/cs${previousProject.id}`}
-                  className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/80 transition-colors hover:text-hover md:text-2xl'
+                  className='inline-flex items-center gap-2 text-sm font-bold text-text-primary/80 transition-colors hover:text-hover sm:text-base md:gap-3 md:text-2xl'
                 >
-                  <ArrowLeft className='h-6 w-6 md:h-8 md:w-8' />
+                  <ArrowLeft className='h-5 w-5 md:h-8 md:w-8' />
                   <span>Previous Case</span>
                 </Link>
               ) : (
                 <Link
                   href='/#work'
-                  className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/80 transition-colors hover:text-hover md:text-2xl'
+                  className='inline-flex items-center gap-2 text-sm font-bold text-text-primary/80 transition-colors hover:text-hover sm:text-base md:gap-3 md:text-2xl'
                 >
-                  <ArrowLeft className='h-6 w-6 md:h-8 md:w-8' />
+                  <ArrowLeft className='h-5 w-5 md:h-8 md:w-8' />
                   <span>Back to Work</span>
                 </Link>
               )}
@@ -149,13 +150,13 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               {nextProject ? (
                 <Link
                   href={`/cs${nextProject.id}`}
-                  className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/80 transition-colors hover:text-hover md:text-2xl'
+                  className='inline-flex items-center gap-2 text-sm font-bold text-text-primary/80 transition-colors hover:text-hover sm:text-base md:gap-3 md:text-2xl'
                 >
                   <span>Next Case</span>
-                  <ArrowRight className='h-6 w-6 md:h-8 md:w-8' />
+                  <ArrowRight className='h-5 w-5 md:h-8 md:w-8' />
                 </Link>
               ) : (
-                <span className='inline-flex items-center gap-3 text-lg font-bold text-text-primary/50 md:text-2xl'>
+                <span className='inline-flex max-w-[9rem] items-center gap-2 text-right text-sm font-bold text-text-primary/50 sm:max-w-none sm:text-base md:gap-3 md:text-2xl'>
                   <span>More Case Study on the Way!</span>
                 </span>
               )}
@@ -202,7 +203,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                 </p>
 
                 {hasImage ? (
-                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-highlight/30 bg-black/10'>
+                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-highlight/30 bg-black/10 shadow-2xl'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={`${stage}-${visibleImage}`}
@@ -228,18 +229,18 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                         <button
                           type='button'
                           onClick={() => goToPrevImage(stage, stageImages.length)}
-                          className='absolute left-4 top-1/2 z-10 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:h-20 md:w-20'
+                          className='absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:h-20 md:w-20'
                           aria-label={`Previous ${stage} image`}
                         >
-                          <ChevronLeft className='h-8 w-8 md:h-10 md:w-10' />
+                          <ChevronLeft className='h-6 w-6 md:h-10 md:w-10' />
                         </button>
                         <button
                           type='button'
                           onClick={() => goToNextImage(stage, stageImages.length)}
-                          className='absolute right-4 top-1/2 z-10 inline-flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:h-20 md:w-20'
+                          className='absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:h-20 md:w-20'
                           aria-label={`Next ${stage} image`}
                         >
-                          <ChevronRight className='h-8 w-8 md:h-10 md:w-10' />
+                          <ChevronRight className='h-6 w-6 md:h-10 md:w-10' />
                         </button>
 
                         <div className='absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2'>
@@ -273,21 +274,21 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
 
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
         {!isOverviewOnlyCase && (
-          <div className='flex justify-center mt-auto fixed bottom-12 left-0 right-0 z-50 pointer-events-none'>
-            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-1.5 rounded-xl shadow-lg flex items-center gap-1 overflow-x-auto max-w-full no-scrollbar pointer-events-auto'>
+          <div className='fixed bottom-5 left-4 right-24 z-50 flex justify-center pointer-events-none md:bottom-12 md:left-0 md:right-0'>
+            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-[2rem] shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap md:rounded-xl'>
               {STAGES.map((stage) => (
                 <button
                   key={stage}
                   onClick={() => jumpToStage(stage)}
                   className={`
-                    relative px-4 py-2 rounded-lg text-sm font-light transition-colors duration-200
+                    relative px-3 py-2 rounded-full text-xs font-light transition-colors duration-200 sm:text-sm md:rounded-lg md:px-4
                     ${activeStage === stage ? 'text-primary' : 'text-text-primary/60 hover:bg-text-primary hover:text-primary'}
                   `}
                 >
                   {activeStage === stage && (
                     <motion.div
                       layoutId='activeTab'
-                      className='absolute inset-0 bg-text-primary rounded-lg'
+                      className='absolute inset-0 bg-text-primary rounded-full md:rounded-lg'
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
