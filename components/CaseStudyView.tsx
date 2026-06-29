@@ -19,7 +19,8 @@ interface CaseStudyViewProps {
 export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
-  const isOverviewOnlyCase = projectId === '03' || projectId === '04';
+  const isOverviewOnlyCase =
+    projectId === '03' || projectId === '04' || projectId === '06';
   const visibleStages = useMemo(
     () => (isOverviewOnlyCase ? (['Overview'] as Stage[]) : STAGES),
     [isOverviewOnlyCase],

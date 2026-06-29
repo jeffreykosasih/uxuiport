@@ -185,10 +185,28 @@ export const PROJECTS: ProjectData[] = [
       },
       Prototype: {
         content: `I built the prototype in Figma, this time with a clearer naming system and a well-organized file structure. Laying out the paths in this way made each part of the design far easier to manage, access, and review.`,
+        image: '/cs_05/cs_05_6.png',
       },
       Test: {
         content: `I tested the concept with five college friends. Four responded positively to the idea, while two suggested adding a widget or notifications to make checking in on the habit list quicker and more convenient.`,
       },
+    },
+  },
+  {
+    id: '06',
+    title: 'Fruitea',
+    externalUrl: 'https://fruitea.vercel.app',
+    workImage: '/cs_06/cs_06_1.png',
+    stages: {
+      Overview: {
+        content: `Fruitea is a streamlined website that helps users learn more about fruits and vegetables, including the benefits and risks of each. Beyond that, it serves as a handy reference for users who want to put together their own dishes.`,
+        image: '/cs_06/cs_06_1.png',
+      },
+      Empathize: { content: '-' },
+      Define: { content: '-' },
+      Ideate: { content: '-' },
+      Prototype: { content: '-' },
+      Test: { content: '-' },
     },
   },
 ];

@@ -25,6 +25,7 @@ export const WorkGrid = () => {
     '03': "3D model with island theme that showcase Jeffrey's IT project.",
     '04': 'Japanese restaurant website concept shaped around a minimal, useful, and polished dining experience.',
     '05': 'A habit app that helps users grow the habits worth keeping and uproot the ones worth breaking, framed through a calm plant metaphor.',
+    '06': 'A streamlined website for learning about fruits and vegetables — their benefits, risks, and how to turn them into dishes.',
   };
   const workDescription =
     workDescriptions[currentProject.id] ?? overviewContent.content;
