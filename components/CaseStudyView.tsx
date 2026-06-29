@@ -94,6 +94,9 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   };
 
   const heroTitle = currentProject.title;
+  const heroTitleWords = heroTitle.split(' ');
+  const heroTitleLead = heroTitleWords.slice(0, -1).join(' ');
+  const heroTitleLast = heroTitleWords[heroTitleWords.length - 1];
 
   const goToNextImage = (stage: Stage, totalImages: number) => {
     setActiveImageByStage((prev) => {
@@ -153,9 +156,31 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                   </Link>
                 )}
 
-                <h1 className='min-w-0 flex-1 text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary md:text-[5rem] lg:text-[7rem]'>
-                  {heroTitle}
-                </h1>
+                {currentProject.externalUrl ? (
+                  <a
+                    href={currentProject.externalUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    title='Visit live site'
+                    aria-label={`${heroTitle} — visit live site`}
+                    className='group min-w-0 flex-1'
+                  >
+                    <h1 className='text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary transition-colors group-hover:text-hover md:text-[5rem] lg:text-[7rem]'>
+                      {heroTitleLead ? `${heroTitleLead} ` : ''}
+                      <span className='relative inline-block whitespace-nowrap pr-[0.55em]'>
+                        {heroTitleLast}
+                        <ArrowUpRight
+                          className='absolute right-0 top-0 h-[0.38em] w-[0.38em] -translate-y-[0.04em] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1'
+                          strokeWidth={2.5}
+                        />
+                      </span>
+                    </h1>
+                  </a>
+                ) : (
+                  <h1 className='min-w-0 flex-1 text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary md:text-[5rem] lg:text-[7rem]'>
+                    {heroTitle}
+                  </h1>
+                )}
 
                 {nextProject ? (
                   <Link
@@ -177,19 +202,6 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                 )}
               </div>
 
-              {currentProject.externalUrl && (
-                <div className='mt-10 flex justify-center'>
-                  <a
-                    href={currentProject.externalUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group inline-flex items-center gap-3 rounded-2xl bg-text-primary px-7 py-3.5 text-lg font-semibold text-primary transition-all hover:-translate-y-1 hover:bg-hover md:px-9 md:py-4 md:text-xl'
-                  >
-                    Visit Site
-                    <ArrowUpRight className='h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:h-6 md:w-6' />
-                  </a>
-                </div>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -325,7 +337,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
         {!isOverviewOnlyCase && (
           <div className='fixed bottom-5 left-4 right-24 z-50 flex justify-center pointer-events-none md:bottom-12 md:left-0 md:right-0'>
-            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/25 p-2 rounded-[2rem] shadow-[0_8px_50px_-4px_var(--site-tab-glow)] flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap md:rounded-xl'>
+            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-[2rem] shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap md:rounded-xl'>
               {STAGES.map((stage) => (
                 <button
                   key={stage}
@@ -352,7 +364,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         <button
           type='button'
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className='fixed bottom-28 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary shadow-[0_8px_40px_-6px_var(--site-tab-glow)] hover:text-hover hover:border-hover/60 transition-colors'
+          className='fixed bottom-28 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 transition-colors'
           aria-label='Back to top'
         >
           <ArrowUp className='h-5 w-5' />

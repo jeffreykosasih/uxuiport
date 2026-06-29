@@ -24,6 +24,7 @@ export const WorkGrid = () => {
     '02': 'Redesign a delivery app for faster tasks flows and easier map navigation.',
     '03': "3D model with island theme that showcase Jeffrey's IT project.",
     '04': 'Japanese restaurant website concept shaped around a minimal, useful, and polished dining experience.',
+    '05': 'A habit app that helps users grow the habits worth keeping and uproot the ones worth breaking, framed through a calm plant metaphor.',
   };
   const workDescription =
     workDescriptions[currentProject.id] ?? overviewContent.content;
@@ -103,15 +104,15 @@ export const WorkGrid = () => {
             </button>
 
             <div className='absolute bottom-10 left-1/2 z-20 -translate-x-1/2 md:bottom-20'>
-              <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-primary/90 px-5 py-4 shadow-[0_8px_50px_-4px_var(--site-tab-glow)] backdrop-blur-xl'>
+              <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-text-primary border border-primary/10 px-5 py-4 shadow-lg'>
                 {PROJECTS.map((caseStudy, index) => (
                   <button
                     key={caseStudy.id}
                     onClick={() => setActiveProjectIndex(index)}
                     className={`h-4 w-8 rounded-full transition-all duration-300 ${
                       activeProjectIndex === index
-                        ? 'bg-text-primary scale-110'
-                        : 'bg-text-primary/45 hover:bg-hover hover:scale-105'
+                        ? 'bg-primary scale-110'
+                        : 'bg-primary/45 hover:bg-hover hover:scale-105'
                     }`}
                     aria-label={`Select Case Study ${index + 1}`}
                   />

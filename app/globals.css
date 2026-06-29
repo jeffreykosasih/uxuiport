@@ -20,8 +20,6 @@
   --site-accent-bright: #d8c7b6;
   --site-highlight: #4a433d;
   --site-hover: #ce2626;
-  /* Dark mode: bright glow so floating elements lift off the dark background. */
-  --site-tab-glow: rgba(241, 226, 209, 0.7);
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(216, 199, 182, 0.13), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(169, 154, 138, 0.08), transparent 30%),
@@ -37,8 +35,6 @@
   --site-accent-bright: #4a433d;
   --site-highlight: #c7b7a6;
   --site-hover: #ce2626;
-  /* Light mode: dark shadow so floating elements read against the light background. */
-  --site-tab-glow: rgba(34, 34, 34, 0.4);
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(74, 67, 61, 0.11), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(122, 112, 103, 0.08), transparent 30%),

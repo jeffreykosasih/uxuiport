@@ -164,7 +164,7 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/cs_05/cs_05_1.png',
     stages: {
       Overview: {
-        content: '-',
+        content: `Rooted is a habit app built to help users make sense of their habit system by separating the habits they want to grow from the ones they want to uproot. Here, "Grow" and "Uproot" play the same role as the more familiar "Build" and "Break", but the gardening language frames the experience with greater clarity and intention. The aim is to turn an often abstract process into something users can picture and act on.`,
         image: '/cs_05/cs_05_1.png',
         images: [
           '/cs_05/cs_05_1.png',
@@ -174,11 +174,21 @@ export const PROJECTS: ProjectData[] = [
           '/cs_05/cs_05_5.png',
         ],
       },
-      Empathize: { content: '-' },
-      Define: { content: '-' },
-      Ideate: { content: '-' },
-      Prototype: { content: '-' },
-      Test: { content: '-' },
+      Empathize: {
+        content: `While exploring existing habit apps, I noticed that many feel overwhelming and stay too general when it comes to identifying habits. Discipline is certainly key to lasting change, yet clarity matters just as much. Without a clear sense of what they are actually working on, users struggle to stay consistent.`,
+      },
+      Define: {
+        content: `To address this, I used a plant theme as an analogy for how each user's habits are categorized. For added clarity, habits are split into two types: those meant to last for the long term and those intended only for a set period. This allows users to reset mentally once a short-term habit is complete, rather than feeling obliged to keep it in the app indefinitely. Throughout, the goal remains the same: to help users identify and improve their habits.`,
+      },
+      Ideate: {
+        content: `Returning to the plant theme, the metaphor makes the system easy to grasp. Building a habit becomes planting and nurturing a seed, while breaking a habit becomes uprooting a weed that has already taken hold. This simple imagery gives every action an intuitive meaning.`,
+      },
+      Prototype: {
+        content: `I built the prototype in Figma, this time with a clearer naming system and a well-organized file structure. Laying out the paths in this way made each part of the design far easier to manage, access, and review.`,
+      },
+      Test: {
+        content: `I tested the concept with five college friends. Four responded positively to the idea, while two suggested adding a widget or notifications to make checking in on the habit list quicker and more convenient.`,
+      },
     },
   },
 ];
