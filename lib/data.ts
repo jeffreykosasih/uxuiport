@@ -158,4 +158,27 @@ export const PROJECTS: ProjectData[] = [
       },
     },
   },
+  {
+    id: '05',
+    title: 'Rooted',
+    workImage: '/cs_05/cs_05_1.png',
+    stages: {
+      Overview: {
+        content: '-',
+        image: '/cs_05/cs_05_1.png',
+        images: [
+          '/cs_05/cs_05_1.png',
+          '/cs_05/cs_05_2.png',
+          '/cs_05/cs_05_3.png',
+          '/cs_05/cs_05_4.png',
+          '/cs_05/cs_05_5.png',
+        ],
+      },
+      Empathize: { content: '-' },
+      Define: { content: '-' },
+      Ideate: { content: '-' },
+      Prototype: { content: '-' },
+      Test: { content: '-' },
+    },
+  },
 ];

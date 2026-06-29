@@ -14,7 +14,7 @@ const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
   <button
     type='button'
     onClick={onToggle}
-    className='fixed bottom-6 right-6 z-[60] inline-flex h-16 w-16 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover'
+    className='fixed bottom-6 right-6 z-[60] inline-flex h-16 w-16 items-center justify-center rounded-full bg-text-primary text-primary shadow-[0_8px_45px_-4px_var(--site-tab-glow)] transition-all hover:scale-105 hover:bg-hover'
     aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     aria-pressed={isDarkMode}
   >

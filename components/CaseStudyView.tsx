@@ -6,9 +6,8 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PROJECTS, STAGES, Stage } from '@/lib/data';
 import {
-  ArrowLeft,
-  ArrowRight,
   ArrowUp,
+  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
@@ -119,63 +118,89 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   return (
     <section className='py-28 px-5 min-h-screen flex flex-col relative overflow-hidden sm:px-6 md:py-32'>
       <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
-        <div className='mb-10 w-full max-w-5xl mx-auto'>
+        <div className='mb-16 w-full max-w-5xl mx-auto md:mb-24'>
           <AnimatePresence mode='wait'>
             <motion.div
-              key={`case-nav-${currentProject.id}`}
-              initial={{ opacity: 0, y: 20 }}
+              key={`case-hero-${currentProject.id}`}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className='flex justify-between items-center gap-4'
+              exit={{ opacity: 0, y: -24 }}
+              transition={{ duration: 0.45 }}
+              className='text-center'
             >
-              {previousProject ? (
-                <Link
-                  href={`/cs${previousProject.id}`}
-                  className='inline-flex items-center gap-2 text-sm font-bold text-text-primary/80 transition-colors hover:text-hover sm:text-base md:gap-3 md:text-2xl'
-                >
-                  <ArrowLeft className='h-5 w-5 md:h-8 md:w-8' />
-                  <span>Previous Case</span>
-                </Link>
-              ) : (
-                <Link
-                  href='/#work'
-                  className='inline-flex items-center gap-2 text-sm font-bold text-text-primary/80 transition-colors hover:text-hover sm:text-base md:gap-3 md:text-2xl'
-                >
-                  <ArrowLeft className='h-5 w-5 md:h-8 md:w-8' />
-                  <span>Back to Work</span>
-                </Link>
-              )}
+              <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+                Case Study {projectId}
+              </p>
 
-              {nextProject ? (
-                <Link
-                  href={`/cs${nextProject.id}`}
-                  className='inline-flex items-center gap-2 text-sm font-bold text-text-primary/80 transition-colors hover:text-hover sm:text-base md:gap-3 md:text-2xl'
-                >
-                  <span>Next Case</span>
-                  <ArrowRight className='h-5 w-5 md:h-8 md:w-8' />
-                </Link>
-              ) : (
-                <span className='inline-flex max-w-[9rem] items-center gap-2 text-right text-sm font-bold text-text-primary/50 sm:max-w-none sm:text-base md:gap-3 md:text-2xl'>
-                  <span>More Case Study on the Way!</span>
-                </span>
+              <div className='flex items-center justify-between gap-3 sm:gap-5'>
+                {previousProject ? (
+                  <Link
+                    href={`/cs${previousProject.id}`}
+                    aria-label={`Previous case: ${previousProject.title}`}
+                    title='Previous Case'
+                    className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
+                  >
+                    <ChevronLeft className='h-6 w-6 md:h-9 md:w-9' />
+                  </Link>
+                ) : (
+                  <Link
+                    href='/#work'
+                    aria-label='Back to Work'
+                    title='Back to Work'
+                    className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
+                  >
+                    <ChevronLeft className='h-6 w-6 md:h-9 md:w-9' />
+                  </Link>
+                )}
+
+                <h1 className='min-w-0 flex-1 text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary md:text-[5rem] lg:text-[7rem]'>
+                  {heroTitle}
+                </h1>
+
+                {nextProject ? (
+                  <Link
+                    href={`/cs${nextProject.id}`}
+                    aria-label={`Next case: ${nextProject.title}`}
+                    title='Next Case'
+                    className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
+                  >
+                    <ChevronRight className='h-6 w-6 md:h-9 md:w-9' />
+                  </Link>
+                ) : (
+                  <span
+                    aria-label='More case studies on the way'
+                    title='More case studies on the way!'
+                    className='inline-flex h-12 w-12 shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-text-primary/20 bg-text-primary/10 text-text-primary/40 md:h-16 md:w-16'
+                  >
+                    <ChevronRight className='h-6 w-6 md:h-9 md:w-9' />
+                  </span>
+                )}
+              </div>
+
+              {currentProject.externalUrl && (
+                <div className='mt-10 flex justify-center'>
+                  <a
+                    href={currentProject.externalUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='group inline-flex items-center gap-3 rounded-2xl bg-text-primary px-7 py-3.5 text-lg font-semibold text-primary transition-all hover:-translate-y-1 hover:bg-hover md:px-9 md:py-4 md:text-xl'
+                  >
+                    Visit Site
+                    <ArrowUpRight className='h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:h-6 md:w-6' />
+                  </a>
+                </div>
               )}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <div className='mb-12 text-center'>
-          <h1 className='text-4xl md:text-6xl font-bold text-text-primary mb-4'>
-            {heroTitle}
-          </h1>
-          <p className='text-xl text-text-primary/60 font-light'>
-            Case Study {projectId}
-          </p>
-        </div>
-
         {/* Unified top-to-bottom stage flow */}
         <div className='flex flex-col grow mb-28 max-w-5xl mx-auto w-full gap-24'>
           {visibleStages.map((stage) => {
+            const stageNumber = String(STAGES.indexOf(stage) + 1).padStart(
+              2,
+              '0',
+            );
             const stageContent = currentProject.stages[stage];
             const stageImages =
               stageContent.images && stageContent.images.length > 0
@@ -194,16 +219,41 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                 id={stageIds[stage]}
                 className='scroll-mt-32 space-y-6'
               >
-                <h2 className='text-3xl md:text-5xl font-semibold text-text-primary leading-tight'>
-                  {stage}
-                </h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className='flex items-center gap-4'
+                >
+                  <span className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+                    {stageNumber}
+                  </span>
+                  <span className='h-px flex-1 bg-highlight/50' />
+                </motion.div>
 
-                <p className='text-lg md:text-xl text-text-primary/80 leading-relaxed font-light'>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className='text-4xl md:text-7xl font-bold uppercase tracking-[-0.05em] text-text-primary leading-[0.85]'
+                >
+                  {stage}
+                </motion.h2>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className='max-w-3xl border-l-2 border-accent-bright pl-5 text-lg md:text-xl text-text-primary/80 leading-relaxed font-light md:pl-6'
+                >
                   {stageContent.content}
-                </p>
+                </motion.p>
 
                 {hasImage ? (
-                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-highlight/30 bg-black/10 shadow-2xl'>
+                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-accent-dark/30 bg-black/10 shadow-2xl'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={`${stage}-${visibleImage}`}
@@ -275,7 +325,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
         {!isOverviewOnlyCase && (
           <div className='fixed bottom-5 left-4 right-24 z-50 flex justify-center pointer-events-none md:bottom-12 md:left-0 md:right-0'>
-            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-[2rem] shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap md:rounded-xl'>
+            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/25 p-2 rounded-[2rem] shadow-[0_8px_50px_-4px_var(--site-tab-glow)] flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap md:rounded-xl'>
               {STAGES.map((stage) => (
                 <button
                   key={stage}
@@ -302,7 +352,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         <button
           type='button'
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className='fixed bottom-28 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 transition-colors'
+          className='fixed bottom-28 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary shadow-[0_8px_40px_-6px_var(--site-tab-glow)] hover:text-hover hover:border-hover/60 transition-colors'
           aria-label='Back to top'
         >
           <ArrowUp className='h-5 w-5' />

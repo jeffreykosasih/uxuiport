@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Instagram, Linkedin, Mail, Music2, Youtube } from 'lucide-react';
 
 type ExternalContactLink = {
@@ -81,7 +82,13 @@ export const Contact = () => {
       id='contact'
       className='py-24 px-6 flex items-center'
     >
-      <div className='max-w-7xl mx-auto w-full py-8'>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className='max-w-7xl mx-auto w-full py-8'
+      >
         <div className='flex flex-col gap-8 md:flex-row md:items-center md:justify-between'>
           <h2 className='text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
             Connect
@@ -115,7 +122,7 @@ export const Contact = () => {
             Email copied
           </p>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export const Hero = () => {
   return (
@@ -8,7 +11,13 @@ export const Hero = () => {
       className='min-h-screen overflow-hidden'
     >
       <div className='grid min-h-screen md:grid-cols-[minmax(0,1fr)_minmax(360px,45vw)]'>
-        <div className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-12 md:pt-40 lg:px-20'>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-12 md:pt-40 lg:px-20'
+        >
           <div className='py-10'>
             <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
               UX/UI Designer
@@ -45,9 +54,15 @@ export const Hero = () => {
               </nav>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className='relative min-h-[70vh] md:min-h-screen'>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          className='relative min-h-[70vh] md:min-h-screen'
+        >
           <Image
             src='/profile-portrait.jpg'
             alt='Profile picture of Jeffrey Ko'
@@ -56,7 +71,7 @@ export const Hero = () => {
             priority
             className='object-cover object-center'
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

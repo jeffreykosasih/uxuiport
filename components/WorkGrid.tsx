@@ -73,9 +73,15 @@ export const WorkGrid = () => {
         <div className='flex flex-col flex-grow min-h-[400px]'>
           {/* Content Area - Full Width Dark Background */}
           <div className='flex-grow relative overflow-hidden min-h-[760px] flex flex-col md:min-h-[800px]'>
-            <h2 className='relative z-10 pb-10 pt-10 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-28 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className='relative z-10 pb-10 pt-10 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-28 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'
+            >
               Work
-            </h2>
+            </motion.h2>
 
             {/* Case Study Controls */}
             <button
@@ -97,7 +103,7 @@ export const WorkGrid = () => {
             </button>
 
             <div className='absolute bottom-10 left-1/2 z-20 -translate-x-1/2 md:bottom-20'>
-              <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-primary/90 px-5 py-4 shadow-lg backdrop-blur-xl'>
+              <div className='inline-flex items-center justify-center gap-3 rounded-2xl bg-primary/90 px-5 py-4 shadow-[0_8px_50px_-4px_var(--site-tab-glow)] backdrop-blur-xl'>
                 {PROJECTS.map((caseStudy, index) => (
                   <button
                     key={caseStudy.id}
@@ -130,7 +136,7 @@ export const WorkGrid = () => {
                         <span>Case Study {currentProject.id}</span>
                       </div>
 
-                      <h2 className='text-4xl md:text-7xl font-bold text-text-primary leading-tight tracking-tight'>
+                      <h2 className='text-4xl md:text-7xl font-bold uppercase text-text-primary leading-tight tracking-tight'>
                         {currentProject.title}
                       </h2>
 

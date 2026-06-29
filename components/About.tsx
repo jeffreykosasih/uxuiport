@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 type IconProps = {
   className?: string;
 };
@@ -40,7 +44,13 @@ const certificates = [
 export const About = () => {
   return (
     <section id='about' className='py-24 px-6'>
-      <div className='max-w-7xl mx-auto grid gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className='max-w-7xl mx-auto grid gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'
+      >
         <div className='space-y-8'>
           <div className='font-hand space-y-5 text-3xl italic leading-tight text-accent-bright md:text-4xl'>
             <p>
@@ -79,7 +89,7 @@ export const About = () => {
             })}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
