@@ -102,7 +102,7 @@ export const PROJECTS: ProjectData[] = [
       Overview: {
         content: `Creating projects is one of the ways to stand out when it comes to job applications. Port Jeffrey was built as a 3D model portfolio using Three.js to showcase Jeffrey's project ideas in a more memorable way. The technical challenge was learning how to use 3D objects while still making the experience clear for users. From a design perspective, the challenge was making the objects easy to explore without confusing the object itself with the meaning behind it. Since the project used an island theme, the strategy was to make each object more obvious by adding names above them and shaping the whole experience like a small digital world.`,
         image: '/pj_03/pj_03_profile.png',
-        video: '/pj_03/rec_jefri.mov',
+        video: '/pj_03/rec_jefri.mp4',
       },
       Empathize: {
         content: `I considered how recruiters and visitors often scan portfolio projects quickly before deciding whether to explore deeper. A regular list of technical projects can be useful, but it may not always show the creator's personality or creative thinking. I wanted Port Jeffrey to create curiosity from the first moment while still making the projects easy to access. The island concept gave the portfolio a stronger sense of identity, but it also introduced the risk of users not knowing what each object meant. This helped me focus on balancing personality with clear interaction cues.`,
@@ -130,7 +130,7 @@ export const PROJECTS: ProjectData[] = [
       Overview: {
         content: `Katsu Seiba is a Japanese restaurant website concept that I wanted to make minimalistic but still useful. Some restaurant websites I found had issues with how they presented themselves and how seamless the booking experience felt. I also noticed that colour choices between fonts and backgrounds can strongly affect whether a restaurant site feels premium, calm, or difficult to read. The challenge was creating a site that looked refined while still helping users find what they need quickly. The final concept focuses on simple navigation, clean presentation, and a smoother path toward booking.`,
         image: '/pj_04/pj_04_home_01.png',
-        video: '/pj_04/rec_katsu.mov',
+        video: '/pj_04/rec_katsu.mp4',
       },
       Empathize: {
         content: `I considered how people use restaurant websites when deciding where to eat or whether to make a booking. Users usually want to understand the food, the atmosphere, the location, and the booking process without searching too much. The issue with many restaurant websites is that they either look attractive but hide practical information, or they show information without creating a strong mood. I wanted Katsu Seiba to feel calm and minimal while still being helpful. This helped guide a design that values presentation and usability equally.`,
@@ -192,7 +192,7 @@ export const PROJECTS: ProjectData[] = [
       Overview: {
         content: `Fruitea is a streamlined website that helps users learn more about fruits and vegetables, including the benefits and risks of each. Beyond that, it serves as a handy reference for users who want to put together their own dishes.`,
         image: '/pj_06/pj_06_1.png',
-        video: '/pj_06/rec_fruitea.mov',
+        video: '/pj_06/rec_fruitea.mp4',
       },
       Empathize: { content: '-' },
       Define: { content: '-' },
