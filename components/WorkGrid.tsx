@@ -85,12 +85,12 @@ export const WorkGrid = () => {
               Work
             </motion.h2>
 
-            {/* Case Study Controls */}
+            {/* Project Controls */}
             <button
               type='button'
               onClick={goToPreviousCaseStudy}
               className='absolute left-3 top-[35%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover sm:h-12 sm:w-12 md:left-8 md:top-[60%] md:h-20 md:w-20'
-              aria-label='Previous case study'
+              aria-label='Previous project'
             >
               <ChevronLeft className='h-6 w-6 md:h-10 md:w-10' />
             </button>
@@ -99,7 +99,7 @@ export const WorkGrid = () => {
               type='button'
               onClick={goToNextCaseStudy}
               className='absolute right-3 top-[35%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover sm:h-12 sm:w-12 md:right-8 md:top-[60%] md:h-20 md:w-20'
-              aria-label='Next case study'
+              aria-label='Next project'
             >
               <ChevronRight className='h-6 w-6 md:h-10 md:w-10' />
             </button>
@@ -115,7 +115,7 @@ export const WorkGrid = () => {
                         ? 'bg-primary scale-110'
                         : 'bg-primary/45 hover:bg-hover hover:scale-105'
                     }`}
-                    aria-label={`Select Case Study ${index + 1}`}
+                    aria-label={`Select Project ${index + 1}`}
                   />
                 ))}
               </div>
@@ -135,7 +135,7 @@ export const WorkGrid = () => {
                       className='space-y-6 md:min-h-[420px] md:space-y-8'
                     >
                       <div className='flex items-center gap-4 text-accent-bright font-mono text-sm tracking-wider uppercase'>
-                        <span>Case Study {currentProject.id}</span>
+                        <span>Project {currentProject.id}</span>
                       </div>
 
                       <h2 className='text-4xl md:text-7xl font-bold uppercase text-text-primary leading-tight tracking-tight'>
@@ -151,7 +151,7 @@ export const WorkGrid = () => {
                           href={`/cs${currentProject.id}`}
                           className='inline-flex items-center gap-3 bg-text-primary text-primary px-7 py-3.5 rounded-2xl font-semibold text-lg hover:bg-hover hover:text-primary transition-all transform hover:scale-105 group md:px-9 md:py-4 md:text-xl'
                         >
-                          View Case Study
+                          More in Details
                           <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
                         </Link>
                         {currentProject.externalUrl && (

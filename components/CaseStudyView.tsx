@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -15,6 +15,53 @@ import {
 interface CaseStudyViewProps {
   projectId: string;
 }
+
+// Autoplays (muted, looping) 3 seconds after the video scrolls into view.
+const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let timer: number | undefined;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            timer = window.setTimeout(() => {
+              void video.play().catch(() => {});
+            }, 3000);
+          } else {
+            if (timer) window.clearTimeout(timer);
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(video);
+
+    return () => {
+      if (timer) window.clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      preload='metadata'
+      className='absolute inset-0 h-full w-full object-cover'
+    />
+  );
+};
 
 export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
@@ -133,7 +180,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               className='text-center'
             >
               <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
-                Case Study {projectId}
+                Project {projectId}
               </p>
 
               <div className='flex items-center justify-between gap-3 sm:gap-5'>
@@ -194,8 +241,8 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                   </Link>
                 ) : (
                   <span
-                    aria-label='More case studies on the way'
-                    title='More case studies on the way!'
+                    aria-label='More projects on the way'
+                    title='More projects on the way!'
                     className='inline-flex h-12 w-12 shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-text-primary/20 bg-text-primary/10 text-text-primary/40 md:h-16 md:w-16'
                   >
                     <ChevronRight className='h-6 w-6 md:h-9 md:w-9' />
@@ -225,6 +272,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
             const activeImageIndex = activeImageByStage[stage] ?? 0;
             const visibleImage = stageImages[activeImageIndex] ?? stageImages[0];
             const isSlider = stageImages.length > 1;
+            const stageVideo = stageContent.video;
 
             return (
               <article
@@ -265,7 +313,11 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                   {stageContent.content}
                 </motion.p>
 
-                {hasImage ? (
+                {stageVideo ? (
+                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-accent-dark/30 bg-black/10 shadow-2xl'>
+                    <StageVideo src={stageVideo} poster={stageContent.image} />
+                  </div>
+                ) : hasImage ? (
                   <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-accent-dark/30 bg-black/10 shadow-2xl'>
                     <AnimatePresence mode='wait'>
                       <motion.div

@@ -22,15 +22,10 @@ const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
   </button>
 );
 
-type LogoButtonProps = {
-  onClick: () => void;
-};
-
-const LogoButton = ({ onClick }: LogoButtonProps) => (
+const LogoButton = () => (
   <Link
     href='/'
     className='fixed top-6 left-6 z-[60] inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
-    onClick={onClick}
     aria-label='Jeffrey Ko home'
   >
     <Image
@@ -54,7 +49,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <LogoButton onClick={() => undefined} />
+      <LogoButton />
       <ThemeToggle
         isDarkMode={isDarkMode}
         onToggle={() => setIsDarkMode((current) => !current)}

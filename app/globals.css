@@ -55,21 +55,3 @@ body {
   font-family: var(--font-sans);
   transition: background 200ms ease, color 200ms ease;
 }
-
-@keyframes youtube-marquee {
-  from {
-    transform: translateX(-50%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
-}
-
-.youtube-marquee {
-  animation: youtube-marquee 45s linear infinite;
-}
-
-.youtube-marquee:hover {
-  animation-play-state: paused;
-}
