@@ -15,7 +15,7 @@ export const YoutubeShowcase = () => {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         className='mb-10 px-6 text-center'
       >
         <p className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
@@ -27,7 +27,7 @@ export const YoutubeShowcase = () => {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
         className='mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3'
       >
         {videos.map((videoId, index) => (

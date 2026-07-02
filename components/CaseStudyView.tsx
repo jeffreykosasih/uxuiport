@@ -186,7 +186,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -24 }}
-              transition={{ duration: 0.45 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
               className='text-center'
             >
               <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
@@ -293,7 +293,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
                   className='flex items-center gap-4'
                 >
                   <span className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
@@ -306,7 +306,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
                   className='text-4xl md:text-7xl font-bold uppercase tracking-[-0.05em] text-text-primary leading-[0.85]'
                 >
                   {stage}
@@ -316,7 +316,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
                   className='max-w-3xl border-l-2 border-accent-bright pl-5 text-lg md:text-xl text-text-primary/80 leading-relaxed font-light md:pl-6'
                 >
                   {stageContent.content}
@@ -334,7 +334,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
                         className='absolute inset-0'
                       >
                         <Image

@@ -15,7 +15,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
           className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-12 md:pt-40 lg:px-20'
         >
           <div className='py-10'>
@@ -60,7 +60,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           className='relative min-h-[70vh] md:min-h-screen'
         >
           <Image

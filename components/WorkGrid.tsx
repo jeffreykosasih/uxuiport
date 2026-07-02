@@ -30,7 +30,7 @@ export const WorkGrid = () => {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         className='pb-10 pt-10 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-24 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'
       >
         Work
@@ -40,7 +40,7 @@ export const WorkGrid = () => {
         initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         className='mx-auto grid max-w-[1400px] gap-10 px-6 sm:px-8 md:grid-cols-2 md:items-center md:gap-16 md:px-16'
       >
         {/* Interactive project index */}
@@ -162,7 +162,7 @@ export const WorkGrid = () => {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
               className='mt-8 max-w-xl border-l-2 border-accent-bright pl-5 md:pl-6 text-xl md:text-2xl text-accent-bright font-light leading-relaxed'
             >
               {activeDescription}
