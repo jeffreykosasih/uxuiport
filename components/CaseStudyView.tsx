@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PROJECTS, STAGES, Stage } from '@/lib/data';
 import {
+  ArrowLeft,
   ArrowUp,
   ArrowUpRight,
   ChevronLeft,
@@ -169,6 +170,15 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
   return (
     <section className='py-28 px-5 min-h-screen flex flex-col relative overflow-hidden sm:px-6 md:py-32'>
       <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
+        <div className='mb-8 w-full max-w-5xl mx-auto'>
+          <Link
+            href='/#work'
+            className='inline-flex items-center gap-2 font-mono text-sm font-bold uppercase tracking-[0.2em] text-text-primary/70 transition-colors hover:text-hover'
+          >
+            <ArrowLeft className='h-4 w-4' />
+            Back to Work
+          </Link>
+        </div>
         <div className='mb-16 w-full max-w-5xl mx-auto md:mb-24'>
           <AnimatePresence mode='wait'>
             <motion.div
@@ -187,21 +197,20 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                 {previousProject ? (
                   <Link
                     href={`/cs${previousProject.id}`}
-                    aria-label={`Previous case: ${previousProject.title}`}
-                    title='Previous Case'
+                    aria-label={`Previous project: ${previousProject.title}`}
+                    title='Previous project'
                     className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
                   >
                     <ChevronLeft className='h-6 w-6 md:h-9 md:w-9' />
                   </Link>
                 ) : (
-                  <Link
-                    href='/#work'
-                    aria-label='Back to Work'
-                    title='Back to Work'
-                    className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
+                  <span
+                    aria-label='This is the first project'
+                    title='First project'
+                    className='inline-flex h-12 w-12 shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-text-primary/20 bg-text-primary/10 text-text-primary/40 md:h-16 md:w-16'
                   >
                     <ChevronLeft className='h-6 w-6 md:h-9 md:w-9' />
-                  </Link>
+                  </span>
                 )}
 
                 {currentProject.externalUrl ? (
@@ -233,8 +242,8 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
                 {nextProject ? (
                   <Link
                     href={`/cs${nextProject.id}`}
-                    aria-label={`Next case: ${nextProject.title}`}
-                    title='Next Case'
+                    aria-label={`Next project: ${nextProject.title}`}
+                    title='Next project'
                     className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
                   >
                     <ChevronRight className='h-6 w-6 md:h-9 md:w-9' />
