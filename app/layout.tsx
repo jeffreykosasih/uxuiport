@@ -17,8 +17,29 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: 'Jeffrey Ko',
-  description: 'Jeffrey Ko Portfolio Site',
+  metadataBase: new URL('https://www.jeffreyko.com'),
+  title: {
+    default: 'Jeffrey Ko — UX/UI Designer',
+    template: '%s — Jeffrey Ko',
+  },
+  description:
+    'Portfolio of Jeffrey Ko, a UX/UI designer crafting digital products that are easy to use and a pleasure to come back to.',
+  openGraph: {
+    title: 'Jeffrey Ko — UX/UI Designer',
+    description:
+      'UX/UI designer crafting digital products that are easy to use and a pleasure to come back to.',
+    url: 'https://www.jeffreyko.com',
+    siteName: 'Jeffrey Ko',
+    type: 'website',
+    images: [{ url: '/profile-portrait.jpg', alt: 'Jeffrey Ko — UX/UI Designer' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Jeffrey Ko — UX/UI Designer',
+    description:
+      'UX/UI designer crafting digital products that are easy to use and a pleasure to come back to.',
+    images: ['/profile-portrait.jpg'],
+  },
   icons: {
     icon: [
       {

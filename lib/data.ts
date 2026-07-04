@@ -43,7 +43,7 @@ export const PROJECTS: ProjectData[] = [
       },
       Empathize: {
         content: `I started by approaching five gym members for a small conversation about their experience using the app. The conversations went smoothly because they shared similar concerns about style consistency and how the app separates membership access from non-member information. This helped me understand that the issue was not only visual, but also structural. Members needed a clearer way to understand what belonged to their access level and what information was available to everyone. These insights became the foundation for improving the navigation and content structure.`,
-        image: '/pj_01/pj_01_emphatize.png',
+        image: '/pj_01/pj_01_empathize.png',
       },
       Define: {
         content: `After understanding the issue, I defined the problem around access levels, content placement, and feature clarity. I needed to decide which features belonged to each membership level and which features should stay open to everyone. For example, general content such as news, shop information, and updates should be easy to access without confusing it with member-only perks. This helped separate the app into clearer sections with a stronger purpose for each page. The design direction became focused on making access easier to understand while keeping the experience consistent.`,
@@ -75,7 +75,7 @@ export const PROJECTS: ProjectData[] = [
       },
       Empathize: {
         content: `Each driver is assigned to different suburbs, but one issue with the app was that accessing those suburbs took more time than it should. Drivers also became confused when a customer required a delivery photo because the interface did not clearly show whether the photo belonged to the correct address. This created uncertainty during a task that should feel direct and reliable. I focused on understanding where drivers slowed down, where confusion happened, and what information needed to be visible at the right moment. These findings showed that the app needed clearer structure, better status feedback, and more confidence around proof of delivery.`,
-        image: '/pj_02/pj_02_emphatize.png',
+        image: '/pj_02/pj_02_empathize.png',
       },
       Define: {
         content: `To define the problem, I needed to understand what drivers struggled to access, where they needed to go, what step they had to complete, and what they needed to deliver. The app had to support drivers before and during the route instead of making them search for basic information. I defined the main opportunity as improving task clarity once the access and navigation issues were solved. This meant identifying which features could reduce repeated effort and which features could give drivers more confidence. The design direction became focused on faster access, clearer instructions, and better delivery visibility.`,

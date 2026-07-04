@@ -55,7 +55,7 @@ export const About = () => {
           <div className='font-hand space-y-5 text-3xl italic leading-tight text-accent-bright md:text-4xl'>
             <p>
               Born in Indonesia and barely survived in Australia, I am a designer
-              that has a unique edge: I speak the language of developers and
+              who has a unique edge: I speak the language of developers and
               product managers.
             </p>
             <p>

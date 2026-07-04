@@ -2,12 +2,21 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, Mail, Music2, Youtube } from 'lucide-react';
+import {
+  FileDown,
+  Instagram,
+  Linkedin,
+  Mail,
+  Music2,
+  Youtube,
+} from 'lucide-react';
 
-type ExternalContactLink = {
+type ContactItem = {
   label: string;
-  href: string;
   icon: typeof Mail;
+  href?: string;
+  onClick?: () => void;
+  download?: boolean;
 };
 
 export const Contact = () => {
@@ -20,27 +29,26 @@ export const Contact = () => {
     window.setTimeout(() => setCopied(false), 1600);
   };
 
-  const topLinks: Array<
-    | ExternalContactLink
-    | {
-        label: string;
-        onClick: () => Promise<void>;
-        icon: typeof Mail;
-      }
-  > = [
+  const workLinks: ContactItem[] = [
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/jeffreykosasih/',
+      icon: Linkedin,
+    },
     {
       label: 'Email',
       onClick: copyEmail,
       icon: Mail,
     },
     {
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/jeffreykosasih/',
-      icon: Linkedin,
+      label: 'Download resume',
+      href: '/Jeffrey-Ko-UXUI-Designer-Resume.pdf',
+      download: true,
+      icon: FileDown,
     },
   ];
 
-  const bottomLinks: ExternalContactLink[] = [
+  const socialLinks: ContactItem[] = [
     {
       label: 'Instagram',
       href: 'https://instagram.com/sijefriii',
@@ -57,31 +65,61 @@ export const Contact = () => {
       icon: Youtube,
     },
   ];
-  const contactLinks = [...topLinks, ...bottomLinks];
 
-  const renderExternalLink = (link: ExternalContactLink) => {
-    const Icon = link.icon;
+  const itemClass =
+    'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-hover';
+
+  const renderItem = (item: ContactItem) => {
+    const Icon = item.icon;
+    const iconEl = <Icon className='h-10 w-10 md:h-12 md:w-12' />;
+
+    if (item.onClick) {
+      return (
+        <button
+          key={item.label}
+          type='button'
+          onClick={item.onClick}
+          aria-label={item.label}
+          title={item.label}
+          className={itemClass}
+        >
+          {iconEl}
+        </button>
+      );
+    }
+
+    if (item.download) {
+      return (
+        <a
+          key={item.label}
+          href={item.href}
+          download
+          aria-label={item.label}
+          title={item.label}
+          className={itemClass}
+        >
+          {iconEl}
+        </a>
+      );
+    }
 
     return (
       <a
-        key={link.label}
-        href={link.href}
+        key={item.label}
+        href={item.href}
         target='_blank'
         rel='noopener noreferrer'
-        aria-label={link.label}
-        title={link.label}
-        className='inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-hover'
+        aria-label={item.label}
+        title={item.label}
+        className={itemClass}
       >
-        <Icon className='h-10 w-10 md:h-12 md:w-12' />
+        {iconEl}
       </a>
     );
   };
 
   return (
-    <section
-      id='contact'
-      className='py-24 px-6 flex items-center'
-    >
+    <section id='contact' className='py-24 px-6 flex items-center'>
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -94,31 +132,17 @@ export const Contact = () => {
             Connect
           </h2>
 
-          <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
-            {contactLinks.map((link) => {
-              const Icon = link.icon;
-
-              if ('onClick' in link) {
-                return (
-                  <button
-                    key={link.label}
-                    type='button'
-                    onClick={link.onClick}
-                    aria-label={link.label}
-                    title={link.label}
-                    className='inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-hover'
-                  >
-                    <Icon className='h-10 w-10 md:h-12 md:w-12' />
-                  </button>
-                );
-              }
-
-              return renderExternalLink(link);
-            })}
+          <div className='flex flex-col gap-6 md:items-end'>
+            <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
+              {workLinks.map(renderItem)}
+            </div>
+            <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
+              {socialLinks.map(renderItem)}
+            </div>
           </div>
         </div>
         {copied && (
-          <p className='mt-6 text-lg font-semibold text-hover'>
+          <p className='mt-6 text-lg font-semibold text-hover md:text-right'>
             Email copied
           </p>
         )}

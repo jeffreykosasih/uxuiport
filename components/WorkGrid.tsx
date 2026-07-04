@@ -8,10 +8,10 @@ import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
 
 const workDescriptions: Record<string, string> = {
-  '01': 'Redesign a fitness app that strengthen brand identity and style consistency along with clearer navigation.',
-  '02': 'Redesign a delivery app for faster tasks flows and easier map navigation.',
-  '03': "3D model with island theme that showcase Jeffrey's IT project.",
-  '04': 'Japanese restaurant website concept shaped around a minimal, useful, and polished dining experience.',
+  '01': "Restructured Revo's fitness app so members instantly see what their plan includes, with a consistent visual system and clearer navigation.",
+  '02': 'Streamlined a newspaper-delivery app so drivers finish routes faster, with clearer maps and reliable proof-of-delivery.',
+  '03': 'An explorable 3D island, built with Three.js, that turns a set of IT projects into a space you can wander through.',
+  '04': 'A minimal Japanese-restaurant site concept that makes browsing the menu and booking a table feel effortless.',
   '05': 'A habit app that helps users grow the habits worth keeping and uproot the ones worth breaking, framed through a calm plant metaphor.',
   '06': 'A streamlined website for learning about fruits and vegetables — their benefits, risks, and how to turn them into dishes.',
 };

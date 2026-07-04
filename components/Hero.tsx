@@ -30,8 +30,8 @@ export const Hero = () => {
           <div className='mt-12 flex flex-col gap-8 md:max-w-5xl'>
             <div className='flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between'>
               <p className='max-w-2xl text-xl font-light leading-relaxed text-text-primary md:text-2xl'>
-                Designing projects that leaves user with better experience and
-                satisfaction. Projects down below.
+                I design digital products that are easy to use and a pleasure
+                to come back to.
               </p>
 
               <nav

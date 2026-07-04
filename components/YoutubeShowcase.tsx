@@ -19,7 +19,10 @@ export const YoutubeShowcase = () => {
         className='mb-10 px-6 text-center'
       >
         <p className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
-          SILLY VIDEO HIHI
+          Beyond design
+        </p>
+        <p className='mt-3 text-lg font-light text-text-primary/70'>
+          Live looping music I make on the spot.
         </p>
       </motion.div>
 
