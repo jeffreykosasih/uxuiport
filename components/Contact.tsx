@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  FileDown,
+  FileText,
   Instagram,
   Linkedin,
   Mail,
@@ -16,7 +16,6 @@ type ContactItem = {
   icon: typeof Mail;
   href?: string;
   onClick?: () => void;
-  download?: boolean;
 };
 
 export const Contact = () => {
@@ -41,10 +40,9 @@ export const Contact = () => {
       icon: Mail,
     },
     {
-      label: 'Download resume',
+      label: 'Resume',
       href: '/Jeffrey-Ko-UXUI-Designer-Resume.pdf',
-      download: true,
-      icon: FileDown,
+      icon: FileText,
     },
   ];
 
@@ -85,21 +83,6 @@ export const Contact = () => {
         >
           {iconEl}
         </button>
-      );
-    }
-
-    if (item.download) {
-      return (
-        <a
-          key={item.label}
-          href={item.href}
-          download
-          aria-label={item.label}
-          title={item.label}
-          className={itemClass}
-        >
-          {iconEl}
-        </a>
       );
     }
 
