@@ -14,6 +14,7 @@ const workDescriptions: Record<string, string> = {
   '04': 'A minimal Japanese-restaurant site concept that makes browsing the menu and booking a table feel effortless.',
   '05': 'A habit app that helps users grow the habits worth keeping and uproot the ones worth breaking, framed through a calm plant metaphor.',
   '06': 'A streamlined website for learning about fruits and vegetables — their benefits, risks, and how to turn them into dishes.',
+  '07': 'One app that pays for street parking across every operator, so drivers stop installing a new parking app for every street.',
 };
 
 export const WorkGrid = () => {

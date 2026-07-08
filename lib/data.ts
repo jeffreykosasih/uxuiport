@@ -201,4 +201,33 @@ export const PROJECTS: ProjectData[] = [
       Test: { content: '-' },
     },
   },
+  {
+    id: '07',
+    title: 'Peter Parking',
+    workImage: '/pj_07/card.png',
+    stages: {
+      Overview: {
+        content: `Peter Parking started from a simple frustration: paying for street parking usually means installing whichever app the operator of that particular street uses. Depending on where you park, you might need CarePark, EasyPark, PayStay, Secure Parking, or Wilson — each with its own account, its own card details, and its own interface to learn. I wanted to figure out an app that lets people pay for parking without having to install many parking apps. Peter Parking works as a single layer on top of all of them, so you set up once and simply park, while the app handles whichever operator runs the zone you are in.`,
+        image: '/pj_07/pj_07_1.png',
+      },
+      Empathize: {
+        content: `To keep the problem grounded, I built the design around two personas based on the frustrations I kept hearing. Maya, a 28-year-old nurse, drives to a different hospital or clinic almost every shift and already has four parking apps on her phone; she regularly sits in her car re-entering card details while her shift has already started, and she has abandoned paid spots just to avoid downloading a fifth app. David, a 45-year-old sales rep, visits several suburbs a day and has been fined twice because his session was running in the wrong operator's app for the zone he was actually parked in. Both of them wanted the same thing: one place to set up payment, and confidence that the meter counting down is the right one.`,
+      },
+      Define: {
+        content: `The problem came down to repetition and doubt. Every operator asks for the same two things — your plate and your card — yet drivers are forced to hand them over again and again across different apps, and they are never fully sure the session they started belongs to the zone they parked in. I defined the goal in one line: every meter, every street, one app. Setup should take a minute and ask for nothing more than the car and the payment method, and from that point on the app should carry the burden of knowing which operator to pay. This framing kept every later decision honest, because any screen that made the driver think about the operator was a screen that failed the goal.`,
+        image: '/pj_07/pj_07_3.png',
+      },
+      Ideate: {
+        content: `The hardest interaction to explore was confirming where the driver is actually parked, since paying the wrong zone was the exact problem David kept running into. I landed on a flow where GPS suggests the nearest zones, but the driver can fix the choice by matching the number printed on the pole sign — a physical detail every parking spot already has. From there, the saved card carries through the pay step, so starting a session takes a couple of taps: confirm the zone, confirm the card, choose how long. The zone decides which operator Peter pays behind the scenes, and the driver never has to know or care.`,
+        image: '/pj_07/pj_07_2.png',
+      },
+      Prototype: {
+        content: `I built the full flow in Figma, from the welcome screen through the one-minute setup, finding and fixing a zone, and running a live session. One detail I enjoyed designing was the session screen: because Peter pays different operators behind the scenes, the running timer adopts the colour and mark of whichever operator owns the zone — Wilson red, EasyPark purple, PayStay green. It is a small piece of feedback that quietly answers the driver's biggest doubt, showing exactly who is charging them without ever making them open another app. The file structure kept every operator variant next to its base screen, which made the system easy to extend.`,
+        image: '/pj_07/pj_07_4.png',
+      },
+      Test: {
+        content: `I walked friends who drive daily through the prototype and asked them to park, pay, and extend a session. The setup step landed immediately — plate and card, done — and the pole-sign zone check made people feel noticeably safer than picking from a GPS list alone. The operator-branded session screens got the strongest reaction, because testers could tell at a glance that the right company was being paid. The main suggestion was a reminder before time runs out, which I built into setup as a default warning ten minutes before every session ends. The feedback confirmed the core idea: people do not want another parking app, they want to stop thinking about parking apps entirely.`,
+      },
+    },
+  },
 ];

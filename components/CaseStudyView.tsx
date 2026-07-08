@@ -399,20 +399,20 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
         {!isOverviewOnlyCase && (
           <div className='fixed bottom-5 left-4 right-24 z-50 flex justify-center pointer-events-none md:bottom-12 md:left-0 md:right-0'>
-            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-[2rem] shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap md:rounded-xl'>
+            <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-xl shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap'>
               {STAGES.map((stage) => (
                 <button
                   key={stage}
                   onClick={() => jumpToStage(stage)}
                   className={`
-                    relative px-3 py-2 rounded-full text-xs font-light transition-colors duration-200 sm:text-sm md:rounded-lg md:px-4
+                    relative px-3 py-2 rounded-lg text-xs font-light transition-colors duration-200 sm:text-sm md:px-4
                     ${activeStage === stage ? 'text-primary' : 'text-text-primary/60 hover:bg-text-primary hover:text-primary'}
                   `}
                 >
                   {activeStage === stage && (
                     <motion.div
                       layoutId='activeTab'
-                      className='absolute inset-0 bg-text-primary rounded-full md:rounded-lg'
+                      className='absolute inset-0 bg-text-primary rounded-lg'
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
