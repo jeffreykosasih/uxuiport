@@ -60,9 +60,9 @@ export const WorkGrid = () => {
               >
                 <div className='flex items-center gap-4 py-5 md:py-6'>
                   <Link
-                    href={`/cs${project.id}`}
+                    href={`/pj${project.id}`}
                     onFocus={() => setActiveIndex(index)}
-                    aria-label={`${project.title} case study`}
+                    aria-label={`${project.title} project`}
                     className='flex flex-1 items-baseline gap-4 md:gap-6'
                   >
                     <span
@@ -101,7 +101,7 @@ export const WorkGrid = () => {
 
                 {/* Inline preview on mobile (no hover available) */}
                 <Link
-                  href={`/cs${project.id}`}
+                  href={`/pj${project.id}`}
                   aria-hidden='true'
                   tabIndex={-1}
                   className='mt-4 block md:hidden'
@@ -129,8 +129,8 @@ export const WorkGrid = () => {
         {/* Shared preview screen (desktop) */}
         <div className='hidden md:block'>
           <Link
-            href={`/cs${activeProject.id}`}
-            aria-label={`${activeProject.title} case study`}
+            href={`/pj${activeProject.id}`}
+            aria-label={`${activeProject.title} project`}
             className='block'
           >
             <div className='relative aspect-video w-full overflow-hidden rounded-2xl border border-accent-dark/30 bg-black/10 shadow-2xl'>

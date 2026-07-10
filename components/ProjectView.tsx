@@ -13,7 +13,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
-interface CaseStudyViewProps {
+interface ProjectViewProps {
   projectId: string;
 }
 
@@ -64,14 +64,14 @@ const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
   );
 };
 
-export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
+export const ProjectView = ({ projectId }: ProjectViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
-  const isOverviewOnlyCase =
+  const isOverviewOnlyProject =
     projectId === '03' || projectId === '04' || projectId === '06';
   const visibleStages = useMemo(
-    () => (isOverviewOnlyCase ? (['Overview'] as Stage[]) : STAGES),
-    [isOverviewOnlyCase],
+    () => (isOverviewOnlyProject ? (['Overview'] as Stage[]) : STAGES),
+    [isOverviewOnlyProject],
   );
   const publishedProjects = PROJECTS;
   const currentPublishedIndex = publishedProjects.findIndex(
@@ -182,7 +182,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         <div className='mb-16 w-full max-w-5xl mx-auto md:mb-24'>
           <AnimatePresence mode='wait'>
             <motion.div
-              key={`case-hero-${currentProject.id}`}
+              key={`project-hero-${currentProject.id}`}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -24 }}
@@ -196,7 +196,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
               <div className='flex items-center justify-between gap-3 sm:gap-5'>
                 {previousProject ? (
                   <Link
-                    href={`/cs${previousProject.id}`}
+                    href={`/pj${previousProject.id}`}
                     aria-label={`Previous project: ${previousProject.title}`}
                     title='Previous project'
                     className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
@@ -241,7 +241,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
 
                 {nextProject ? (
                   <Link
-                    href={`/cs${nextProject.id}`}
+                    href={`/pj${nextProject.id}`}
                     aria-label={`Next project: ${nextProject.title}`}
                     title='Next project'
                     className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
@@ -397,7 +397,7 @@ export const CaseStudyView = ({ projectId }: CaseStudyViewProps) => {
         </div>
 
         {/* Horizontal Navigation (Pill Shape) - Bottom */}
-        {!isOverviewOnlyCase && (
+        {!isOverviewOnlyProject && (
           <div className='fixed bottom-5 left-4 right-24 z-50 flex justify-center pointer-events-none md:bottom-12 md:left-0 md:right-0'>
             <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-xl shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap'>
               {STAGES.map((stage) => (
