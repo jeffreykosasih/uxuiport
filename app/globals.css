@@ -19,7 +19,8 @@
   --site-accent-dark: #a99a8a;
   --site-accent-bright: #d8c7b6;
   --site-highlight: #4a433d;
-  --site-hover: #ce2626;
+  /* Yellow autumn leaves from the profile photo, brightened for AAA (7.19:1) on #222222 */
+  --site-hover: #d2a93f;
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(216, 199, 182, 0.13), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(169, 154, 138, 0.08), transparent 30%),
@@ -34,7 +35,8 @@
   --site-accent-dark: #7a7067;
   --site-accent-bright: #4a433d;
   --site-highlight: #c7b7a6;
-  --site-hover: #ce2626;
+  /* Brown sweater from the profile photo, AAA (7.38:1) on #f1e2d1 */
+  --site-hover: #653b3a;
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(74, 67, 61, 0.11), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(122, 112, 103, 0.08), transparent 30%),

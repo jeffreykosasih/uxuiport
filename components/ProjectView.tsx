@@ -11,56 +11,55 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
+  Play,
 } from 'lucide-react';
 
 interface ProjectViewProps {
   projectId: string;
 }
 
-// Autoplays (muted, looping) 3 seconds after the video scrolls into view.
+// Starts paused; the user plays it via the overlay button (click again to pause).
 const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {
+  const togglePlayback = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    let timer: number | undefined;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            timer = window.setTimeout(() => {
-              void video.play().catch(() => {});
-            }, 3000);
-          } else {
-            if (timer) window.clearTimeout(timer);
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.4 },
-    );
-
-    observer.observe(video);
-
-    return () => {
-      if (timer) window.clearTimeout(timer);
-      observer.disconnect();
-    };
-  }, []);
+    if (video.paused) {
+      void video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  };
 
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      preload='metadata'
-      className='absolute inset-0 h-full w-full object-cover'
-    />
+    <>
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        muted
+        loop
+        playsInline
+        preload='metadata'
+        onClick={togglePlayback}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        className='absolute inset-0 h-full w-full cursor-pointer object-cover'
+      />
+      {!isPlaying && (
+        <button
+          type='button'
+          onClick={togglePlayback}
+          aria-label='Play video'
+          className='absolute left-1/2 top-1/2 z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover'
+        >
+          <Play className='h-10 w-10 md:h-14 md:w-14' fill='currentColor' />
+        </button>
+      )}
+    </>
   );
 };
 
@@ -199,17 +198,17 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                     href={`/pj${previousProject.id}`}
                     aria-label={`Previous project: ${previousProject.title}`}
                     title='Previous project'
-                    className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
+                    className='inline-flex shrink-0 items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover'
                   >
-                    <ChevronLeft className='h-6 w-6 md:h-9 md:w-9' />
+                    <ChevronLeft className='h-6 w-6 md:h-8 md:w-8' />
                   </Link>
                 ) : (
                   <span
                     aria-label='This is the first project'
                     title='First project'
-                    className='inline-flex h-12 w-12 shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-text-primary/20 bg-text-primary/10 text-text-primary/40 md:h-16 md:w-16'
+                    className='inline-flex shrink-0 cursor-not-allowed items-center justify-center text-text-primary/30'
                   >
-                    <ChevronLeft className='h-6 w-6 md:h-9 md:w-9' />
+                    <ChevronLeft className='h-6 w-6 md:h-8 md:w-8' />
                   </span>
                 )}
 
@@ -244,17 +243,17 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                     href={`/pj${nextProject.id}`}
                     aria-label={`Next project: ${nextProject.title}`}
                     title='Next project'
-                    className='inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:h-16 md:w-16'
+                    className='inline-flex shrink-0 items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover'
                   >
-                    <ChevronRight className='h-6 w-6 md:h-9 md:w-9' />
+                    <ChevronRight className='h-6 w-6 md:h-8 md:w-8' />
                   </Link>
                 ) : (
                   <span
                     aria-label='More projects on the way'
                     title='More projects on the way!'
-                    className='inline-flex h-12 w-12 shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-text-primary/20 bg-text-primary/10 text-text-primary/40 md:h-16 md:w-16'
+                    className='inline-flex shrink-0 cursor-not-allowed items-center justify-center text-text-primary/30'
                   >
-                    <ChevronRight className='h-6 w-6 md:h-9 md:w-9' />
+                    <ChevronRight className='h-6 w-6 md:h-8 md:w-8' />
                   </span>
                 )}
               </div>
@@ -353,18 +352,18 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                         <button
                           type='button'
                           onClick={() => goToPrevImage(stage, stageImages.length)}
-                          className='absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:left-8 md:h-20 md:w-20'
+                          className='absolute left-3 top-1/2 z-10 inline-flex -translate-y-1/2 items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover md:left-8'
                           aria-label={`Previous ${stage} image`}
                         >
-                          <ChevronLeft className='h-6 w-6 md:h-10 md:w-10' />
+                          <ChevronLeft className='h-6 w-6 md:h-8 md:w-8' />
                         </button>
                         <button
                           type='button'
                           onClick={() => goToNextImage(stage, stageImages.length)}
-                          className='absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover md:right-8 md:h-20 md:w-20'
+                          className='absolute right-3 top-1/2 z-10 inline-flex -translate-y-1/2 items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover md:right-8'
                           aria-label={`Next ${stage} image`}
                         >
-                          <ChevronRight className='h-6 w-6 md:h-10 md:w-10' />
+                          <ChevronRight className='h-6 w-6 md:h-8 md:w-8' />
                         </button>
 
                         <div className='absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2'>
@@ -426,10 +425,10 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
         <button
           type='button'
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className='fixed bottom-28 right-6 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-text-primary/30 bg-primary/85 text-text-primary hover:text-hover hover:border-hover/60 transition-colors'
+          className='fixed bottom-28 right-6 z-50 inline-flex items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover'
           aria-label='Back to top'
         >
-          <ArrowUp className='h-5 w-5' />
+          <ArrowUp className='h-6 w-6 md:h-8 md:w-8' />
         </button>
       </div>
       {/* Background Decor */}

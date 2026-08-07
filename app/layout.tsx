@@ -64,7 +64,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' data-scroll-behavior='smooth'>
       <body
         className={`${syne.variable} ${caveat.variable} antialiased text-text-primary font-light`}
       >

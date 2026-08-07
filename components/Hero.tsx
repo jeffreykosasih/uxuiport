@@ -19,7 +19,7 @@ export const Hero = () => {
           className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-12 md:pt-40 lg:px-20'
         >
           <div className='py-10'>
-            <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+            <p className='mb-6 font-mono text-base uppercase tracking-[0.35em] text-accent-dark md:text-lg'>
               UX/UI Designer
             </p>
             <h1 className='max-w-4xl text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>

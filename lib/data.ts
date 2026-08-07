@@ -96,7 +96,7 @@ export const PROJECTS: ProjectData[] = [
   {
     id: '03',
     title: 'Port Jeffrey',
-    externalUrl: 'https://www.jefri.dev',
+    externalUrl: 'https://portjeffrey.vercel.app/',
     workImage: '/pj_03/pj_03_profile.png',
     stages: {
       Overview: {

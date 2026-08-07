@@ -18,7 +18,11 @@ const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
     aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     aria-pressed={isDarkMode}
   >
-    {isDarkMode ? <Moon className='h-7 w-7' /> : <Sun className='h-7 w-7' />}
+    {isDarkMode ? (
+      <Moon className='h-7 w-7' fill='currentColor' />
+    ) : (
+      <Sun className='h-7 w-7' fill='currentColor' />
+    )}
   </button>
 );
 

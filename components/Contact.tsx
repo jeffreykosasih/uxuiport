@@ -1,19 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  FileText,
-  Instagram,
-  Linkedin,
-  Mail,
-  Music2,
-  Youtube,
-} from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import type { IconType } from 'react-icons';
+import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from 'react-icons/fa';
+import { IoDocumentText, IoMail } from 'react-icons/io5';
 
 type ContactItem = {
   label: string;
-  icon: typeof Mail;
+  icon: IconType;
   href?: string;
   onClick?: () => void;
 };
@@ -32,17 +27,17 @@ export const Contact = () => {
     {
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/jeffreykosasih/',
-      icon: Linkedin,
+      icon: FaLinkedin,
     },
     {
       label: 'Email',
       onClick: copyEmail,
-      icon: Mail,
+      icon: IoMail,
     },
     {
       label: 'Resume',
       href: '/Jeffrey-Ko-UXUI-Designer-Resume.pdf',
-      icon: FileText,
+      icon: IoDocumentText,
     },
   ];
 
@@ -50,17 +45,17 @@ export const Contact = () => {
     {
       label: 'Instagram',
       href: 'https://instagram.com/sijefriii',
-      icon: Instagram,
+      icon: FaInstagram,
     },
     {
       label: 'TikTok',
       href: 'https://www.tiktok.com/@sijefrii',
-      icon: Music2,
+      icon: FaTiktok,
     },
     {
       label: 'YouTube',
       href: 'https://youtube.com/@sijefri',
-      icon: Youtube,
+      icon: FaYoutube,
     },
   ];
 
@@ -73,16 +68,46 @@ export const Contact = () => {
 
     if (item.onClick) {
       return (
-        <button
-          key={item.label}
-          type='button'
-          onClick={item.onClick}
-          aria-label={item.label}
-          title={item.label}
-          className={itemClass}
-        >
-          {iconEl}
-        </button>
+        <div key={item.label} className='relative'>
+          <button
+            type='button'
+            onClick={item.onClick}
+            aria-label={item.label}
+            title={item.label}
+            className={itemClass}
+          >
+            {iconEl}
+          </button>
+          <AnimatePresence>
+            {item.label === 'Email' && copied && (
+              <motion.span
+                initial={{ opacity: 0, y: 10, x: '-50%', scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
+                exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.9 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                className='pointer-events-none absolute bottom-full left-1/2 mb-4 whitespace-nowrap rounded-xl border-2 border-text-primary bg-primary px-4 py-1.5 text-base font-semibold text-hover shadow-lg'
+              >
+                Email copied
+                {/* Comic speech-bubble tail pointing at the mail icon */}
+                <svg
+                  aria-hidden='true'
+                  width='18'
+                  height='11'
+                  viewBox='0 0 18 11'
+                  className='absolute left-1/2 top-full -mt-[2px] -translate-x-1/2 overflow-visible text-text-primary'
+                >
+                  <path
+                    d='M1 0 L9 10 L17 0'
+                    fill='var(--color-primary)'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
       );
     }
 
@@ -124,11 +149,6 @@ export const Contact = () => {
             </div>
           </div>
         </div>
-        {copied && (
-          <p className='mt-6 text-lg font-semibold text-hover md:text-right'>
-            Email copied
-          </p>
-        )}
       </motion.div>
     </section>
   );

@@ -18,10 +18,10 @@ export const YoutubeShowcase = () => {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className='mb-10 px-6 text-center'
       >
-        <p className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+        <p className='font-mono text-base uppercase tracking-[0.35em] text-accent-dark md:text-lg'>
           Beyond design
         </p>
-        <p className='mt-3 text-lg font-light text-text-primary/70'>
+        <p className='mt-3 text-xl font-light text-text-primary/70 md:text-2xl'>
           Live looping music I make on the spot.
         </p>
       </motion.div>
