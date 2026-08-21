@@ -15,6 +15,7 @@ const workDescriptions: Record<string, string> = {
   '05': 'A habit app that helps users grow the habits worth keeping and uproot the ones worth breaking, framed through a calm plant metaphor.',
   '06': 'A streamlined website for learning about fruits and vegetables — their benefits, risks, and how to turn them into dishes.',
   '07': 'One app that pays for street parking across every operator, so drivers stop installing a new parking app for every street.',
+  '08': 'Most finance apps tell you what you spent. Sigma tells you what you can spend — before you spend it.',
 };
 
 export const WorkGrid = () => {
@@ -69,6 +70,11 @@ export const WorkGrid = () => {
                       className={`font-mono text-sm transition-colors duration-300 ${
                         isActive ? 'text-accent-bright' : 'text-text-primary/35'
                       }`}
+                      style={
+                        isActive && project.accent
+                          ? { color: project.accent }
+                          : undefined
+                      }
                     >
                       0{index + 1}
                     </span>
@@ -118,7 +124,14 @@ export const WorkGrid = () => {
                     ) : null}
                   </div>
                 </Link>
-                <p className='mb-6 mt-4 border-l-2 border-accent-bright pl-5 text-lg text-accent-bright font-light leading-relaxed md:hidden'>
+                <p
+                  className='mb-6 mt-4 border-l-2 border-accent-bright pl-5 text-lg text-accent-bright font-light leading-relaxed md:hidden'
+                  style={
+                    project.accent
+                      ? { borderLeftColor: project.accent }
+                      : undefined
+                  }
+                >
                   {description}
                 </p>
               </li>
@@ -165,6 +178,11 @@ export const WorkGrid = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className='mt-8 max-w-xl border-l-2 border-accent-bright pl-5 md:pl-6 text-xl md:text-2xl text-accent-bright font-light leading-relaxed'
+              style={
+                activeProject.accent
+                  ? { borderLeftColor: activeProject.accent }
+                  : undefined
+              }
             >
               {activeDescription}
             </motion.p>

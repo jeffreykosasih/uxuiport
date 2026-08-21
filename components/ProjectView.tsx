@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -66,6 +66,7 @@ const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
 export const ProjectView = ({ projectId }: ProjectViewProps) => {
   const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
+  const projectAccent = currentProject.accent;
   const isOverviewOnlyProject =
     projectId === '03' || projectId === '04' || projectId === '06';
   const visibleStages = useMemo(
@@ -166,8 +167,18 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
     });
   };
 
+  const stageLabel = (stage: Stage) =>
+    currentProject.stages[stage].label ?? stage;
+
   return (
-    <section className='py-28 px-5 min-h-screen flex flex-col relative overflow-hidden sm:px-6 md:py-32'>
+    <section
+      className='py-28 px-5 min-h-screen flex flex-col relative overflow-hidden sm:px-6 md:py-32'
+      style={
+        projectAccent
+          ? ({ '--project-accent': projectAccent } as CSSProperties)
+          : undefined
+      }
+    >
       <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
         <div className='mb-8 w-full max-w-5xl mx-auto'>
           <Link
@@ -221,7 +232,16 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                     aria-label={`${heroTitle} — visit live site`}
                     className='group min-w-0 flex-1'
                   >
-                    <h1 className='text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary transition-colors group-hover:text-hover md:text-[5rem] lg:text-[7rem]'>
+                    <h1
+                      className={`text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary transition-colors group-hover:text-hover md:text-[5rem] lg:text-[7rem] ${
+                        currentProject.titleFont === 'mono'
+                          ? 'font-display-mono italic tracking-[-0.04em]'
+                          : ''
+                      }`}
+                      style={
+                        projectAccent ? { color: projectAccent } : undefined
+                      }
+                    >
                       {heroTitleLead ? `${heroTitleLead} ` : ''}
                       <span className='relative inline-block whitespace-nowrap pr-[0.55em]'>
                         {heroTitleLast}
@@ -233,7 +253,14 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                     </h1>
                   </a>
                 ) : (
-                  <h1 className='min-w-0 flex-1 text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary md:text-[5rem] lg:text-[7rem]'>
+                  <h1
+                    className={`min-w-0 flex-1 text-center text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.08em] text-text-primary md:text-[5rem] lg:text-[7rem] ${
+                      currentProject.titleFont === 'mono'
+                        ? 'font-display-mono italic tracking-[-0.04em]'
+                        : ''
+                    }`}
+                    style={projectAccent ? { color: projectAccent } : undefined}
+                  >
                     {heroTitle}
                   </h1>
                 )}
@@ -295,7 +322,10 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                   className='flex items-center gap-4'
                 >
-                  <span className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+                  <span
+                    className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'
+                    style={projectAccent ? { color: projectAccent } : undefined}
+                  >
                     {stageNumber}
                   </span>
                   <span className='h-px flex-1 bg-highlight/50' />
@@ -308,7 +338,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                   className='text-4xl md:text-7xl font-bold uppercase tracking-[-0.05em] text-text-primary leading-[0.85]'
                 >
-                  {stage}
+                  {stageLabel(stage)}
                 </motion.h2>
 
                 <motion.p
@@ -317,6 +347,11 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                   viewport={{ once: true, margin: '-80px' }}
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                   className='max-w-3xl border-l-2 border-accent-bright pl-5 text-lg md:text-xl text-text-primary/80 leading-relaxed font-light md:pl-6'
+                  style={
+                    projectAccent
+                      ? { borderLeftColor: projectAccent }
+                      : undefined
+                  }
                 >
                   {stageContent.content}
                 </motion.p>
@@ -341,7 +376,11 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                           alt={`${stage} visual ${activeImageIndex + 1}`}
                           fill
                           sizes='(min-width: 768px) 80vw, 100vw'
-                          className='object-cover'
+                          className={
+                            stageContent.imageFit === 'contain'
+                              ? 'object-contain bg-[#070a12]'
+                              : 'object-cover'
+                          }
                           priority={stage === 'Overview'}
                         />
                       </motion.div>
@@ -353,7 +392,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                           type='button'
                           onClick={() => goToPrevImage(stage, stageImages.length)}
                           className='absolute left-3 top-1/2 z-10 inline-flex -translate-y-1/2 items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover md:left-8'
-                          aria-label={`Previous ${stage} image`}
+                          aria-label={`Previous ${stageLabel(stage)} image`}
                         >
                           <ChevronLeft className='h-6 w-6 md:h-8 md:w-8' />
                         </button>
@@ -361,7 +400,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                           type='button'
                           onClick={() => goToNextImage(stage, stageImages.length)}
                           className='absolute right-3 top-1/2 z-10 inline-flex -translate-y-1/2 items-center justify-center text-text-primary drop-shadow-md transition-all hover:scale-110 hover:text-hover md:right-8'
-                          aria-label={`Next ${stage} image`}
+                          aria-label={`Next ${stageLabel(stage)} image`}
                         >
                           <ChevronRight className='h-6 w-6 md:h-8 md:w-8' />
                         </button>
@@ -382,7 +421,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                                   ? 'bg-text-primary'
                                   : 'bg-text-primary/40 hover:bg-text-primary/70'
                               }`}
-                              aria-label={`Go to ${stage} image ${index + 1}`}
+                              aria-label={`Go to ${stageLabel(stage)} image ${index + 1}`}
                             />
                           ))}
                         </div>
@@ -399,7 +438,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
         {!isOverviewOnlyProject && (
           <div className='fixed bottom-5 left-4 right-24 z-50 flex justify-center pointer-events-none md:bottom-12 md:left-0 md:right-0'>
             <div className='bg-primary/90 backdrop-blur-xl border border-text-primary/20 p-2 rounded-xl shadow-lg flex max-w-full flex-wrap items-center justify-center gap-1.5 pointer-events-auto md:flex-nowrap'>
-              {STAGES.map((stage) => (
+              {visibleStages.map((stage) => (
                 <button
                   key={stage}
                   onClick={() => jumpToStage(stage)}
@@ -412,15 +451,26 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                     <motion.div
                       layoutId='activeTab'
                       className='absolute inset-0 bg-text-primary rounded-lg'
+                      style={
+                        projectAccent
+                          ? { backgroundColor: projectAccent }
+                          : undefined
+                      }
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                  <span className='relative z-10'>{stage}</span>
+                  <span className='relative z-10'>{stageLabel(stage)}</span>
                 </button>
               ))}
             </div>
           </div>
         )}
+
+        {currentProject.credit ? (
+          <p className='mt-auto pb-8 text-center text-sm font-light text-text-primary/50'>
+            {currentProject.credit}
+          </p>
+        ) : null}
 
         <button
           type='button'
@@ -432,7 +482,14 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
         </button>
       </div>
       {/* Background Decor */}
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-highlight/10 rounded-full blur-[100px] z-0 pointer-events-none' />
+      <div
+        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-highlight/10 rounded-full blur-[100px] z-0 pointer-events-none'
+        style={
+          projectAccent
+            ? { backgroundColor: projectAccent, opacity: 0.18 }
+            : undefined
+        }
+      />
     </section>
   );
 };

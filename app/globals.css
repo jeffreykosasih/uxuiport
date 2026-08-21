@@ -10,6 +10,7 @@
 
   --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-display-mono: var(--font-jetbrains), ui-monospace, monospace;
   --font-hand: var(--font-caveat), cursive;
 }
 

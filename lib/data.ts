@@ -11,13 +11,23 @@ export interface ProjectData {
   title: string;
   externalUrl?: string;
   workImage?: string;
+  /** Decorative accent color giving each project its own identity. */
+  accent?: string;
+  /** Use an alternate display font for the hero title (e.g. Sigma's brand mono). */
+  titleFont?: 'mono';
+  /** Small attribution line rendered at the end of the project page. */
+  credit?: string;
   stages: Record<
     Stage,
     {
+      /** Custom section name shown instead of the design-thinking stage name. */
+      label?: string;
       content: string;
       image?: string;
       images?: string[];
       video?: string;
+      /** 'contain' avoids cropping portrait phone screens. */
+      imageFit?: 'contain';
     }
   >;
 }
@@ -36,6 +46,7 @@ export const PROJECTS: ProjectData[] = [
     id: '01',
     title: 'Revo Fitness',
     workImage: '/pj_01/pj_01_test_01.png',
+    accent: '#e04848',
     stages: {
       Overview: {
         content: `As someone who enjoys going to the gym and staying fit, Revo Fitness is one of the places I enjoy working out. My experience with the mobile app made me curious about how the experience could be improved and how the visual style could better match the brand. At the time, the app experience felt limited and mostly focused on a single-page approach. I wanted to expand the rest of the key pages while keeping the same Revo style and energy. The goal was to improve ease of use, create a stronger design system, and make the app feel more complete for members.`,
@@ -68,6 +79,7 @@ export const PROJECTS: ProjectData[] = [
     id: '02',
     title: 'iDriver',
     workImage: '/pj_02/pj_01_test_02.png',
+    accent: '#4a90d9',
     stages: {
       Overview: {
         content: `iDriver is a delivery app made specifically for newspaper delivery, helping drivers understand which suburbs and customer addresses have active subscriptions. The main challenge was that the experience and visual design felt outdated, required too many steps, and did not include several features that could make delivery easier. I wanted to modernise the app while adding practical tools that support drivers during their route. The goal was to make suburb access, address checking, and delivery status easier to understand. The final concept supports faster work, clearer route awareness, and a more confident delivery experience.`,
@@ -98,6 +110,7 @@ export const PROJECTS: ProjectData[] = [
     title: 'Port Jeffrey',
     externalUrl: 'https://portjeffrey.vercel.app/',
     workImage: '/pj_03/pj_03_profile.png',
+    accent: '#2fa39a',
     stages: {
       Overview: {
         content: `Creating projects is one of the ways to stand out when it comes to job applications. Port Jeffrey was built as a 3D model portfolio using Three.js to showcase Jeffrey's project ideas in a more memorable way. The technical challenge was learning how to use 3D objects while still making the experience clear for users. From a design perspective, the challenge was making the objects easy to explore without confusing the object itself with the meaning behind it. Since the project used an island theme, the strategy was to make each object more obvious by adding names above them and shaping the whole experience like a small digital world.`,
@@ -126,6 +139,7 @@ export const PROJECTS: ProjectData[] = [
     title: 'Katsu Seiba',
     externalUrl: 'https://katsuseiba.vercel.app',
     workImage: '/pj_04/pj_04_home_01.png',
+    accent: '#d1503c',
     stages: {
       Overview: {
         content: `Katsu Seiba is a Japanese restaurant website concept that I wanted to make minimalistic but still useful. Some restaurant websites I found had issues with how they presented themselves and how seamless the booking experience felt. I also noticed that colour choices between fonts and backgrounds can strongly affect whether a restaurant site feels premium, calm, or difficult to read. The challenge was creating a site that looked refined while still helping users find what they need quickly. The final concept focuses on simple navigation, clean presentation, and a smoother path toward booking.`,
@@ -153,6 +167,7 @@ export const PROJECTS: ProjectData[] = [
     id: '05',
     title: 'Rooted',
     workImage: '/pj_05/pj_05_1.png',
+    accent: '#5c9e54',
     stages: {
       Overview: {
         content: `Rooted is a habit app built to help users make sense of their habit system by separating the habits they want to grow from the ones they want to uproot. Here, "Grow" and "Uproot" play the same role as the more familiar "Build" and "Break", but the gardening language frames the experience with greater clarity and intention. The aim is to turn an often abstract process into something users can picture and act on.`,
@@ -188,6 +203,7 @@ export const PROJECTS: ProjectData[] = [
     title: 'Fruitea',
     externalUrl: 'https://fruitea.vercel.app',
     workImage: '/pj_06/pj_06_1.png',
+    accent: '#e08a3c',
     stages: {
       Overview: {
         content: `Fruitea is a streamlined website that helps users learn more about fruits and vegetables, including the benefits and risks of each. Beyond that, it serves as a handy reference for users who want to put together their own dishes.`,
@@ -205,6 +221,7 @@ export const PROJECTS: ProjectData[] = [
     id: '07',
     title: 'Peter Parking',
     workImage: '/pj_07/card.png',
+    accent: '#8a63d2',
     stages: {
       Overview: {
         content: `Peter Parking started from a simple frustration: paying for street parking usually means installing whichever app the operator of that particular street uses. Depending on where you park, you might need CarePark, EasyPark, PayStay, Secure Parking, or Wilson — each with its own account, its own card details, and its own interface to learn. I wanted to figure out an app that lets people pay for parking without having to install many parking apps. Peter Parking works as a single layer on top of all of them, so you set up once and simply park, while the app handles whichever operator runs the zone you are in.`,
@@ -227,6 +244,47 @@ export const PROJECTS: ProjectData[] = [
       },
       Test: {
         content: `I walked friends who drive daily through the prototype and asked them to park, pay, and extend a session. The setup step landed immediately — plate and card, done — and the pole-sign zone check made people feel noticeably safer than picking from a GPS list alone. The operator-branded session screens got the strongest reaction, because testers could tell at a glance that the right company was being paid. The main suggestion was a reminder before time runs out, which I built into setup as a default warning ten minutes before every session ends. The feedback confirmed the core idea: people do not want another parking app, they want to stop thinking about parking apps entirely.`,
+      },
+    },
+  },
+  {
+    id: '08',
+    title: 'Sigma',
+    workImage: '/pj_08/pj_08_4.jpg',
+    accent: '#2b5bff',
+    titleFont: 'mono',
+    credit: 'Mockup by Mockuuups Studio',
+    stages: {
+      Overview: {
+        content: `Most finance apps tell you what you spent. Sigma tells you what you can spend — before you spend it. AI reads each purchase in the moment and prices it in what it actually costs you: hours worked, and goals delayed.`,
+        image: '/pj_08/pj_08_3.jpg',
+      },
+      Empathize: {
+        label: 'Tap to Approve',
+        content: `Every phone payment pauses for one tap. Sigma pre-fills merchant, amount, and category from your history, then asks only for a yes or no — so the decision lands while the money can still stay put.`,
+        image: '/pj_08/pj_08_1.png',
+        images: ['/pj_08/pj_08_1.png', '/pj_08/pj_08_2.png'],
+        imageFit: 'contain',
+      },
+      Define: {
+        label: 'Today',
+        content: `Budgets think in months; people spend in days. Sigma computes what's safe to spend right now — daily, weekly, or monthly — after bills, income timing, and what today already took.`,
+        image: '/pj_08/pj_08_4.jpg',
+      },
+      Ideate: {
+        label: 'Goals',
+        content: `Targets go stale because they ignore real behaviour. Sigma keeps each goal live against actual spending — on track, behind, or finished — and shows how today's decision moves it. Set a number, or just keep a streak.`,
+        image: '/pj_08/pj_08_5.jpg',
+      },
+      Prototype: {
+        label: 'Ask',
+        content: `Type what you want and Sigma reframes the price into terms that register: hours of work, share of monthly pay, weeks of allowance. Park it or buy it, with the cost understood.`,
+        image: '/pj_08/pj_08_6.jpg',
+      },
+      Test: {
+        label: 'Activity',
+        content: `A transaction list is data, not insight. Sigma groups spending into named patterns and shows which habit is costing the most progress.`,
+        image: '/pj_08/pj_08_7.jpg',
       },
     },
   },

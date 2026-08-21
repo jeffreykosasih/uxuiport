@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { Caveat, Syne } from 'next/font/google';
+import { Caveat, JetBrains_Mono, Syne } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 
@@ -14,6 +14,12 @@ const caveat = Caveat({
   variable: '--font-caveat',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains',
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '800'],
 });
 
 export const metadata: Metadata = {
@@ -66,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang='en' data-scroll-behavior='smooth'>
       <body
-        className={`${syne.variable} ${caveat.variable} antialiased text-text-primary font-light`}
+        className={`${syne.variable} ${caveat.variable} ${jetbrainsMono.variable} antialiased text-text-primary font-light`}
       >
         <Navbar />
         <main>{children}</main>
