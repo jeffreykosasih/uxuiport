@@ -3,9 +3,9 @@
 import { motion } from 'framer-motion';
 
 const videos = [
-  'KktX83WC4ho',
-  'o5LIA3vhqWc',
-  '03EvVLxxFfc',
+  { id: '42I_fxcanxo', title: 'In The Summer' },
+  { id: 'o5LIA3vhqWc', title: 'Lala' },
+  { id: '03EvVLxxFfc', title: 'Aqua' },
 ];
 
 export const YoutubeShowcase = () => {
@@ -21,7 +21,7 @@ export const YoutubeShowcase = () => {
         <p className='font-mono text-base uppercase tracking-[0.35em] text-accent-dark md:text-lg'>
           Beyond design
         </p>
-        <p className='mt-3 text-xl font-light text-text-primary/70 md:text-2xl'>
+        <p className='mt-3 text-xl font-light text-text-muted md:text-2xl'>
           Live looping music I make on the spot.
         </p>
       </motion.div>
@@ -33,15 +33,15 @@ export const YoutubeShowcase = () => {
         transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
         className='mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3'
       >
-        {videos.map((videoId, index) => (
+        {videos.map((video) => (
           <div
-            key={videoId}
+            key={video.id}
             className='aspect-video overflow-hidden rounded-2xl bg-text-primary/10 shadow-xl'
           >
             <iframe
               className='h-full w-full'
-              src={`https://www.youtube.com/embed/${videoId}`}
-              title={`Sijefri YouTube video ${index + 1}`}
+              src={`https://www.youtube.com/embed/${video.id}`}
+              title={`${video.title} — live loop by Jefri`}
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
               referrerPolicy='strict-origin-when-cross-origin'
               allowFullScreen

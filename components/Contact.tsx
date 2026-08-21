@@ -98,7 +98,7 @@ export const Contact = () => {
                 >
                   <path
                     d='M1 0 L9 10 L17 0'
-                    fill='var(--color-primary)'
+                    fill='var(--site-primary)'
                     stroke='currentColor'
                     strokeWidth='2'
                     strokeLinejoin='round'

@@ -3,7 +3,10 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Moon, Sun } from 'lucide-react';
+import { PROJECTS } from '@/lib/data';
+import { PillNav } from '@/components/PillNav';
 
 type ThemeToggleProps = {
   isDarkMode: boolean;
@@ -44,7 +47,9 @@ const LogoButton = () => (
 );
 
 export const Navbar = () => {
+  const pathname = usePathname();
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const activeProjectId = pathname.match(/^\/pj(\d{2})/)?.[1] ?? null;
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
@@ -54,6 +59,22 @@ export const Navbar = () => {
   return (
     <>
       <LogoButton />
+      {activeProjectId ? (
+        <PillNav
+          aria-label='Jump to project'
+          layoutId='activeProjectTab'
+          orientation='vertical'
+          activeId={activeProjectId}
+          dataProject={activeProjectId}
+          className='fixed top-[8.75rem] left-6 z-[60] md:top-[9.75rem]'
+          items={PROJECTS.map((project) => ({
+            id: project.id,
+            label: project.id,
+            title: project.title,
+            href: `/pj${project.id}`,
+          }))}
+        />
+      ) : null}
       <ThemeToggle
         isDarkMode={isDarkMode}
         onToggle={() => setIsDarkMode((current) => !current)}

@@ -56,6 +56,7 @@ export const WorkGrid = () => {
             return (
               <li
                 key={project.id}
+                data-project-accent={project.id}
                 onMouseEnter={() => setActiveIndex(index)}
                 className='group border-b border-highlight/40 first:border-t'
               >
@@ -67,14 +68,9 @@ export const WorkGrid = () => {
                     className='flex flex-1 items-baseline gap-4 md:gap-6'
                   >
                     <span
-                      className={`font-mono text-sm transition-colors duration-300 ${
-                        isActive ? 'text-accent-bright' : 'text-text-primary/35'
+                      className={`text-2xl font-bold uppercase tracking-tight transition-colors duration-300 md:text-3xl lg:text-4xl ${
+                        isActive ? 'text-accent-bright' : 'text-text-muted'
                       }`}
-                      style={
-                        isActive && project.accent
-                          ? { color: project.accent }
-                          : undefined
-                      }
                     >
                       0{index + 1}
                     </span>
@@ -82,7 +78,7 @@ export const WorkGrid = () => {
                       className={`text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight transition-all duration-300 ${
                         isActive
                           ? 'text-text-primary md:translate-x-2'
-                          : 'text-text-primary/35'
+                          : 'text-text-faint'
                       }`}
                     >
                       {project.title}
@@ -97,7 +93,7 @@ export const WorkGrid = () => {
                       title='Visit live site'
                       aria-label={`${project.title} — visit live site`}
                       className={`shrink-0 transition-colors duration-300 hover:text-hover ${
-                        isActive ? 'text-text-primary' : 'text-text-primary/35'
+                        isActive ? 'text-text-primary' : 'text-text-faint'
                       }`}
                     >
                       <ArrowUpRight className='h-6 w-6 md:h-7 md:w-7' />
@@ -126,11 +122,6 @@ export const WorkGrid = () => {
                 </Link>
                 <p
                   className='mb-6 mt-4 border-l-2 border-accent-bright pl-5 text-lg text-accent-bright font-light leading-relaxed md:hidden'
-                  style={
-                    project.accent
-                      ? { borderLeftColor: project.accent }
-                      : undefined
-                  }
                 >
                   {description}
                 </p>
@@ -140,7 +131,7 @@ export const WorkGrid = () => {
         </ul>
 
         {/* Shared preview screen (desktop) */}
-        <div className='hidden md:block'>
+        <div className='hidden md:block' data-project-accent={activeProject.id}>
           <Link
             href={`/pj${activeProject.id}`}
             aria-label={`${activeProject.title} project`}
@@ -178,11 +169,6 @@ export const WorkGrid = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className='mt-8 max-w-xl border-l-2 border-accent-bright pl-5 md:pl-6 text-xl md:text-2xl text-accent-bright font-light leading-relaxed'
-              style={
-                activeProject.accent
-                  ? { borderLeftColor: activeProject.accent }
-                  : undefined
-              }
             >
               {activeDescription}
             </motion.p>

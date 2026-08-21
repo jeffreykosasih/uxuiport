@@ -11,10 +11,25 @@ export interface ProjectData {
   title: string;
   externalUrl?: string;
   workImage?: string;
-  /** Decorative accent color giving each project its own identity. */
+  /**
+   * The project's brand colour, and the single source of truth for its identity.
+   *
+   * Nothing renders this value directly — `scripts/palette.py` reads it from this
+   * file and solves the whole per-project palette from it (surface, ink, muted
+   * ink, accents, pill), guaranteeing WCAG AAA in both themes. Change the accent
+   * here, then run `npm run theme` to regenerate app/project-themes.css.
+   *
+   * Optional `pair` is the companion colour. When set, dark mode uses the darker
+   * of the two as the surface and the lighter as ink/accent; light mode swaps
+   * them. Use this for projects with a deliberate two-colour identity.
+   */
   accent?: string;
-  /** Use an alternate display font for the hero title (e.g. Sigma's brand mono). */
+  pair?: string;
+  /** Italic + tighter tracking on the hero title. The face itself comes from the
+   *  project's --project-font token, not from here. */
   titleFont?: 'mono';
+  /** When true, only the Overview stage is shown (no design-thinking nav). */
+  overviewOnly?: boolean;
   /** Small attribution line rendered at the end of the project page. */
   credit?: string;
   stages: Record<
@@ -79,7 +94,7 @@ export const PROJECTS: ProjectData[] = [
     id: '02',
     title: 'iDriver',
     workImage: '/pj_02/pj_01_test_02.png',
-    accent: '#4a90d9',
+    accent: '#1a365d',
     stages: {
       Overview: {
         content: `iDriver is a delivery app made specifically for newspaper delivery, helping drivers understand which suburbs and customer addresses have active subscriptions. The main challenge was that the experience and visual design felt outdated, required too many steps, and did not include several features that could make delivery easier. I wanted to modernise the app while adding practical tools that support drivers during their route. The goal was to make suburb access, address checking, and delivery status easier to understand. The final concept supports faster work, clearer route awareness, and a more confident delivery experience.`,
@@ -110,7 +125,9 @@ export const PROJECTS: ProjectData[] = [
     title: 'Port Jeffrey',
     externalUrl: 'https://portjeffrey.vercel.app/',
     workImage: '/pj_03/pj_03_profile.png',
-    accent: '#2fa39a',
+    accent: '#e0e074',
+    pair: '#141c34',
+    overviewOnly: true,
     stages: {
       Overview: {
         content: `Creating projects is one of the ways to stand out when it comes to job applications. Port Jeffrey was built as a 3D model portfolio using Three.js to showcase Jeffrey's project ideas in a more memorable way. The technical challenge was learning how to use 3D objects while still making the experience clear for users. From a design perspective, the challenge was making the objects easy to explore without confusing the object itself with the meaning behind it. Since the project used an island theme, the strategy was to make each object more obvious by adding names above them and shaping the whole experience like a small digital world.`,
@@ -139,7 +156,9 @@ export const PROJECTS: ProjectData[] = [
     title: 'Katsu Seiba',
     externalUrl: 'https://katsuseiba.vercel.app',
     workImage: '/pj_04/pj_04_home_01.png',
-    accent: '#d1503c',
+    accent: '#f1e2d1',
+    pair: '#222222',
+    overviewOnly: true,
     stages: {
       Overview: {
         content: `Katsu Seiba is a Japanese restaurant website concept that I wanted to make minimalistic but still useful. Some restaurant websites I found had issues with how they presented themselves and how seamless the booking experience felt. I also noticed that colour choices between fonts and backgrounds can strongly affect whether a restaurant site feels premium, calm, or difficult to read. The challenge was creating a site that looked refined while still helping users find what they need quickly. The final concept focuses on simple navigation, clean presentation, and a smoother path toward booking.`,
@@ -204,6 +223,7 @@ export const PROJECTS: ProjectData[] = [
     externalUrl: 'https://fruitea.vercel.app',
     workImage: '/pj_06/pj_06_1.png',
     accent: '#e08a3c',
+    overviewOnly: true,
     stages: {
       Overview: {
         content: `Fruitea is a streamlined website that helps users learn more about fruits and vegetables, including the benefits and risks of each. Beyond that, it serves as a handy reference for users who want to put together their own dishes.`,
@@ -221,7 +241,7 @@ export const PROJECTS: ProjectData[] = [
     id: '07',
     title: 'Peter Parking',
     workImage: '/pj_07/card.png',
-    accent: '#8a63d2',
+    accent: '#085d68',
     stages: {
       Overview: {
         content: `Peter Parking started from a simple frustration: paying for street parking usually means installing whichever app the operator of that particular street uses. Depending on where you park, you might need CarePark, EasyPark, PayStay, Secure Parking, or Wilson — each with its own account, its own card details, and its own interface to learn. I wanted to figure out an app that lets people pay for parking without having to install many parking apps. Peter Parking works as a single layer on top of all of them, so you set up once and simply park, while the app handles whichever operator runs the zone you are in.`,
@@ -251,7 +271,8 @@ export const PROJECTS: ProjectData[] = [
     id: '08',
     title: 'Sigma',
     workImage: '/pj_08/pj_08_4.jpg',
-    accent: '#2b5bff',
+    accent: '#163777',
+    pair: '#ffffff',
     titleFont: 'mono',
     credit: 'Mockup by Mockuuups Studio',
     stages: {

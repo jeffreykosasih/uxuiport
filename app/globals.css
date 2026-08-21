@@ -1,27 +1,55 @@
 @import 'tailwindcss';
+@import './project-themes.css';
 
-@theme {
+/* `inline` matters: without it Tailwind emits --color-* custom properties that
+   resolve --site-* once at :root, so per-project overrides on a descendant
+   element would never take effect. `inline` puts var(--site-*) directly into
+   each utility, which is what lets [data-project] re-theme its whole subtree. */
+@theme inline {
   --color-primary: var(--site-primary);
   --color-text-primary: var(--site-text-primary);
+  /* Solved replacements for the old /70 and /35 opacity tricks, which sat
+     between 4.3:1 and 6.9:1 and so failed AAA. */
+  --color-text-muted: var(--site-text-muted);
+  --color-text-faint: var(--site-text-faint);
   --color-accent-dark: var(--site-accent-dark);
   --color-accent-bright: var(--site-accent-bright);
+  --color-accent-display: var(--site-accent-display);
+  --color-pill-bg: var(--site-pill-bg);
+  --color-pill-text: var(--site-pill-text);
   --color-highlight: var(--site-highlight);
+  --color-decor: var(--site-decor);
   --color-hover: var(--site-hover);
 
   --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-display-mono: var(--font-jetbrains), ui-monospace, monospace;
   --font-hand: var(--font-caveat), cursive;
+  /* Falls back to the site face on any page that isn't a project page. */
+  --font-project: var(--project-font, var(--font-syne)), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --site-primary: #222222;
   --site-text-primary: #f1e2d1;
-  --site-accent-dark: #a99a8a;
-  --site-accent-bright: #d8c7b6;
+  /* Shared tokens are solved against the MEASURED brightest point of the site
+     gradient (#3a3835), not the flat #222222 fill. The radial glow lifts the
+     background enough that solving against the fill overstates every ratio by
+     roughly 1.5:1 — which is how the Hero eyebrow was passing on paper and
+     failing on screen. Re-measure with scripts/measure-gradients.mjs. */
+  --site-text-muted: #d4cbc0;
+  --site-text-faint: #aca49b;
+  /* Was #a99a8a — 5.82:1 on the flat fill, 4.44:1 on the real gradient. */
+  --site-accent-dark: #d3cbc4;
+  --site-accent-bright: #dacab9;
+  --site-accent-display: #f1e2d1;
+  --site-pill-bg: #f1e2d1;
+  --site-pill-text: #222222;
   --site-highlight: #4a433d;
-  /* Yellow autumn leaves from the profile photo, brightened for AAA (7.19:1) on #222222 */
-  --site-hover: #d2a93f;
+  --site-decor: #d8c7b6;
+  /* Yellow autumn leaves from the profile photo, lightened until it clears
+     AAA on the gradient's brightest point rather than on the flat fill. */
+  --site-hover: #e3ca89;
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(216, 199, 182, 0.13), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(169, 154, 138, 0.08), transparent 30%),
@@ -33,11 +61,19 @@
 .dark {
   --site-primary: #f1e2d1;
   --site-text-primary: #222222;
-  --site-accent-dark: #7a7067;
-  --site-accent-bright: #4a433d;
+  --site-text-muted: #3c3a37;
+  --site-text-faint: #5a5651;
+  /* Was #7a7067 — 3.81:1, failing AAA and AA for small text. */
+  --site-accent-dark: #3e3934;
+  --site-accent-bright: #403a35;
+  --site-accent-display: #222222;
+  --site-pill-bg: #222222;
+  --site-pill-text: #f1e2d1;
   --site-highlight: #c7b7a6;
-  /* Brown sweater from the profile photo, AAA (7.38:1) on #f1e2d1 */
-  --site-hover: #653b3a;
+  --site-decor: #7a7067;
+  /* Brown sweater from the profile photo, darkened to clear AAA on the
+     gradient's darkest point. */
+  --site-hover: #533130;
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(74, 67, 61, 0.11), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(122, 112, 103, 0.08), transparent 30%),
@@ -57,4 +93,20 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   transition: background 200ms ease, color 200ms ease;
+}
+
+/* Project pages paint their own surface across the full viewport so the shared
+   footer and nav sit on the project colour rather than the site default. */
+.project-surface {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--site-surface-gradient);
+  transition: background 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

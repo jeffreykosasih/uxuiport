@@ -1,0 +1,420 @@
+/* ------------------------------------------------------------------
+   Per-project identity
+
+   Every project page carries data-project="NN", which re-points the same
+   site tokens the rest of the app already consumes. No component needs to
+   know a colour — it keeps using text-text-primary / bg-primary and simply
+   inherits the project it is inside.
+
+   Every value below is generated and contrast-audited: small text clears
+   7:1 and large display text clears 4.5:1 against its own surface, in both
+   themes. Regenerate with scripts/palette.py rather than hand-editing.
+
+   Note: in this codebase `.dark` is the CREAM/light theme (see Navbar).
+   ------------------------------------------------------------------ */
+
+/* 01 — Revo Fitness · #e04848 */
+[data-project='01'] {
+  --project-font: var(--font-anton), Impact, sans-serif;
+  --project-display-tracking: -0.005em;
+  --project-heading-tracking: 0em;
+  --project-display-scale: 1.0;
+  --site-primary: #2e1a1a;
+  --site-text-primary: #f2e0d1;
+  --site-text-muted: #d9c6b9;
+  --site-text-faint: #b19f95;
+  --site-accent-dark: #f4bcbc;
+  --site-accent-bright: #f4bcbc;
+  --site-accent-display: #ea8585;
+  --site-pill-bg: #f4bcbc;
+  --site-pill-text: #2a1e1e;
+  --site-hover: #f4bcbc;
+  --site-highlight: #672929;
+  --site-decor: #e04848;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(224, 72, 72, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(224, 72, 72, 0.03), transparent 30%),
+    linear-gradient(135deg, #2e1a1a 0%, #371c1c 48%, #2e1a1a 100%);
+}
+.dark [data-project='01'] {
+  --site-primary: #f1dbd9;
+  --site-text-primary: #231f1f;
+  --site-text-muted: #363030;
+  --site-text-faint: #544c4c;
+  --site-accent-dark: #641111;
+  --site-accent-bright: #641111;
+  --site-accent-display: #991a1a;
+  --site-pill-bg: #641111;
+  --site-pill-text: #ecdfde;
+  --site-hover: #641111;
+  --site-highlight: #ecacab;
+  --site-decor: #e04848;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(224, 72, 72, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(224, 72, 72, 0.03), transparent 30%),
+    linear-gradient(135deg, #f1dbd9 0%, #f0d4d2 48%, #f1dbd9 100%);
+}
+
+/* 02 — iDriver · #1a365d */
+[data-project='02'] {
+  --project-font: var(--font-barlow), 'Arial Narrow', sans-serif;
+  --project-display-tracking: -0.02em;
+  --project-heading-tracking: -0.02em;
+  --project-display-scale: 1.2;
+  --site-primary: #1c232c;
+  --site-text-primary: #eee2d4;
+  --site-text-muted: #bcb4ac;
+  --site-text-faint: #94908c;
+  --site-accent-dark: #99b8e2;
+  --site-accent-bright: #99b8e2;
+  --site-accent-display: #6593d4;
+  --site-pill-bg: #99b8e2;
+  --site-pill-text: #1f2329;
+  --site-hover: #99b8e2;
+  --site-highlight: #1b293c;
+  --site-decor: #1a365d;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(26, 54, 93, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(26, 54, 93, 0.03), transparent 30%),
+    linear-gradient(135deg, #1c232c 0%, #1c242e 48%, #1c232c 100%);
+}
+.dark [data-project='02'] {
+  --site-primary: #dde4ec;
+  --site-text-primary: #202123;
+  --site-text-muted: #262729;
+  --site-text-faint: #444649;
+  --site-accent-dark: #142947;
+  --site-accent-bright: #142947;
+  --site-accent-display: #1a365d;
+  --site-pill-bg: #142947;
+  --site-pill-text: #e0e4e9;
+  --site-hover: #142947;
+  --site-highlight: #9facbe;
+  --site-decor: #1a365d;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(26, 54, 93, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(26, 54, 93, 0.03), transparent 30%),
+    linear-gradient(135deg, #dde4ec 0%, #d3dbe5 48%, #dde4ec 100%);
+}
+
+/* 03 — Port Jeffrey · #e0e074 */
+[data-project='03'] {
+  --project-font: var(--font-outfit), system-ui, sans-serif;
+  --project-display-tracking: -0.06em;
+  --project-heading-tracking: -0.05em;
+  --project-display-scale: 1.0;
+  --site-primary: #141c34;
+  --site-text-primary: #ebeba4;
+  --site-text-muted: #ebeba4;
+  --site-text-faint: #c0c28e;
+  --site-accent-dark: #eeeeb3;
+  --site-accent-bright: #eeeeb3;
+  --site-accent-display: #e0e074;
+  --site-pill-bg: #eeeeb3;
+  --site-pill-text: #1a1f2e;
+  --site-hover: #eeeeb3;
+  --site-highlight: #555b48;
+  --site-decor: #e0e074;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(224, 224, 116, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(224, 224, 116, 0.03), transparent 30%),
+    linear-gradient(135deg, #141c34 0%, #1e2637 48%, #141c34 100%);
+}
+.dark [data-project='03'] {
+  --site-primary: #e0e074;
+  --site-text-primary: #141c34;
+  --site-text-muted: #33393e;
+  --site-text-faint: #515747;
+  --site-accent-dark: #141c34;
+  --site-accent-bright: #141c34;
+  --site-accent-display: #141c34;
+  --site-pill-bg: #141c34;
+  --site-pill-text: #caca8a;
+  --site-hover: #141c34;
+  --site-highlight: #9fa160;
+  --site-decor: #a7a962;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(167, 169, 98, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(167, 169, 98, 0.03), transparent 30%),
+    linear-gradient(135deg, #e0e074 0%, #dddd73 48%, #e0e074 100%);
+}
+
+/* 04 — Katsu Seiba · #f1e2d1 */
+[data-project='04'] {
+  --project-font: var(--font-mincho), Georgia, serif;
+  --project-display-tracking: -0.025em;
+  --project-heading-tracking: -0.02em;
+  --project-display-scale: 1.02;
+  --site-primary: #222222;
+  --site-text-primary: #f9f3ec;
+  --site-text-muted: #f9f3ec;
+  --site-text-faint: #cec9c4;
+  --site-accent-dark: #fbf7f2;
+  --site-accent-bright: #fbf7f2;
+  --site-accent-display: #f1e2d1;
+  --site-pill-bg: #fbf7f2;
+  --site-pill-text: #222222;
+  --site-hover: #fbf7f2;
+  --site-highlight: #645f5a;
+  --site-decor: #f1e2d1;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(241, 226, 209, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(241, 226, 209, 0.03), transparent 30%),
+    linear-gradient(135deg, #222222 0%, #2c2c2b 48%, #222222 100%);
+}
+.dark [data-project='04'] {
+  --site-primary: #f1e2d1;
+  --site-text-primary: #222222;
+  --site-text-muted: #3f3d3a;
+  --site-text-faint: #5e5a55;
+  --site-accent-dark: #222222;
+  --site-accent-bright: #222222;
+  --site-accent-display: #222222;
+  --site-pill-bg: #222222;
+  --site-pill-text: #ebe2d7;
+  --site-hover: #222222;
+  --site-highlight: #afa599;
+  --site-decor: #b7aca0;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(183, 172, 160, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(183, 172, 160, 0.03), transparent 30%),
+    linear-gradient(135deg, #f1e2d1 0%, #eedfcf 48%, #f1e2d1 100%);
+}
+
+/* 05 — Rooted · #5c9e54 */
+[data-project='05'] {
+  --project-font: var(--font-fraunces), Georgia, serif;
+  --project-display-tracking: -0.03em;
+  --project-heading-tracking: -0.03em;
+  --project-display-scale: 1.0;
+  --site-primary: #212920;
+  --site-text-primary: #efe3d2;
+  --site-text-muted: #e3d8c7;
+  --site-text-faint: #b5afa0;
+  --site-accent-dark: #c8e0c5;
+  --site-accent-bright: #c8e0c5;
+  --site-accent-display: #88bd82;
+  --site-pill-bg: #c8e0c5;
+  --site-pill-text: #222722;
+  --site-hover: #c8e0c5;
+  --site-highlight: #344e31;
+  --site-decor: #5c9e54;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(92, 158, 84, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(92, 158, 84, 0.03), transparent 30%),
+    linear-gradient(135deg, #212920 0%, #242f23 48%, #212920 100%);
+}
+.dark [data-project='05'] {
+  --site-primary: #e2ebdc;
+  --site-text-primary: #202220;
+  --site-text-muted: #393c38;
+  --site-text-faint: #545853;
+  --site-accent-dark: #274223;
+  --site-accent-bright: #274223;
+  --site-accent-display: #386033;
+  --site-pill-bg: #274223;
+  --site-pill-text: #e3e8df;
+  --site-hover: #274223;
+  --site-highlight: #b7d2b0;
+  --site-decor: #5c9e54;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(92, 158, 84, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(92, 158, 84, 0.03), transparent 30%),
+    linear-gradient(135deg, #e2ebdc 0%, #dbe7d5 48%, #e2ebdc 100%);
+}
+
+/* 06 — Fruitea · #e08a3c */
+[data-project='06'] {
+  --project-font: var(--font-baloo), system-ui, sans-serif;
+  --project-display-tracking: -0.025em;
+  --project-heading-tracking: -0.025em;
+  --project-display-scale: 1.0;
+  --site-primary: #2e241a;
+  --site-text-primary: #f2e2d1;
+  --site-text-muted: #ecdccc;
+  --site-text-faint: #c1b2a3;
+  --site-accent-dark: #f5d9c0;
+  --site-accent-bright: #f5d9c0;
+  --site-accent-display: #e8a76c;
+  --site-pill-bg: #f5d9c0;
+  --site-pill-text: #2a241e;
+  --site-hover: #f5d9c0;
+  --site-highlight: #674525;
+  --site-decor: #e08a3c;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(224, 138, 60, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(224, 138, 60, 0.03), transparent 30%),
+    linear-gradient(135deg, #2e241a 0%, #37291c 48%, #2e241a 100%);
+}
+.dark [data-project='06'] {
+  --site-primary: #f1e5d9;
+  --site-text-primary: #23211f;
+  --site-text-muted: #403c39;
+  --site-text-faint: #5d5853;
+  --site-accent-dark: #5b330e;
+  --site-accent-bright: #5b330e;
+  --site-accent-display: #854a15;
+  --site-pill-bg: #5b330e;
+  --site-pill-text: #ece5de;
+  --site-hover: #5b330e;
+  --site-highlight: #ecc8a7;
+  --site-decor: #e08a3c;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(224, 138, 60, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(224, 138, 60, 0.03), transparent 30%),
+    linear-gradient(135deg, #f1e5d9 0%, #f0e0d1 48%, #f1e5d9 100%);
+}
+
+/* 07 — Peter Parking · #085d68 */
+[data-project='07'] {
+  --project-font: var(--font-archivo), system-ui, sans-serif;
+  --project-display-tracking: -0.055em;
+  --project-heading-tracking: -0.05em;
+  --project-display-scale: 1.0;
+  --site-primary: #1a2c2e;
+  --site-text-primary: #eee4d5;
+  --site-text-muted: #cac5b9;
+  --site-text-faint: #a0a097;
+  --site-accent-dark: #27d8ee;
+  --site-accent-bright: #27d8ee;
+  --site-accent-display: #0fb0c4;
+  --site-pill-bg: #27d8ee;
+  --site-pill-text: #1e292a;
+  --site-hover: #27d8ee;
+  --site-highlight: #143c41;
+  --site-decor: #085d68;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(8, 93, 104, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(8, 93, 104, 0.03), transparent 30%),
+    linear-gradient(135deg, #1a2c2e 0%, #192e31 48%, #1a2c2e 100%);
+}
+.dark [data-project='07'] {
+  --site-primary: #ddecec;
+  --site-text-primary: #1f2323;
+  --site-text-muted: #2c3131;
+  --site-text-faint: #474d4d;
+  --site-accent-dark: #05373d;
+  --site-accent-bright: #05373d;
+  --site-accent-display: #07555f;
+  --site-pill-bg: #05373d;
+  --site-pill-text: #e0e9e9;
+  --site-hover: #05373d;
+  --site-highlight: #99bec2;
+  --site-decor: #085d68;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(8, 93, 104, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(8, 93, 104, 0.03), transparent 30%),
+    linear-gradient(135deg, #ddecec 0%, #d2e5e5 48%, #ddecec 100%);
+}
+
+/* 08 — Sigma · #163777 */
+[data-project='08'] {
+  --project-font: var(--font-jetbrains), ui-monospace, monospace;
+  --project-display-tracking: -0.04em;
+  --project-heading-tracking: -0.04em;
+  --project-display-scale: 1.0;
+  --site-primary: #163777;
+  --site-text-primary: #ffffff;
+  --site-text-muted: #dee3ec;
+  --site-text-faint: #adb9cf;
+  --site-accent-dark: #ffffff;
+  --site-accent-bright: #ffffff;
+  --site-accent-display: #ffffff;
+  --site-pill-bg: #ffffff;
+  --site-pill-text: #293d64;
+  --site-hover: #ffffff;
+  --site-highlight: #6177a3;
+  --site-decor: #576f9d;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(87, 111, 157, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(87, 111, 157, 0.03), transparent 30%),
+    linear-gradient(135deg, #163777 0%, #193a79 48%, #163777 100%);
+}
+.dark [data-project='08'] {
+  --site-primary: #ffffff;
+  --site-text-primary: #163777;
+  --site-text-muted: #304d86;
+  --site-text-faint: #536b9a;
+  --site-accent-dark: #163777;
+  --site-accent-bright: #163777;
+  --site-accent-display: #163777;
+  --site-pill-bg: #163777;
+  --site-pill-text: #ffffff;
+  --site-hover: #163777;
+  --site-highlight: #b4bfd3;
+  --site-decor: #bec7d9;
+  --site-surface-gradient:
+    radial-gradient(circle at 12% 8%, rgba(190, 199, 217, 0.05), transparent 34%),
+    radial-gradient(circle at 92% 18%, rgba(190, 199, 217, 0.03), transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #fcfcfd 48%, #ffffff 100%);
+}
+
+/* ------------------------------------------------------------------
+   Project accents rendered on the SITE surface (the Work index).
+   Solved against #222222 / #f1e2d1 rather than the project surface.
+   ------------------------------------------------------------------ */
+
+[data-project-accent='01'] {
+  --site-accent-bright: #f7cfcf;
+  --site-highlight: #5b2d2d;
+}
+.dark [data-project-accent='01'] {
+  --site-accent-bright: #6f1313;
+  --site-highlight: #ecb4a8;
+}
+[data-project-accent='02'] {
+  --site-accent-bright: #c9d9f0;
+  --site-highlight: #202834;
+}
+.dark [data-project-accent='02'] {
+  --site-accent-bright: #1a365d;
+  --site-highlight: #b0aeae;
+}
+[data-project-accent='03'] {
+  --site-accent-bright: #e0e074;
+  --site-highlight: #5b5b3b;
+}
+.dark [data-project-accent='03'] {
+  --site-accent-bright: #39390d;
+  --site-highlight: #ece1b5;
+}
+[data-project-accent='04'] {
+  --site-accent-bright: #f1e2d1;
+  --site-highlight: #605c56;
+}
+.dark [data-project-accent='04'] {
+  --site-accent-bright: #4b3317;
+  --site-highlight: #f1e2d1;
+}
+[data-project-accent='05'] {
+  --site-accent-bright: #c6dfc3;
+  --site-highlight: #334731;
+}
+.dark [data-project-accent='05'] {
+  --site-accent-bright: #243d21;
+  --site-highlight: #c4ceac;
+}
+[data-project-accent='06'] {
+  --site-accent-bright: #f3d3b5;
+  --site-highlight: #5b412a;
+}
+.dark [data-project-accent='06'] {
+  --site-accent-bright: #522e0d;
+  --site-highlight: #ecc8a4;
+}
+[data-project-accent='07'] {
+  --site-accent-bright: #7de7f5;
+  --site-highlight: #1a3437;
+}
+.dark [data-project-accent='07'] {
+  --site-accent-bright: #053d44;
+  --site-highlight: #abbab2;
+}
+[data-project-accent='08'] {
+  --site-accent-bright: #cad9f5;
+  --site-highlight: #1e283c;
+}
+.dark [data-project-accent='08'] {
+  --site-accent-bright: #153471;
+  --site-highlight: #afafb6;
+}

@@ -52,7 +52,7 @@ export const About = () => {
         className='max-w-7xl mx-auto grid gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'
       >
         <div className='space-y-8'>
-          <div className='font-hand space-y-5 text-3xl italic leading-tight text-accent-bright md:text-4xl'>
+          <div className='space-y-5 text-2xl font-light leading-relaxed text-accent-bright md:text-3xl'>
             <p>
               Born in Indonesia and barely survived in Australia, I am a designer
               who has a unique edge: I speak the language of developers and
