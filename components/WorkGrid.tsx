@@ -5,110 +5,78 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { PROJECTS } from '@/lib/data';
-
-const workDescriptions: Record<string, string> = {
-  '01': "Restructured Revo's fitness app so members instantly see what their plan includes, with a consistent visual system and clearer navigation.",
-  '02': 'Streamlined a newspaper-delivery app so drivers finish routes faster, with clearer maps and reliable proof-of-delivery.',
-  '03': 'An explorable 3D island, built with Three.js, that turns a set of IT projects into a space you can wander through.',
-  '04': 'A minimal Japanese-restaurant site concept that makes browsing the menu and booking a table feel effortless.',
-  '05': 'A habit app that helps users grow the habits worth keeping and uproot the ones worth breaking, framed through a calm plant metaphor.',
-  '06': 'A streamlined website for learning about fruits and vegetables — their benefits, risks, and how to turn them into dishes.',
-  '07': 'One app that pays for street parking across every operator, so drivers stop installing a new parking app for every street.',
-  '08': 'Most finance apps tell you what you spent. Sigma tells you what you can spend — before you spend it.',
-};
+import { FEATURED_PROJECTS, SECONDARY_PROJECTS } from '@/lib/data';
 
 export const WorkGrid = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeProject = PROJECTS[activeIndex] ?? PROJECTS[0];
-  const activeImage =
-    activeProject.workImage ?? activeProject.stages.Overview.image;
-  const activeDescription =
-    workDescriptions[activeProject.id] ?? activeProject.stages.Overview.content;
+  const [showAlsoBuilt, setShowAlsoBuilt] = useState(false);
+  const activeProject = FEATURED_PROJECTS[activeIndex] ?? FEATURED_PROJECTS[0];
+  const activeImage = activeProject.workImage;
 
   return (
     <section id='work' className='py-20 md:py-28'>
-      <motion.h2
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className='pb-10 pt-10 text-center text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:pb-24 md:pt-20 md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'
-      >
+      <h2 className='px-6 pb-10 pt-10 text-center text-[clamp(3rem,7vw,4.75rem)] font-bold uppercase leading-[0.95] tracking-tight text-text-primary md:pb-20 md:pt-16'>
         Work
-      </motion.h2>
+      </h2>
 
-      <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className='mx-auto grid max-w-[1400px] gap-10 px-6 sm:px-8 md:grid-cols-2 md:items-center md:gap-16 md:px-16'
-      >
-        {/* Interactive project index */}
+      <div className='mx-auto grid max-w-[1400px] gap-10 px-6 sm:px-8 md:grid-cols-2 md:items-start md:gap-16 md:px-16'>
         <ul className='flex flex-col'>
-          {PROJECTS.map((project, index) => {
+          {FEATURED_PROJECTS.map((project, index) => {
             const isActive = index === activeIndex;
-            const image = project.workImage ?? project.stages.Overview.image;
-            const description =
-              workDescriptions[project.id] ?? project.stages.Overview.content;
+            const image = project.workImage;
 
             return (
               <li
-                key={project.id}
-                data-project-accent={project.id}
+                key={project.slug}
                 onMouseEnter={() => setActiveIndex(index)}
-                className='group border-b border-highlight/40 first:border-t'
+                className='group border-b border-highlight first:border-t'
               >
                 <div className='flex items-center gap-4 py-5 md:py-6'>
                   <Link
-                    href={`/pj${project.id}`}
+                    href={`/pj/${project.slug}`}
                     onFocus={() => setActiveIndex(index)}
                     aria-label={`${project.title} project`}
                     className='flex flex-1 items-baseline gap-4 md:gap-6'
                   >
                     <span
-                      className={`text-2xl font-bold uppercase tracking-tight transition-colors duration-300 md:text-3xl lg:text-4xl ${
-                        isActive ? 'text-accent-bright' : 'text-text-muted'
+                      className={`text-lg font-bold uppercase tracking-tight ${
+                        isActive ? 'text-accent' : 'text-text-muted'
                       }`}
                     >
-                      0{index + 1}
+                      {project.id}
                     </span>
                     <h3
-                      className={`text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight transition-all duration-300 ${
-                        isActive
-                          ? 'text-text-primary md:translate-x-2'
-                          : 'text-text-faint'
+                      className={`text-xl font-bold uppercase tracking-tight ${
+                        isActive ? 'text-text-primary' : 'text-text-muted'
                       }`}
                     >
                       {project.title}
                     </h3>
                   </Link>
 
-                  {project.externalUrl && (
+                  {project.externalUrl ? (
                     <a
                       href={project.externalUrl}
                       target='_blank'
                       rel='noopener noreferrer'
                       title='Visit live site'
                       aria-label={`${project.title} — visit live site`}
-                      className={`shrink-0 transition-colors duration-300 hover:text-hover ${
-                        isActive ? 'text-text-primary' : 'text-text-faint'
+                      className={`shrink-0 hover:text-accent ${
+                        isActive ? 'text-accent' : 'text-text-muted'
                       }`}
                     >
                       <ArrowUpRight className='h-6 w-6 md:h-7 md:w-7' />
                     </a>
-                  )}
+                  ) : null}
                 </div>
 
-                {/* Inline preview on mobile (no hover available) */}
                 <Link
-                  href={`/pj${project.id}`}
+                  href={`/pj/${project.slug}`}
                   aria-hidden='true'
                   tabIndex={-1}
                   className='mt-4 block md:hidden'
                 >
-                  <div className='relative aspect-video w-full overflow-hidden rounded-xl border border-accent-dark/30 bg-black/10 shadow-xl'>
+                  <div className='relative aspect-video w-full overflow-hidden rounded-xl border border-highlight bg-black/10 shadow-xl'>
                     {image ? (
                       <Image
                         src={image}
@@ -120,27 +88,43 @@ export const WorkGrid = () => {
                     ) : null}
                   </div>
                 </Link>
-                <p
-                  className='mb-6 mt-4 border-l-2 border-accent-bright pl-5 text-lg text-accent-bright font-light leading-relaxed md:hidden'
-                >
-                  {description}
+                <p className='mb-6 mt-4 max-w-[70ch] text-base leading-[1.6] text-text-primary md:hidden'>
+                  {project.blurb}
                 </p>
               </li>
             );
           })}
+
+          {/* Ellipsis disclosure — the smaller builds stay folded away until
+              asked for, so the four case studies keep the section's weight. */}
+          <li className='border-b border-highlight'>
+            <button
+              type='button'
+              onClick={() => setShowAlsoBuilt((open) => !open)}
+              aria-expanded={showAlsoBuilt}
+              aria-controls='also-built'
+              className='flex w-full items-center gap-4 py-5 text-left md:gap-6 md:py-6'
+            >
+              <span className='text-base font-bold leading-none text-text-muted'>
+                {showAlsoBuilt ? '\u2013' : '\u22ef'}
+              </span>
+              <span className='text-sm font-bold uppercase tracking-[0.2em] text-text-muted transition-colors hover:text-text-primary'>
+                {showAlsoBuilt ? 'Less' : 'More'}
+              </span>
+            </button>
+          </li>
         </ul>
 
-        {/* Shared preview screen (desktop) */}
-        <div className='hidden md:block' data-project-accent={activeProject.id}>
+        <div className='hidden md:sticky md:top-32 md:block'>
           <Link
-            href={`/pj${activeProject.id}`}
+            href={`/pj/${activeProject.slug}`}
             aria-label={`${activeProject.title} project`}
             className='block'
           >
-            <div className='relative aspect-video w-full overflow-hidden rounded-2xl border border-accent-dark/30 bg-black/10 shadow-2xl'>
+            <div className='relative aspect-video w-full overflow-hidden rounded-2xl border border-highlight bg-black/10 shadow-2xl'>
               <AnimatePresence mode='wait'>
                 <motion.div
-                  key={activeProject.id}
+                  key={activeProject.slug}
                   initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
@@ -163,18 +147,63 @@ export const WorkGrid = () => {
           </Link>
           <AnimatePresence mode='wait'>
             <motion.p
-              key={activeProject.id}
+              key={activeProject.slug}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className='mt-8 max-w-xl border-l-2 border-accent-bright pl-5 md:pl-6 text-xl md:text-2xl text-accent-bright font-light leading-relaxed'
+              className='mt-8 max-w-[70ch] text-lg leading-[1.6] text-text-primary'
             >
-              {activeDescription}
+              {activeProject.blurb}
             </motion.p>
           </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
+
+      <AnimatePresence initial={false}>
+        {showAlsoBuilt && (
+          <motion.div
+            id='also-built'
+            key='also-built'
+            initial={{ opacity: 0, y: 24, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: 24, height: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className='overflow-hidden'
+          >
+            <div className='mx-auto mt-16 max-w-[70ch] px-6 sm:px-8 md:px-16'>
+              <h3 className='text-lg font-bold uppercase tracking-tight text-text-primary'>
+                Also built
+              </h3>
+              <ul className='mt-6 space-y-4'>
+                {SECONDARY_PROJECTS.map((project, index) => (
+                  <motion.li
+                    key={project.slug}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    // Staggered so the list resolves upward rather than
+                    // arriving as one block.
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.12 + index * 0.07,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className='text-base leading-[1.6] text-text-primary'
+                  >
+                    <Link
+                      href={`/pj/${project.slug}`}
+                      className='font-bold text-accent underline-offset-4 hover:underline'
+                    >
+                      {project.title}
+                    </Link>
+                    <span className='text-text-muted'> — {project.blurb}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

@@ -16,10 +16,9 @@ import {
 } from 'lucide-react';
 
 interface ProjectViewProps {
-  projectId: string;
+  slug: string;
 }
 
-// Starts paused; the user plays it via the overlay button (click again to pause).
 const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,7 +26,6 @@ const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
   const togglePlayback = () => {
     const video = videoRef.current;
     if (!video) return;
-
     if (video.paused) {
       void video.play().catch(() => {});
     } else {
@@ -64,30 +62,38 @@ const StageVideo = ({ src, poster }: { src: string; poster?: string }) => {
   );
 };
 
-export const ProjectView = ({ projectId }: ProjectViewProps) => {
-  const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
-  const currentProject = PROJECTS[projectIndex !== -1 ? projectIndex : 0];
-  const visibleStages = useMemo(
-    () => (currentProject.overviewOnly ? (['Overview'] as Stage[]) : STAGES),
-    [currentProject.overviewOnly],
+export const ProjectView = ({ slug }: ProjectViewProps) => {
+  const currentProject =
+    PROJECTS.find((project) => project.slug === slug) ?? PROJECTS[0];
+
+  // Thin entries (Fruitea) define only some stages — render what exists
+  // rather than four headings with empty bodies.
+  const projectStages = useMemo(
+    () => STAGES.filter((stage) => currentProject.stages[stage]),
+    [currentProject],
   );
 
-  const [activeStage, setActiveStage] = useState<Stage>('Overview');
+  const [activeStage, setActiveStage] = useState<Stage>(
+    projectStages[0] ?? 'Problem',
+  );
   const [activeImageByStage, setActiveImageByStage] = useState<
     Partial<Record<Stage, number>>
   >({});
   const stageIds = useMemo(
     () =>
       Object.fromEntries(
-        STAGES.map((stage) => [stage, `${currentProject.id}-${stage.toLowerCase()}`]),
+        projectStages.map((stage) => [
+          stage,
+          `${currentProject.slug}-${stage.toLowerCase()}`,
+        ]),
       ) as Record<Stage, string>,
-    [currentProject.id],
+    [currentProject.slug, projectStages],
   );
 
   useEffect(() => {
-    const sections = visibleStages.map((stage) =>
-      document.getElementById(stageIds[stage]),
-    ).filter(Boolean) as HTMLElement[];
+    const sections = projectStages
+      .map((stage) => document.getElementById(stageIds[stage]))
+      .filter(Boolean) as HTMLElement[];
 
     if (!sections.length) return;
 
@@ -98,69 +104,49 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
         if (visibleEntries[0]) {
-          const matchedStage = visibleStages.find(
+          const matchedStage = projectStages.find(
             (stage) => stageIds[stage] === visibleEntries[0].target.id,
           );
-          if (matchedStage) {
-            setActiveStage(matchedStage);
-          }
+          if (matchedStage) setActiveStage(matchedStage);
         }
       },
       {
         root: null,
-        // Bias toward whatever section is closest to the center viewport area.
         rootMargin: '-35% 0px -45% 0px',
         threshold: [0.2, 0.4, 0.6],
       },
     );
 
     sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-      observer.disconnect();
-    };
-  }, [stageIds, visibleStages]);
+    return () => observer.disconnect();
+  }, [stageIds, projectStages]);
 
   const jumpToStage = (stage: Stage) => {
-    const section = document.getElementById(stageIds[stage]);
-    if (!section) return;
-
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document
+      .getElementById(stageIds[stage])
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const heroTitle = currentProject.title;
   const heroTitleWords = heroTitle.split(' ');
   const heroTitleLead = heroTitleWords.slice(0, -1).join(' ');
   const heroTitleLast = heroTitleWords[heroTitleWords.length - 1];
-  const heroTitleClassName = `font-project text-center text-[calc(13vw*var(--project-display-scale,1))] font-bold uppercase leading-[0.82] tracking-[var(--project-display-tracking,-0.08em)] text-accent-display md:text-[calc(5rem*var(--project-display-scale,1))] lg:text-[calc(7rem*var(--project-display-scale,1))] ${
-    currentProject.titleFont === 'mono' ? 'italic' : ''
-  }`;
 
   const goToNextImage = (stage: Stage, totalImages: number) => {
-    setActiveImageByStage((prev) => {
-      const currentIndex = prev[stage] ?? 0;
-      return {
-        ...prev,
-        [stage]: (currentIndex + 1) % totalImages,
-      };
-    });
+    setActiveImageByStage((prev) => ({
+      ...prev,
+      [stage]: ((prev[stage] ?? 0) + 1) % totalImages,
+    }));
   };
 
   const goToPrevImage = (stage: Stage, totalImages: number) => {
-    setActiveImageByStage((prev) => {
-      const currentIndex = prev[stage] ?? 0;
-      return {
-        ...prev,
-        [stage]: (currentIndex - 1 + totalImages) % totalImages,
-      };
-    });
+    setActiveImageByStage((prev) => ({
+      ...prev,
+      [stage]: ((prev[stage] ?? 0) - 1 + totalImages) % totalImages,
+    }));
   };
 
-  const stageLabel = (stage: Stage) =>
-    currentProject.stages[stage].label ?? stage;
-
-  const heroTitleNode = currentProject.externalUrl ? (
+  const titleNode = currentProject.externalUrl ? (
     <>
       {heroTitleLead ? `${heroTitleLead} ` : ''}
       <span className='relative inline-block whitespace-nowrap pr-[0.55em]'>
@@ -175,66 +161,71 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
     heroTitle
   );
 
+  const titleClassName =
+    'font-project text-center text-2xl font-bold uppercase leading-[1.1] text-text-primary';
+
+  // Each project's face needs its own optical sizing and tracking; both come
+  // from the palette so the values live beside the colours they ship with.
+  const titleStyle = {
+    fontSize: 'calc(var(--text-2xl) * var(--project-display-scale, 1))',
+    letterSpacing: 'var(--project-display-tracking, -0.02em)',
+  };
+
   return (
     <section
-      data-project={currentProject.id}
-      className='py-28 px-5 min-h-screen flex flex-col relative overflow-hidden sm:px-6 md:py-32'
+      data-project={currentProject.slug}
+      className='relative flex min-h-screen flex-col overflow-hidden px-5 py-28 sm:px-6 md:py-32'
     >
-      {/* Paints this project's surface across the whole viewport, so the shared
-          footer and nav sit on the project colour instead of the site default. */}
-      <div aria-hidden='true' className='project-surface' />
-      <div className='max-w-7xl mx-auto w-full grow flex flex-col relative z-10'>
-        <div className='mb-8 w-full max-w-5xl mx-auto'>
+      {/* Fixed so the project colour reaches the shared nav and footer too. */}
+      <div className='project-surface' aria-hidden='true' />
+      <div className='relative z-10 mx-auto flex w-full max-w-7xl grow flex-col'>
+        <div className='mx-auto mb-8 w-full max-w-5xl'>
           <Link
             href='/#work'
-            className='inline-flex items-center gap-2 font-mono text-sm font-bold uppercase tracking-[0.2em] text-text-muted transition-colors hover:text-hover'
+            className='inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-accent transition-colors hover:text-text-primary'
           >
             <ArrowLeft className='h-4 w-4' />
             Back to Work
           </Link>
         </div>
-        <div className='mb-16 w-full max-w-5xl mx-auto md:mb-24'>
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={`project-hero-${currentProject.id}`}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -24 }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-              className='text-center'
-            >
-              <p className='mb-6 font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
-                Project {projectId}
-              </p>
 
-              {currentProject.externalUrl ? (
-                <a
-                  href={currentProject.externalUrl}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  title='Visit live site'
-                  aria-label={`${heroTitle} — visit live site`}
-                  className='group'
-                >
-                  <h1 className={`${heroTitleClassName} transition-colors group-hover:text-hover`}>
-                    {heroTitleNode}
-                  </h1>
-                </a>
-              ) : (
-                <h1 className={heroTitleClassName}>{heroTitleNode}</h1>
-              )}
-            </motion.div>
-          </AnimatePresence>
+        <div className='mx-auto mb-16 w-full max-w-4xl text-center md:mb-24'>
+          <p className='mb-4 text-sm font-bold uppercase tracking-[0.35em] text-text-muted'>
+            Project {currentProject.id}
+          </p>
+          {currentProject.externalUrl ? (
+            <a
+              href={currentProject.externalUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              title='Visit live site'
+              aria-label={`${heroTitle} — visit live site`}
+              className='group'
+            >
+              <h1
+                style={titleStyle}
+                className={`${titleClassName} transition-colors group-hover:text-accent`}
+              >
+                {titleNode}
+              </h1>
+            </a>
+          ) : (
+            <h1 style={titleStyle} className={titleClassName}>
+              {titleNode}
+            </h1>
+          )}
+          <p className='mx-auto mt-6 max-w-[60ch] text-lg font-bold leading-[1.5] text-text-primary'>
+            {currentProject.outcome}
+          </p>
         </div>
 
-        {/* Unified top-to-bottom stage flow */}
-        <div className='flex flex-col grow mb-28 max-w-5xl mx-auto w-full gap-24'>
-          {visibleStages.map((stage) => {
-            const stageNumber = String(STAGES.indexOf(stage) + 1).padStart(
+        <div className='mx-auto mb-28 flex w-full max-w-5xl grow flex-col gap-24 md:gap-32'>
+          {projectStages.map((stage) => {
+            const stageNumber = String(projectStages.indexOf(stage) + 1).padStart(
               2,
               '0',
             );
-            const stageContent = currentProject.stages[stage];
+            const stageContent = currentProject.stages[stage]!;
             const stageImages =
               stageContent.images && stageContent.images.length > 0
                 ? stageContent.images
@@ -245,7 +236,6 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
             const activeImageIndex = activeImageByStage[stage] ?? 0;
             const visibleImage = stageImages[activeImageIndex] ?? stageImages[0];
             const isSlider = stageImages.length > 1;
-            const stageVideo = stageContent.video;
 
             return (
               <article
@@ -253,65 +243,50 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                 id={stageIds[stage]}
                 className='scroll-mt-32 space-y-6'
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className='flex items-center gap-4'
-                >
-                  <span className='font-mono text-sm uppercase tracking-[0.35em] text-accent-dark'>
+                <div className='flex items-center gap-4'>
+                  <span className='text-sm font-bold uppercase tracking-[0.35em] text-text-muted'>
                     {stageNumber}
                   </span>
-                  <span className='h-px flex-1 bg-highlight/50' />
-                </motion.div>
+                  <span className='h-px flex-1 bg-highlight' />
+                </div>
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className='font-project text-4xl md:text-7xl font-bold uppercase tracking-[var(--project-heading-tracking,-0.05em)] text-text-primary leading-[0.85]'
+                <h2
+                  style={{ letterSpacing: 'var(--project-heading-tracking, -0.02em)' }}
+                  className='font-project text-xl font-bold uppercase text-text-primary'
                 >
-                  {stageLabel(stage)}
-                </motion.h2>
+                  {stage}
+                </h2>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className='max-w-3xl border-l-2 border-accent-bright pl-5 text-lg md:text-xl text-text-muted leading-relaxed font-light md:pl-6'
-                >
+                <p className='max-w-[68ch] text-base leading-[1.6] text-text-primary md:text-lg'>
                   {stageContent.content}
-                </motion.p>
+                </p>
 
-                {stageVideo ? (
-                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-accent-dark/30 bg-black/10 shadow-2xl'>
-                    <StageVideo src={stageVideo} poster={stageContent.image} />
+                {stageContent.video ? (
+                  <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-xl border border-highlight bg-black/10 shadow-2xl'>
+                    <StageVideo src={stageContent.video} poster={stageContent.image} />
                   </div>
                 ) : hasImage ? (
-                  <div className='relative mt-8 h-64 md:h-[500px] w-full rounded-xl overflow-hidden border border-accent-dark/30 bg-black/10 shadow-2xl'>
+                  <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-xl border border-highlight bg-black/10 shadow-2xl'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={`${stage}-${visibleImage}`}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                        exit={{ opacity: 0, y: -12 }}
+                        transition={{ duration: 0.4, ease: 'easeOut' }}
                         className='absolute inset-0'
                       >
                         <Image
                           src={visibleImage}
                           alt={`${stage} visual ${activeImageIndex + 1}`}
                           fill
-                          sizes='(min-width: 768px) 80vw, 100vw'
+                          sizes='(min-width: 1024px) 1024px, 100vw'
                           className={
                             stageContent.imageFit === 'contain'
                               ? 'object-contain bg-[#070a12]'
                               : 'object-cover'
                           }
-                          priority={stage === 'Overview'}
+                          priority={stage === 'Problem'}
                         />
                       </motion.div>
                     </AnimatePresence>
@@ -322,7 +297,7 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                           type='button'
                           onClick={() => goToPrevImage(stage, stageImages.length)}
                           className={`absolute left-3 top-1/2 z-10 -translate-y-1/2 md:left-8 ${iconControlClassName}`}
-                          aria-label={`Previous ${stageLabel(stage)} image`}
+                          aria-label={`Previous ${stage} image`}
                         >
                           <ChevronLeft className='h-6 w-6 md:h-8 md:w-8' />
                         </button>
@@ -330,12 +305,11 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                           type='button'
                           onClick={() => goToNextImage(stage, stageImages.length)}
                           className={`absolute right-3 top-1/2 z-10 -translate-y-1/2 md:right-8 ${iconControlClassName}`}
-                          aria-label={`Next ${stageLabel(stage)} image`}
+                          aria-label={`Next ${stage} image`}
                         >
                           <ChevronRight className='h-6 w-6 md:h-8 md:w-8' />
                         </button>
-
-                        <div className='absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2'>
+                        <div className='absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2'>
                           {stageImages.map((_, index) => (
                             <button
                               key={`${stage}-dot-${index}`}
@@ -348,10 +322,10 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
                               }
                               className={`h-2.5 w-2.5 rounded-full transition-colors ${
                                 activeImageIndex === index
-                                  ? 'bg-text-primary'
+                                  ? 'bg-accent'
                                   : 'bg-text-primary/40 hover:bg-text-primary/70'
                               }`}
-                              aria-label={`Go to ${stageLabel(stage)} image ${index + 1}`}
+                              aria-label={`Go to ${stage} image ${index + 1}`}
                             />
                           ))}
                         </div>
@@ -364,24 +338,21 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
           })}
         </div>
 
-        {!currentProject.overviewOnly && (
-          <div className='pointer-events-none fixed bottom-5 left-4 right-24 z-50 flex justify-center md:bottom-12 md:left-0 md:right-0'>
-            <PillNav
-              aria-label='Design thinking stages'
-              layoutId='activeStageTab'
-              activeId={activeStage}
-              className='pointer-events-auto'
-              items={visibleStages.map((stage) => ({
-                id: stage,
-                label: stageLabel(stage),
-                onClick: () => jumpToStage(stage),
-              }))}
-            />
-          </div>
-        )}
+        <div className='pointer-events-none fixed bottom-5 left-4 right-24 z-50 flex justify-center md:bottom-12 md:left-0 md:right-0'>
+          <PillNav
+            aria-label='Case study sections'
+            activeId={activeStage}
+            className='pointer-events-auto'
+            items={projectStages.map((stage) => ({
+              id: stage,
+              label: stage,
+              onClick: () => jumpToStage(stage),
+            }))}
+          />
+        </div>
 
         {currentProject.credit ? (
-          <p className='mt-auto pb-8 text-center text-sm font-light text-text-muted'>
+          <p className='mt-auto pb-8 text-center text-sm text-text-muted'>
             {currentProject.credit}
           </p>
         ) : null}
@@ -395,11 +366,6 @@ export const ProjectView = ({ projectId }: ProjectViewProps) => {
           <ArrowUp className='h-6 w-6 md:h-8 md:w-8' />
         </button>
       </div>
-      {/* Background Decor */}
-      <div
-        aria-hidden='true'
-        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-decor/20 rounded-full blur-[100px] z-0 pointer-events-none'
-      />
     </section>
   );
 };

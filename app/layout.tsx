@@ -5,7 +5,6 @@ import {
   Archivo,
   Baloo_2,
   Barlow_Condensed,
-  Caveat,
   Fraunces,
   JetBrains_Mono,
   Outfit,
@@ -18,40 +17,21 @@ import { Navbar } from '@/components/Navbar';
 const syne = Syne({
   variable: '--font-syne',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-});
-
-const caveat = Caveat({
-  variable: '--font-caveat',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jetbrains',
-  subsets: ['latin'],
-  weight: ['400', '500', '700', '800'],
+  weight: ['400', '700'],
 });
 
 /**
  * Display faces that give each project page its own voice.
  *
- * Each loader has to be its own module-scope const — next/font resolves these at
- * build time by static analysis, so it cannot see calls made inside an array
- * literal, an object, or a function.
+ * Each loader has to be its own module-scope const — next/font resolves these
+ * at build time by static analysis, so it cannot see calls made inside an
+ * array literal, an object, or a function.
  *
  * `preload: false` on purpose: only one of these is ever used per route, so
- * preloading all seven would add seven font preloads to every page — including
+ * preloading all four would add four font preloads to every page, including
  * the home page, which uses none of them. They load on demand when a project
  * page's --project-font resolves to one.
  */
-const anton = Anton({
-  variable: '--font-anton',
-  subsets: ['latin'],
-  weight: '400',
-  preload: false,
-});
-
 const barlowCondensed = Barlow_Condensed({
   variable: '--font-barlow',
   subsets: ['latin'],
@@ -66,10 +46,24 @@ const outfit = Outfit({
   preload: false,
 });
 
-const shipporiMincho = Shippori_Mincho({
-  variable: '--font-mincho',
+const archivo = Archivo({
+  variable: '--font-archivo',
   subsets: ['latin'],
   weight: ['700', '800'],
+  preload: false,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains',
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  preload: false,
+});
+
+const anton = Anton({
+  variable: '--font-anton',
+  subsets: ['latin'],
+  weight: '400',
   preload: false,
 });
 
@@ -80,6 +74,13 @@ const fraunces = Fraunces({
   preload: false,
 });
 
+const shipporiMincho = Shippori_Mincho({
+  variable: '--font-mincho',
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  preload: false,
+});
+
 const baloo2 = Baloo_2({
   variable: '--font-baloo',
   subsets: ['latin'],
@@ -87,21 +88,15 @@ const baloo2 = Baloo_2({
   preload: false,
 });
 
-const archivo = Archivo({
-  variable: '--font-archivo',
-  subsets: ['latin'],
-  weight: ['700', '800'],
-  preload: false,
-});
-
 const projectFontVariables = [
-  anton,
   barlowCondensed,
   outfit,
-  shipporiMincho,
-  fraunces,
-  baloo2,
   archivo,
+  jetbrainsMono,
+  anton,
+  fraunces,
+  shipporiMincho,
+  baloo2,
 ]
   .map((font) => font.variable)
   .join(' ');
@@ -113,11 +108,11 @@ export const metadata: Metadata = {
     template: '%s — Jeffrey Ko',
   },
   description:
-    'Portfolio of Jeffrey Ko, a UX/UI designer crafting digital products that are easy to use and a pleasure to come back to.',
+    'UX/UI designer with a Computer Science degree and a year as Product Owner. Digital products that are easy to use — and conversations with engineering that do not need a translator.',
   openGraph: {
     title: 'Jeffrey Ko — UX/UI Designer',
     description:
-      'UX/UI designer crafting digital products that are easy to use and a pleasure to come back to.',
+      'UX/UI designer with a Computer Science degree and a year as Product Owner.',
     url: 'https://www.jeffreyko.com',
     siteName: 'Jeffrey Ko',
     type: 'website',
@@ -127,7 +122,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jeffrey Ko — UX/UI Designer',
     description:
-      'UX/UI designer crafting digital products that are easy to use and a pleasure to come back to.',
+      'UX/UI designer with a Computer Science degree and a year as Product Owner.',
     images: ['/profile-portrait.jpg'],
   },
   icons: {
@@ -156,11 +151,11 @@ export default function RootLayout({
   return (
     <html lang='en' data-scroll-behavior='smooth'>
       <body
-        className={`${syne.variable} ${caveat.variable} ${jetbrainsMono.variable} ${projectFontVariables} antialiased text-text-primary font-light`}
+        className={`${syne.variable} ${projectFontVariables} antialiased text-text-primary font-normal`}
       >
         <Navbar />
         <main>{children}</main>
-        <footer className='px-6 py-8 text-center text-sm font-semibold text-text-muted'>
+        <footer className='px-6 py-8 text-center text-sm font-bold text-text-muted'>
           Designed and coded by Jeffrey Ko
         </footer>
       </body>

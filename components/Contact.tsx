@@ -15,7 +15,7 @@ type ContactItem = {
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
-  const email = 'jeffreyko98@gmail.com';
+  const email = 'jefpkos@gmail.com';
 
   const copyEmail = async () => {
     await navigator.clipboard.writeText(email);
@@ -60,7 +60,7 @@ export const Contact = () => {
   ];
 
   const itemClass =
-    'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-hover';
+    'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-accent';
 
   const renderItem = (item: ContactItem) => {
     const Icon = item.icon;
@@ -85,7 +85,7 @@ export const Contact = () => {
                 animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
                 exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.9 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
-                className='pointer-events-none absolute bottom-full left-1/2 mb-4 whitespace-nowrap rounded-xl border-2 border-text-primary bg-primary px-4 py-1.5 text-base font-semibold text-hover shadow-lg'
+                className='pointer-events-none absolute bottom-full left-1/2 mb-4 whitespace-nowrap rounded-xl border-2 border-text-primary bg-primary px-4 py-1.5 text-base font-bold text-accent shadow-lg'
               >
                 Email copied
                 {/* Comic speech-bubble tail pointing at the mail icon */}
@@ -136,7 +136,7 @@ export const Contact = () => {
         className='max-w-7xl mx-auto w-full py-8'
       >
         <div className='flex flex-col gap-8 md:flex-row md:items-center md:justify-between'>
-          <h2 className='text-[20vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[9rem] lg:text-[12rem] xl:text-[14rem]'>
+          <h2 className='text-[clamp(3rem,7vw,4.75rem)] font-bold uppercase leading-[0.95] tracking-tight text-text-primary'>
             Connect
           </h2>
 

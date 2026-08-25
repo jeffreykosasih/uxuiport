@@ -3,57 +3,42 @@
 
 /* `inline` matters: without it Tailwind emits --color-* custom properties that
    resolve --site-* once at :root, so per-project overrides on a descendant
-   element would never take effect. `inline` puts var(--site-*) directly into
-   each utility, which is what lets [data-project] re-theme its whole subtree. */
+   would never take effect. `inline` puts var(--site-*) directly into each
+   utility, which is what lets [data-project] re-theme its whole subtree. */
 @theme inline {
   --color-primary: var(--site-primary);
   --color-text-primary: var(--site-text-primary);
-  /* Solved replacements for the old /70 and /35 opacity tricks, which sat
-     between 4.3:1 and 6.9:1 and so failed AAA. */
   --color-text-muted: var(--site-text-muted);
-  --color-text-faint: var(--site-text-faint);
-  --color-accent-dark: var(--site-accent-dark);
-  --color-accent-bright: var(--site-accent-bright);
-  --color-accent-display: var(--site-accent-display);
-  --color-pill-bg: var(--site-pill-bg);
-  --color-pill-text: var(--site-pill-text);
   --color-highlight: var(--site-highlight);
-  --color-decor: var(--site-decor);
-  --color-hover: var(--site-hover);
+  --color-accent: var(--site-accent);
+  --color-accent-ink: var(--site-accent-ink);
 
   --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-display-mono: var(--font-jetbrains), ui-monospace, monospace;
-  --font-hand: var(--font-caveat), cursive;
-  /* Falls back to the site face on any page that isn't a project page. */
-  --font-project: var(--project-font, var(--font-syne)), ui-sans-serif, system-ui, sans-serif;
+  /* Falls back to the site face on any page that is not a project page. */
+  --font-project: var(--project-font, var(--font-syne)), ui-sans-serif,
+    system-ui, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 2rem;
+  --text-2xl: 3rem;
 }
 
+/* Cream and charcoal, taken from the logo mark: #f1e2d1 on #222222.
+   Dark is the default; `.dark` is the CREAM/light theme (see Navbar).
+   Cream on charcoal measures 12.53:1 both ways — AAA at every size.
+   Muted values are solved against the brightest point of the surface
+   gradient, not the flat fill, which is ~1.5:1 more forgiving. */
 :root {
   --site-primary: #222222;
   --site-text-primary: #f1e2d1;
-  /* Shared tokens are solved against the MEASURED brightest point of the site
-     gradient (#3a3835), not the flat #222222 fill. The radial glow lifts the
-     background enough that solving against the fill overstates every ratio by
-     roughly 1.5:1 — which is how the Hero eyebrow was passing on paper and
-     failing on screen. Re-measure with scripts/measure-gradients.mjs. */
   --site-text-muted: #d4cbc0;
-  --site-text-faint: #aca49b;
-  /* Was #a99a8a — 5.82:1 on the flat fill, 4.44:1 on the real gradient. */
-  --site-accent-dark: #d3cbc4;
-  --site-accent-bright: #dacab9;
-  --site-accent-display: #f1e2d1;
-  --site-pill-bg: #f1e2d1;
-  --site-pill-text: #222222;
   --site-highlight: #4a433d;
-  --site-decor: #d8c7b6;
-  /* Yellow autumn leaves from the profile photo, lightened until it clears
-     AAA on the gradient's brightest point rather than on the flat fill. */
-  --site-hover: #e3ca89;
-  --site-surface-gradient:
-    radial-gradient(circle at 12% 8%, rgba(216, 199, 182, 0.13), transparent 34%),
-    radial-gradient(circle at 92% 18%, rgba(169, 154, 138, 0.08), transparent 30%),
-    linear-gradient(135deg, #222222 0%, #292725 48%, #222222 100%);
+  --site-accent: #e3ca89;
+  --site-accent-ink: #222222;
+  --site-surface-gradient: linear-gradient(#222222, #222222);
   --background: var(--site-primary);
   --foreground: var(--site-text-primary);
 }
@@ -62,18 +47,9 @@
   --site-primary: #f1e2d1;
   --site-text-primary: #222222;
   --site-text-muted: #3c3a37;
-  --site-text-faint: #5a5651;
-  /* Was #7a7067 — 3.81:1, failing AAA and AA for small text. */
-  --site-accent-dark: #3e3934;
-  --site-accent-bright: #403a35;
-  --site-accent-display: #222222;
-  --site-pill-bg: #222222;
-  --site-pill-text: #f1e2d1;
   --site-highlight: #c7b7a6;
-  --site-decor: #7a7067;
-  /* Brown sweater from the profile photo, darkened to clear AAA on the
-     gradient's darkest point. */
-  --site-hover: #533130;
+  --site-accent: #533130;
+  --site-accent-ink: #f1e2d1;
   --site-surface-gradient:
     radial-gradient(circle at 12% 8%, rgba(74, 67, 61, 0.11), transparent 34%),
     radial-gradient(circle at 92% 18%, rgba(122, 112, 103, 0.08), transparent 30%),
@@ -84,7 +60,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
@@ -92,21 +68,85 @@ body {
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans);
-  transition: background 200ms ease, color 200ms ease;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
-/* Project pages paint their own surface across the full viewport so the shared
-   footer and nav sit on the project colour rather than the site default. */
+/* Project pages paint their own surface across the full viewport so the
+   shared footer and nav sit on the project colour, not the site default. */
 .project-surface {
   position: fixed;
   inset: 0;
   z-index: -1;
   background: var(--site-surface-gradient);
-  transition: background 200ms ease;
+}
+
+/* Theme cross-fade.
+
+   Done with View Transitions rather than a blanket `transition: color` on `*`.
+   Theme changes here come from custom properties being redefined, and Chrome
+   does not animate var()-derived colours reliably when that happens — it keeps
+   reporting the previous computed value for the duration. The view transition
+   sidesteps the question: it snapshots the old and new frames and dissolves
+   between them, so every colour on the page fades together at one rate,
+   including the body surface and the per-project palettes.
+
+   Browsers without the API (Firefox today) switch instantly; see Navbar.tsx. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  /* Held opaque underneath — see the note above on image flicker. */
+  animation: none;
+  opacity: 1;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-fade-in;
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Route entrance — see app/template.tsx for why this is CSS, not Framer. */
+.page-enter {
+  animation: page-enter 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--site-accent);
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  .page-enter {
+    animation: none;
   }
 }

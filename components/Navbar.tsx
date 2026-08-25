@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -8,16 +9,17 @@ import { Moon, Sun } from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
 import { PillNav } from '@/components/PillNav';
 
-type ThemeToggleProps = {
+const ThemeToggle = ({
+  isDarkMode,
+  onToggle,
+}: {
   isDarkMode: boolean;
   onToggle: () => void;
-};
-
-const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
+}) => (
   <button
     type='button'
     onClick={onToggle}
-    className='fixed bottom-6 right-6 z-[60] inline-flex h-16 w-16 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-hover'
+    className='fixed bottom-6 right-6 z-[60] inline-flex h-16 w-16 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-accent hover:text-accent-ink'
     aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     aria-pressed={isDarkMode}
   >
@@ -29,56 +31,109 @@ const ThemeToggle = ({ isDarkMode, onToggle }: ThemeToggleProps) => (
   </button>
 );
 
-const LogoButton = () => (
-  <Link
-    href='/'
-    className='fixed top-6 left-6 z-[60] inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
-    aria-label='Jeffrey Ko home'
-  >
-    <Image
-      src='/jeffreyko-logo.svg'
-      alt='Jeffrey Ko logo'
-      width={64}
-      height={64}
-      priority
-      className='h-24 w-24 object-cover md:h-28 md:w-28'
-    />
-  </Link>
-);
+const LogoButton = ({ isHome }: { isHome: boolean }) => {
+  // Already home: this is a "back to the top" control, not a navigation, so
+  // scroll rather than re-running the route fade on the page you are on.
+  // Anywhere else it stays a real link and the template handles the fade.
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isHome) return;
+    event.preventDefault();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    // Drop the #work / #about / #contact fragment so the URL matches where
+    // the visitor now is, without adding a history entry.
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
+  return (
+    <Link
+      href='/'
+      onClick={handleClick}
+      className='fixed top-6 left-6 z-[60] inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
+      aria-label={isHome ? 'Back to top' : 'Jeffrey Ko home'}
+    >
+      <Image
+        src='/jeffreyko-logo.svg'
+        alt='Jeffrey Ko logo'
+        width={64}
+        height={64}
+        priority
+        className='h-24 w-24 object-cover md:h-28 md:w-28'
+      />
+    </Link>
+  );
+};
 
 export const Navbar = () => {
   const pathname = usePathname();
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const activeProjectId = pathname.match(/^\/pj(\d{2})/)?.[1] ?? null;
+  const isTransitioning = useRef(false);
+  const activeSlug = pathname.match(/^\/pj\/([^/]+)/)?.[1] ?? null;
+  const activeProject = PROJECTS.find((project) => project.slug === activeSlug);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
     window.localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
+  /* The class has to flip inside the view transition's callback, so the API
+     can snapshot the before and after frames. flushSync forces React to commit
+     synchronously — without it the callback returns before the DOM changes and
+     the transition captures two identical frames. */
+  const toggleTheme = useCallback(() => {
+    const next = !isDarkMode;
+    const commit = () => {
+      flushSync(() => setIsDarkMode(next));
+      document.documentElement.classList.toggle('dark', next);
+    };
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || typeof document.startViewTransition !== 'function') {
+      commit();
+      return;
+    }
+
+    // A second toggle mid-flight aborts the first, whose promises then reject.
+    // Skip the animation while one is running and just commit the change.
+    if (isTransitioning.current) {
+      commit();
+      return;
+    }
+
+    isTransitioning.current = true;
+    const transition = document.startViewTransition(commit);
+    // All three promises reject independently when a transition is skipped or
+    // aborted. Any one left unhandled surfaces as an uncaught
+    // InvalidStateError, so each needs its own catch.
+    transition.ready.catch(() => {});
+    transition.updateCallbackDone.catch(() => {});
+    transition.finished
+      .catch(() => {})
+      .finally(() => {
+        isTransitioning.current = false;
+      });
+  }, [isDarkMode]);
+
   return (
     <>
-      <LogoButton />
-      {activeProjectId ? (
+      <LogoButton isHome={pathname === '/'} />
+      {activeProject ? (
         <PillNav
           aria-label='Jump to project'
-          layoutId='activeProjectTab'
-          orientation='vertical'
-          activeId={activeProjectId}
-          dataProject={activeProjectId}
+          orientation='grid'
+          activeId={activeProject.slug}
           className='fixed top-[8.75rem] left-6 z-[60] md:top-[9.75rem]'
           items={PROJECTS.map((project) => ({
-            id: project.id,
+            id: project.slug,
             label: project.id,
             title: project.title,
-            href: `/pj${project.id}`,
+            href: `/pj/${project.slug}`,
           }))}
         />
       ) : null}
-      <ThemeToggle
-        isDarkMode={isDarkMode}
-        onToggle={() => setIsDarkMode((current) => !current)}
-      />
+      <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
     </>
   );
 };
