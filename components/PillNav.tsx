@@ -23,7 +23,7 @@ type PillNavProps = {
 };
 
 const shellClassName =
-  'rounded-xl border border-highlight bg-primary/90 p-2 shadow-lg backdrop-blur-xl';
+  'rounded-xl bg-primary/90 p-2 shadow-lg backdrop-blur-xl';
 
 export const PillNav = ({
   items,

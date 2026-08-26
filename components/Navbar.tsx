@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Moon, Sun } from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
 import { PillNav } from '@/components/PillNav';
+import { LogoMark } from '@/components/LogoMark';
 
 const ThemeToggle = ({
   isDarkMode,
@@ -54,14 +54,7 @@ const LogoButton = ({ isHome }: { isHome: boolean }) => {
       className='fixed top-6 left-6 z-[60] inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
       aria-label={isHome ? 'Back to top' : 'Jeffrey Ko home'}
     >
-      <Image
-        src='/jeffreyko-logo.svg'
-        alt='Jeffrey Ko logo'
-        width={64}
-        height={64}
-        priority
-        className='h-24 w-24 object-cover md:h-28 md:w-28'
-      />
+      <LogoMark className='h-24 w-24 md:h-28 md:w-28' />
     </Link>
   );
 };

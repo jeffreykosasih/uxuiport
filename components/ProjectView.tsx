@@ -338,7 +338,8 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
           })}
         </div>
 
-        <div className='pointer-events-none fixed bottom-5 left-4 right-24 z-50 flex justify-center md:bottom-12 md:left-0 md:right-0'>
+        {/* Section capsule hidden for now — drop the `hidden` to bring it back. */}
+        <div className='pointer-events-none fixed bottom-5 left-4 right-24 z-50 hidden justify-center md:bottom-12 md:left-0 md:right-0'>
           <PillNav
             aria-label='Case study sections'
             activeId={activeStage}
