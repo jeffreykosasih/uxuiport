@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
 import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from 'react-icons/fa';
@@ -11,6 +11,124 @@ type ContactItem = {
   icon: IconType;
   href?: string;
   onClick?: () => void;
+};
+
+const RESUMES = [
+  {
+    id: 'des',
+    label: 'Design',
+    hint: 'UX/UI',
+    href: '/Jeffrey-Ko-Design-Resume.pdf',
+  },
+  {
+    id: 'dev',
+    label: 'Developer',
+    hint: 'Engineering',
+    href: '/Jeffrey-Ko-Developer-Resume.pdf',
+  },
+];
+
+const itemClass =
+  'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-accent';
+
+/* Shared with the "Email copied" bubble so the two read as one component. */
+const bubbleClass =
+  'absolute bottom-full left-1/2 mb-4 rounded-xl border-2 border-text-primary bg-primary shadow-lg';
+
+const BubbleTail = () => (
+  <svg
+    aria-hidden='true'
+    width='18'
+    height='11'
+    viewBox='0 0 18 11'
+    className='absolute left-1/2 top-full -mt-[2px] -translate-x-1/2 overflow-visible text-text-primary'
+  >
+    <path
+      d='M1 0 L9 10 L17 0'
+      fill='var(--site-primary)'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+/** Two resumes behind one icon: pick a version, then open it in its own tab
+ *  where the browser's PDF viewer handles saving. */
+const ResumeMenu = () => {
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!wrapperRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setOpen(false);
+      // Send focus back to the trigger, or it lands on <body>.
+      buttonRef.current?.focus();
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div ref={wrapperRef} className='relative'>
+      <button
+        ref={buttonRef}
+        type='button'
+        onClick={() => setOpen((value) => !value)}
+        aria-label='Resume'
+        aria-haspopup='menu'
+        aria-expanded={open}
+        title='Resume'
+        className={itemClass}
+      >
+        <IoDocumentText className='h-10 w-10 md:h-12 md:w-12' />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role='menu'
+            aria-label='Choose a resume'
+            initial={{ opacity: 0, y: 10, x: '-50%', scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
+            exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.95 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className={`${bubbleClass} w-44 overflow-hidden p-1.5`}
+          >
+            {RESUMES.map((resume) => (
+              <a
+                key={resume.id}
+                role='menuitem'
+                href={resume.href}
+                target='_blank'
+                rel='noopener noreferrer'
+                onClick={() => setOpen(false)}
+                className='flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-accent hover:text-accent-ink'
+              >
+                <span className='text-base font-bold'>{resume.label}</span>
+                <span className='text-xs uppercase tracking-[0.15em] opacity-70'>
+                  {resume.hint}
+                </span>
+              </a>
+            ))}
+            <BubbleTail />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 export const Contact = () => {
@@ -34,11 +152,6 @@ export const Contact = () => {
       onClick: copyEmail,
       icon: IoMail,
     },
-    {
-      label: 'Resume',
-      href: '/Jeffrey-Ko-UXUI-Designer-Resume.pdf',
-      icon: IoDocumentText,
-    },
   ];
 
   const socialLinks: ContactItem[] = [
@@ -58,9 +171,6 @@ export const Contact = () => {
       icon: FaYoutube,
     },
   ];
-
-  const itemClass =
-    'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-accent';
 
   const renderItem = (item: ContactItem) => {
     const Icon = item.icon;
@@ -85,25 +195,10 @@ export const Contact = () => {
                 animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
                 exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.9 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
-                className='pointer-events-none absolute bottom-full left-1/2 mb-4 whitespace-nowrap rounded-xl border-2 border-text-primary bg-primary px-4 py-1.5 text-base font-bold text-accent shadow-lg'
+                className={`${bubbleClass} pointer-events-none whitespace-nowrap px-4 py-1.5 text-base font-bold text-accent`}
               >
                 Email copied
-                {/* Comic speech-bubble tail pointing at the mail icon */}
-                <svg
-                  aria-hidden='true'
-                  width='18'
-                  height='11'
-                  viewBox='0 0 18 11'
-                  className='absolute left-1/2 top-full -mt-[2px] -translate-x-1/2 overflow-visible text-text-primary'
-                >
-                  <path
-                    d='M1 0 L9 10 L17 0'
-                    fill='var(--site-primary)'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinejoin='round'
-                  />
-                </svg>
+                <BubbleTail />
               </motion.span>
             )}
           </AnimatePresence>
@@ -143,6 +238,7 @@ export const Contact = () => {
           <div className='flex flex-col gap-6 md:items-end'>
             <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
               {workLinks.map(renderItem)}
+              <ResumeMenu />
             </div>
             <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
               {socialLinks.map(renderItem)}
