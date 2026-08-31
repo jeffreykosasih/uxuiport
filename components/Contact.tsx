@@ -14,18 +14,8 @@ type ContactItem = {
 };
 
 const RESUMES = [
-  {
-    id: 'des',
-    label: 'Design',
-    hint: 'UX/UI',
-    href: '/Jeffrey-Ko-Design-Resume.pdf',
-  },
-  {
-    id: 'dev',
-    label: 'Developer',
-    hint: 'Engineering',
-    href: '/Jeffrey-Ko-Developer-Resume.pdf',
-  },
+  { id: 'des', label: 'Design', href: '/Jeffrey-Ko-Design-Resume.pdf' },
+  { id: 'dev', label: 'Developer', href: '/Jeffrey-Ko-Developer-Resume.pdf' },
 ];
 
 const itemClass =
@@ -105,7 +95,7 @@ const ResumeMenu = () => {
             animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
             exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className={`${bubbleClass} w-44 overflow-hidden p-1.5`}
+            className={`${bubbleClass} min-w-max p-1.5`}
           >
             {RESUMES.map((resume) => (
               <a
@@ -115,15 +105,11 @@ const ResumeMenu = () => {
                 target='_blank'
                 rel='noopener noreferrer'
                 onClick={() => setOpen(false)}
-                className='flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-accent hover:text-accent-ink'
+                className='block whitespace-nowrap rounded-lg px-5 py-2.5 text-base font-bold transition-colors hover:bg-accent hover:text-accent-ink'
               >
-                <span className='text-base font-bold'>{resume.label}</span>
-                <span className='text-xs uppercase tracking-[0.15em] opacity-70'>
-                  {resume.hint}
-                </span>
+                {resume.label}
               </a>
             ))}
-            <BubbleTail />
           </motion.div>
         )}
       </AnimatePresence>
