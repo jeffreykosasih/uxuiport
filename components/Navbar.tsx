@@ -109,8 +109,14 @@ export const Navbar = () => {
       });
   }, [isDarkMode]);
 
+  /* The nav is fixed and lives outside ProjectView, so without this it kept
+     the site palette while `.project-surface` painted the project colour
+     behind it — a gold pill and charcoal shell floating on a navy page.
+     Carrying data-project here re-points the same tokens the rest of the
+     page already uses. No attribute off a project route, so the home page
+     falls back to the site palette untouched. */
   return (
-    <>
+    <div data-project={activeProject?.slug}>
       <LogoButton isHome={pathname === '/'} />
       {activeProject ? (
         <PillNav
@@ -127,6 +133,6 @@ export const Navbar = () => {
         />
       ) : null}
       <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
-    </>
+    </div>
   );
 };
