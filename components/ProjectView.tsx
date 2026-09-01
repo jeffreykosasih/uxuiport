@@ -182,7 +182,7 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
         <div className='mx-auto mb-8 w-full max-w-5xl'>
           <Link
             href='/#work'
-            className='inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-accent transition-colors hover:text-text-primary'
+            className='inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-text-primary underline-offset-4 transition-colors hover:text-accent hover:underline'
           >
             <ArrowLeft className='h-4 w-4' />
             Back to Work
